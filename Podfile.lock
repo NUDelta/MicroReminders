@@ -1,0 +1,16 @@
+PODS:
+  - EstimoteSDK (4.1.0)
+  - Firebase (2.5.1)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - EstimoteSDK
+  - Firebase (>= 2.5.1)
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  EstimoteSDK: d4ae7f9b7fafd26101d002fec786b6f674537357
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,6 @@
+Next:
+1) chain of actions:
+    a. dismissing as for later does nothing
+    b. dismissing as marked done increments task counter, marks mt as completed, might mark whole task as completed
+        -- Requires encoding mt id in notification, which means restructuring from mts = [JSON] to mts = [String:JSON]
+2) hook up locations to beacon names
