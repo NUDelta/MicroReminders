@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var task = MakeTask()
+    var task = MakeTask(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
     let notify = NotifyMicrotasks()
     
     @IBAction func MainTaskEntered(sender: UITextField) {

@@ -16,34 +16,36 @@ class NotifyMicrotasks {
     let tasksref = Firebase(url: "https://microreminders.firebaseio.com/Tasks")
     let microtasksref = Firebase(url: "https://microreminders.firebaseio.com/Microtasks")
     var activeNotifications = [String: UILocalNotification]() // Stores the IDs of all the tasks actively notified, won't notify if already reminded
-    var context = String()
+    var context = [String]()
+    var my_id = UIDevice.currentDevice().identifierForVendor!.UUIDString
     
     init(){
-    }
-    
-    init(context: String){
-        self.context = context
+        
     }
     
     func notify(){
-        tasksref.observeSingleEventOfType(.Value, withBlock: {snapshot in
-            var tasks = JSON(snapshot.value) // Get all the tasks
-//            print("all tasks", tasks)
+        tasksref.queryOrderedByChild("owner").queryEqualToValue(my_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
+            var tasks = JSON(snapshot.value) // Get each matching task
             tasks = self.inactiveTasks(tasks)
-//            print("inactive tasks", tasks)
             
-            self.microtasksref.observeSingleEventOfType(.Value, withBlock: {snapshot in
+            var task_id = String()
+            for (key, _) in tasks {
+                task_id = key
+                print("taskid", task_id)
+            }
+            
+            self.microtasksref.queryOrderedByChild("owner").queryEqualToValue(task_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
                 let microtasks = JSON(snapshot.value)
-//                print("microtasks", microtasks)
+                print("microtasks", microtasks)
                 
                 let microtasksAtBat = self.currentMicrotasks(tasks, microtasks: microtasks) // For each task, check the microtask at the current step
-//                print("microtasksAtBat", microtasksAtBat)
+                print("microtasksAtBat", microtasksAtBat)
 
                 let microtasksToNotify = self.matchingContext(microtasksAtBat)
-//                print("microtasksToNotify", microtasksToNotify)
+                print("microtasksToNotify", microtasksToNotify)
                 
                 self.sendNotifications(microtasksToNotify) // If that microtask matches our context, notify
-//                print("sent notifications")
+                print("sent notifications")
             })
         })
     }
@@ -58,7 +60,7 @@ class NotifyMicrotasks {
     
     func currentMicrotasks(tasks: JSON, microtasks: JSON) -> [String:JSON] {
         var atBat = [String:JSON]()
-        var step = String()
+        var step = Int()
         var mtID = String()
         
         // Get all the microtasks, find the ones that are active and snag them
@@ -70,9 +72,10 @@ class NotifyMicrotasks {
             // If a task is completed, skip it
             if (t["completed"].stringValue == "true") {continue}
             
-            step = t["step"].stringValue // Get the current step of the task
+            step = Int(t["step"].double!) // Get the current step of the task
+            print("step", step)
             
-            mtID = t["microtasks"][Int(step)!].stringValue
+            mtID = t["microtasks"][step].stringValue
             atBat[mtID] = microtasks[mtID] // Grab that microtask and store it
         }
         return atBat
@@ -81,7 +84,7 @@ class NotifyMicrotasks {
     func matchingContext(mts: [String:JSON]) -> [String:JSON] {
         var matching = [String:JSON]()
         for (mtID, mt) in mts {
-            if mt["context"].stringValue == self.context {
+            if self.context.contains(mt["context"].stringValue) {
                 matching[mtID] = mt
             }
         }
@@ -91,7 +94,7 @@ class NotifyMicrotasks {
     func sendNotifications(mts: [String:JSON]) {
         var userInfo: [String:String]
         for (mtID, mt) in mts {
-//            print(mts)
+            print(mts)
             let notification = UILocalNotification()
             notification.alertBody = "Reminder: \(mt["description"].stringValue)!" // Give it the microtask description
             notification.category = "RESPOND_TO_MT_DEFAULT"
@@ -105,14 +108,14 @@ class NotifyMicrotasks {
             UIApplication.sharedApplication().presentLocalNotificationNow(notification) // Send notification
             activeNotifications[mt["owner"].stringValue] = notification // Add to list of active notifications
         }
-//        print(activeNotifications)
+        print("active notificaitons", activeNotifications)
     }
     
     func getCurrentNotifications() /*-> [UILocalNotification]*/ {
         print(self.activeNotifications)
     }
     
-    func setContext(context: String){
+    func setContext(context: [String]){
         self.context = context
     }
     
@@ -129,12 +132,14 @@ class NotifyMicrotasks {
         // Increment the step of the task
         let taskID = notification.userInfo!["owner"] as! String
         let taskRef = tasksref.childByAppendingPath(taskID)
-        print("taskRef",taskRef)
         taskRef.observeSingleEventOfType(.Value, withBlock: {snapshot in
             let step = Int(JSON(snapshot.value)["step"].double!)
             print("step", step)
             taskRef.childByAppendingPath("step").setValue(step+1)
         })
+        
+        // remove the current active notification
+        removeActiveNotification(notification)
     }
 }
 

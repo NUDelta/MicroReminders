@@ -6,11 +6,22 @@ PODS:
 DEPENDENCIES:
   - EstimoteSDK
   - Firebase (>= 2.5.1)
-  - SwiftyJSON
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   EstimoteSDK: d4ae7f9b7fafd26101d002fec786b6f674537357
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: cedae48f7772203884c0f0cfe99eb432cb6d8705
+
+COCOAPODS: 1.0.0.rc.1

@@ -1,0 +1,6 @@
+Set provisioning profile to Delta Lab M
+Bundle identifier to edu.northwestern.delta.M
+All code signing identities to Distribution
+archive
+export
+upload to diawi

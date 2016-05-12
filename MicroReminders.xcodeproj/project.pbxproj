@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D992369F1CC97260009C4271 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D992369E1CC97260009C4271 /* SwiftyJSON.framework */; };
+		9951705E82CC1995199C0FA3 /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */; };
+		D992369F1CC97260009C4271 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D992369E1CC97260009C4271 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D9C286641CC5CB5300A4CF98 /* NotifyMicrotasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E5889D1CC538650084D7E7 /* PostTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588971CC538650084D7E7 /* PostTask.swift */; };
@@ -15,11 +16,11 @@
 		D9E5889F1CC538650084D7E7 /* PostMicrotasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588991CC538650084D7E7 /* PostMicrotasks.swift */; };
 		D9E588A01CC538650084D7E7 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
-		F9B45C3AA8E1422B696B4771 /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1756C72CEBD58401CC30E56 /* Pods_MicroReminders.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7B1250C6362AA13A9E044673 /* Pods-MicroReminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.release.xcconfig"; sourceTree = "<group>"; };
+		7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.release.xcconfig"; sourceTree = "<group>"; };
+		CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.debug.xcconfig"; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D992369E1CC97260009C4271 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyMicrotasks.swift; sourceTree = "<group>"; };
@@ -32,8 +33,7 @@
 		D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EAF0F11CCC5725006823AE /* toDo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = toDo.txt; sourceTree = "<group>"; };
-		E1756C72CEBD58401CC30E56 /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC04B1BA4F7E999213E6BF17 /* Pods-MicroReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.debug.xcconfig"; sourceTree = "<group>"; };
+		ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D992369F1CC97260009C4271 /* SwiftyJSON.framework in Frameworks */,
-				F9B45C3AA8E1422B696B4771 /* Pods_MicroReminders.framework in Frameworks */,
+				9951705E82CC1995199C0FA3 /* Pods_MicroReminders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,16 +53,16 @@
 			isa = PBXGroup;
 			children = (
 				D992369E1CC97260009C4271 /* SwiftyJSON.framework */,
-				E1756C72CEBD58401CC30E56 /* Pods_MicroReminders.framework */,
+				ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B6839645C0FE5ECFEE0094A9 /* Pods */ = {
+		D402798820DBBFD08F9BB892 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FC04B1BA4F7E999213E6BF17 /* Pods-MicroReminders.debug.xcconfig */,
-				7B1250C6362AA13A9E044673 /* Pods-MicroReminders.release.xcconfig */,
+				CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */,
+				7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -72,8 +72,8 @@
 			children = (
 				D93CB79A1CC5372D00F8C73B /* MicroReminders */,
 				D93CB7991CC5372D00F8C73B /* Products */,
-				B6839645C0FE5ECFEE0094A9 /* Pods */,
 				8A63EA7772D87627F5ABC5F3 /* Frameworks */,
+				D402798820DBBFD08F9BB892 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,12 +117,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D93CB7AA1CC5372D00F8C73B /* Build configuration list for PBXNativeTarget "MicroReminders" */;
 			buildPhases = (
-				1426B1EDA9C6DC160C0B9360 /* Check Pods Manifest.lock */,
+				88AE0599F8F953F23DD6382D /* 📦 Check Pods Manifest.lock */,
 				D93CB7941CC5372D00F8C73B /* Sources */,
 				D93CB7951CC5372D00F8C73B /* Frameworks */,
 				D93CB7961CC5372D00F8C73B /* Resources */,
-				82BA3BCED3FD25C674964D28 /* Embed Pods Frameworks */,
-				3584B9904E2691AD333F445B /* Copy Pods Resources */,
+				D9E22B56CEE4EF3313A884E8 /* 📦 Embed Pods Frameworks */,
+				A1682FEDA7937AA42D22ACAE /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,14 +179,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1426B1EDA9C6DC160C0B9360 /* Check Pods Manifest.lock */ = {
+		88AE0599F8F953F23DD6382D /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,14 +194,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3584B9904E2691AD333F445B /* Copy Pods Resources */ = {
+		A1682FEDA7937AA42D22ACAE /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,14 +209,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		82BA3BCED3FD25C674964D28 /* Embed Pods Frameworks */ = {
+		D9E22B56CEE4EF3313A884E8 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,41 +341,47 @@
 		};
 		D93CB7AB1CC5372D00F8C73B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC04B1BA4F7E999213E6BF17 /* Pods-MicroReminders.debug.xcconfig */;
+			baseConfigurationReference = CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicroReminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.MicroReminders;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "228df4d3-4dc3-45b4-9b57-f30e5c4da934";
+				PROVISIONING_PROFILE = "6561e925-7a8b-423e-8e1b-f6bcf15caf90";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
 		D93CB7AC1CC5372D00F8C73B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B1250C6362AA13A9E044673 /* Pods-MicroReminders.release.xcconfig */;
+			baseConfigurationReference = 7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Northwestern University";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicroReminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.MicroReminders;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "228df4d3-4dc3-45b4-9b57-f30e5c4da934";
+				PROVISIONING_PROFILE = "6561e925-7a8b-423e-8e1b-f6bcf15caf90";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

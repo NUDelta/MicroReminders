@@ -6,5 +6,5 @@ use_frameworks!
 target 'MicroReminders' do
     pod 'Firebase', '>= 2.5.1'
     pod 'EstimoteSDK'
-    pod 'SwiftyJSON'
+    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 end

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iMG-9W-7iO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iMG-9W-7iO">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -40,71 +40,64 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main task" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9h-wz-now">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main task" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9h-wz-now">
                                 <rect key="frame" x="20" y="101" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="MainTaskEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="Uxr-Kv-WR6"/>
+                                    <action selector="MainTaskEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="Pj2-TE-rYS"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 1" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mic-8x-NIR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 1" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mic-8x-NIR">
                                 <rect key="frame" x="20" y="139" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="czt-6y-zgf"/>
+                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="fVW-Kw-f04"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 1" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uaq-PM-CUw">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 1" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uaq-PM-CUw">
                                 <rect key="frame" x="20" y="177" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="j5C-56-uhU"/>
+                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="oWK-JW-yGj"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 2" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFi-In-Rpp">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 2" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFi-In-Rpp">
                                 <rect key="frame" x="20" y="215" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="0fM-1L-NNU"/>
+                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="09h-2w-8Nf"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 2" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ueb-MK-dm0">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 2" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ueb-MK-dm0">
                                 <rect key="frame" x="20" y="253" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="igX-CQ-gNW"/>
+                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="AP8-98-ECR"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 3" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWp-ga-bRv">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Microtask 3" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWp-ga-bRv">
                                 <rect key="frame" x="20" y="291" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="7kk-0J-XZw"/>
+                                    <action selector="microTaskEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="pvu-Nx-XRD"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 3" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XMs-7Z-gC2">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location 3" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XMs-7Z-gC2">
                                 <rect key="frame" x="20" y="329" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="SUh-Qc-hd5"/>
+                                    <action selector="locationEntered:" destination="BYZ-38-t0r" eventType="editingChanged" id="keJ-ge-dae"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3r-38-qNP">
-                                <rect key="frame" x="20" y="367" width="560" height="30"/>
-                                <state key="normal" title="Log"/>
-                                <connections>
-                                    <action selector="showTask:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cxw-qa-G7J"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbQ-9Q-rnA">
-                                <rect key="frame" x="20" y="405" width="560" height="30"/>
+                                <rect key="frame" x="20" y="367" width="560" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveTask:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Xl-Rb-IzR"/>
@@ -123,13 +116,11 @@
                             <constraint firstAttribute="leadingMargin" secondItem="Uaq-PM-CUw" secondAttribute="leading" id="HI6-v1-I91"/>
                             <constraint firstItem="jWA-ka-3qm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Jqb-i8-bV2"/>
                             <constraint firstItem="Uaq-PM-CUw" firstAttribute="top" secondItem="mic-8x-NIR" secondAttribute="bottom" constant="8" id="Ojq-hJ-st2"/>
-                            <constraint firstItem="IbQ-9Q-rnA" firstAttribute="top" secondItem="F3r-38-qNP" secondAttribute="bottom" constant="8" id="QO7-P3-gIM"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Ueb-MK-dm0" secondAttribute="leading" id="T6b-xo-qfT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="F3r-38-qNP" secondAttribute="trailing" id="UdE-kB-UoI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="XMs-7Z-gC2" secondAttribute="trailing" id="Vu8-rH-iru"/>
                             <constraint firstAttribute="leadingMargin" secondItem="IbQ-9Q-rnA" secondAttribute="leading" id="WXA-NA-ANy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IbQ-9Q-rnA" secondAttribute="trailing" id="XOj-rf-7Ih"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="F3r-38-qNP" secondAttribute="leading" id="YYq-ui-DO1"/>
+                            <constraint firstItem="IbQ-9Q-rnA" firstAttribute="top" secondItem="XMs-7Z-gC2" secondAttribute="bottom" constant="8" id="XlH-38-dNZ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="mic-8x-NIR" secondAttribute="leading" id="bCI-AF-Hgr"/>
                             <constraint firstItem="bFi-In-Rpp" firstAttribute="top" secondItem="Uaq-PM-CUw" secondAttribute="bottom" constant="8" id="bIJ-Mi-dgD"/>
                             <constraint firstAttribute="leadingMargin" secondItem="XMs-7Z-gC2" secondAttribute="leading" id="ct4-Hv-mBq"/>
@@ -138,7 +129,6 @@
                             <constraint firstAttribute="leadingMargin" secondItem="CWp-ga-bRv" secondAttribute="leading" id="fQ7-9e-Jns"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ueb-MK-dm0" secondAttribute="trailing" id="fq6-J5-RWw"/>
                             <constraint firstAttribute="leadingMargin" secondItem="jWA-ka-3qm" secondAttribute="leading" id="gwl-la-81T"/>
-                            <constraint firstItem="F3r-38-qNP" firstAttribute="top" secondItem="XMs-7Z-gC2" secondAttribute="bottom" constant="8" id="pmY-MO-ofK"/>
                             <constraint firstItem="CWp-ga-bRv" firstAttribute="top" secondItem="Ueb-MK-dm0" secondAttribute="bottom" constant="8" id="q9P-fu-YwU"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bFi-In-Rpp" secondAttribute="leading" id="qyv-ar-b1J"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Uaq-PM-CUw" secondAttribute="trailing" id="sq1-2N-hrA"/>

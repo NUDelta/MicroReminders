@@ -13,11 +13,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate {
     
     var window: UIWindow?
-    let notify = NotifyMicrotasks()
     let beaconManager = ESTBeaconManager()
-    //    var beacons: [UInt16: String] = [59582: "romeo", 39192: "whiskey", 49825: "quebec"]
-    var beacons: [UInt16: String] = [59582: "romeo"]
+//    var beacons: [UInt16: String] = [59582: "romeo", 39192: "whiskey", 49825: "quebec"]
+//    var beacons: [UInt16: String] = [59582: "romeo"]
+    var beacons: [UInt16: String] = [39192: "whiskey"]
+//    var beacons: [UInt16: String] = [49825: "quebec"]
     
+    let notify = NotifyMicrotasks()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.beaconManager.delegate = self
@@ -57,6 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
+        // set contexts to monitor
+        notify.setContext(Array(beacons.values))
+        
         return true
     }
     
@@ -76,27 +81,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     }
     
     func handleMarkDone(notification: UILocalNotification){
-        // right now, relax
         print("marked done action")
         notify.removeActiveNotification(notification)
         notify.markMTdone(notification)
     }
     
     func handleForLater(notification: UILocalNotification){
-        // right now, relax
         print("for later action")
         notify.removeActiveNotification(notification)
     }
     
     /* Send notifications when we enter a region */
     func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
-        /*
-        let notification = UILocalNotification()
-        notification.alertBody = "You're close to \(region.identifier)!"
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-        */
-        
-        notify.setContext("Dining room")
         notify.notify()
     }
     

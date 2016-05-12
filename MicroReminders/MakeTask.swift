@@ -14,11 +14,11 @@ class MakeTask {
     
     var microTasks = [String](count: 3, repeatedValue: "")
     var locations = [String](count: 3, repeatedValue: "")
-    let owner = "Sasha"
+    let owner: String
     let completionDate = "4-16-1996"
     
-    init() {
-        // Already all empty strings
+    init(owner: String) {
+        self.owner = owner
     }
     
     func setMicroTask(task: String, index: Int) {
