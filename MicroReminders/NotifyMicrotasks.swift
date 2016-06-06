@@ -31,28 +31,28 @@ class NotifyMicrotasks {
             var task_id = String()
             for (key, _) in tasks {
                 task_id = key
-                print("taskid", task_id)
-            }
             
-            self.microtasksref.queryOrderedByChild("owner").queryEqualToValue(task_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
-                let microtasks = JSON(snapshot.value)
-                print("microtasks", microtasks)
-                
-                let microtasksAtBat = self.currentMicrotasks(tasks, microtasks: microtasks) // For each task, check the microtask at the current step
-                print("microtasksAtBat", microtasksAtBat)
+                self.microtasksref.queryOrderedByChild("owner").queryEqualToValue(task_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
+                    let microtasks = JSON(snapshot.value)
+//                    print("microtasks", microtasks)
+                    
+                    let microtasksAtBat = self.currentMicrotasks(tasks, microtasks: microtasks) // For each task, check the microtask at the current step
+//                    print("microtasksAtBat", microtasksAtBat)
 
-                let microtasksToNotify = self.matchingContext(microtasksAtBat)
-                print("microtasksToNotify", microtasksToNotify)
-                
-                self.sendNotifications(microtasksToNotify) // If that microtask matches our context, notify
-                print("sent notifications")
-            })
+                    let microtasksToNotify = self.matchingContext(microtasksAtBat)
+//                    print("microtasksToNotify", microtasksToNotify)
+                    
+                    self.sendNotifications(microtasksToNotify) // If that microtask matches our context, notify
+                    print("sent notifications")
+                })
+            }
         })
     }
     
     func inactiveTasks(tasks: JSON) -> JSON {
         var inactive = tasks
         for (key, _) in tasks {
+            if (tasks[key]["completed"].boolValue == true) { continue }
             if (activeNotifications[key] != nil) {inactive[key] = nil} // Sets active tasks to nil going forward in processing
         }
         return inactive
@@ -73,7 +73,7 @@ class NotifyMicrotasks {
             if (t["completed"].stringValue == "true") {continue}
             
             step = Int(t["step"].double!) // Get the current step of the task
-            print("step", step)
+//            print("step", step)
             
             mtID = t["microtasks"][step].stringValue
             atBat[mtID] = microtasks[mtID] // Grab that microtask and store it
@@ -94,7 +94,7 @@ class NotifyMicrotasks {
     func sendNotifications(mts: [String:JSON]) {
         var userInfo: [String:String]
         for (mtID, mt) in mts {
-            print(mts)
+//            print(mts)
             let notification = UILocalNotification()
             notification.alertBody = "Reminder: \(mt["description"].stringValue)!" // Give it the microtask description
             notification.category = "RESPOND_TO_MT_DEFAULT"
@@ -102,13 +102,15 @@ class NotifyMicrotasks {
             userInfo = [String: String]()
             userInfo["microtask"] = mtID
             userInfo["owner"] = mt["owner"].stringValue // Store the microtask owner in the notification
-            print("userinfo", userInfo)
+            userInfo["currentStep"] = mt["order"].stringValue
+            userInfo["description"] = mt["description"].stringValue
+//            print("userinfo", userInfo)
             notification.userInfo = userInfo
             
             UIApplication.sharedApplication().presentLocalNotificationNow(notification) // Send notification
             activeNotifications[mt["owner"].stringValue] = notification // Add to list of active notifications
         }
-        print("active notificaitons", activeNotifications)
+//        print("active notificaitons", activeNotifications)
     }
     
     func getCurrentNotifications() /*-> [UILocalNotification]*/ {
@@ -124,19 +126,31 @@ class NotifyMicrotasks {
     }
     
     func markMTdone(notification: UILocalNotification) {
+        // Get the time completed
+        let time = date_to_string()
+        
         // Mark the microtask as completed
         let mtID = notification.userInfo!["microtask"] as! String
         let mtRef = microtasksref.childByAppendingPath(mtID)
         mtRef.childByAppendingPath("completed").setValue(true)
+        mtRef.childByAppendingPath("completionDate").setValue(time)
+        
         
         // Increment the step of the task
         let taskID = notification.userInfo!["owner"] as! String
+//        print("taskID", taskID)
         let taskRef = tasksref.childByAppendingPath(taskID)
-        taskRef.observeSingleEventOfType(.Value, withBlock: {snapshot in
-            let step = Int(JSON(snapshot.value)["step"].double!)
-            print("step", step)
+        
+        let step = Int(notification.userInfo!["currentStep"] as! String)!
+//        print("step", step)
+        if (step == 2) {
+            taskRef.childByAppendingPath("completed").setValue(true)
+            taskRef.childByAppendingPath("completionDate").setValue(time)
+        }
+        else {
+//            print("setting")
             taskRef.childByAppendingPath("step").setValue(step+1)
-        })
+        }
         
         // remove the current active notification
         removeActiveNotification(notification)

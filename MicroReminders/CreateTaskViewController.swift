@@ -8,29 +8,79 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CreateTaskViewController: UIViewController, UITextFieldDelegate {
 
     var task = MakeTask(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
-    let notify = NotifyMicrotasks()
     
-    @IBAction func MainTaskEntered(sender: UITextField) {
-        task.setMainTask(sender.text!)
+    // Make keyboard disappear on return key
+    @IBOutlet weak var mainTask: UITextField! = nil
+    @IBOutlet weak var microtask1: UITextField! = nil
+    @IBOutlet weak var microtask2: UITextField! = nil
+    @IBOutlet weak var microtask3: UITextField! = nil
+    
+    override func viewDidLoad() {
+        mainTask.delegate = self
+        microtask1.delegate = self
+        microtask2.delegate = self
+        microtask3.delegate = self
     }
     
-    @IBAction func microTaskEntered(sender: UITextField) {
-        task.setMicroTask(sender.text!, index: sender.tag)
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
-    @IBAction func locationEntered(sender: UITextField) {
-        task.setLocation(sender.text!, index: sender.tag)
-    }
     
-    @IBAction func showTask(sender: UIButton) {
-        notify.getCurrentNotifications()
-    }
+    // Task entering actions
+    @IBAction func MainTaskEntered(sender: UITextField) { task.setMainTask(sender.text!) }
+    
+    @IBAction func microTaskEntered(sender: UITextField) { task.setMicroTask(sender.text!, index: sender.tag) }
+    
+    @IBAction func locationEntered(sender: UITextField) { task.setLocation(sender.text!, index: sender.tag) }
     
     @IBAction func saveTask(sender: UIButton) {
         task.post()
+        self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    @IBAction func pickLocation(sender: UIButton) {
+        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .ActionSheet)
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action -> Void in print("cancel")
+        })
+        actionSheet.addAction(cancelActionButton)
+        
+        let beacons = (UIApplication.sharedApplication().delegate as! AppDelegate).beacons
+//        beacons[0] = "other"
+        
+        var actionButton = UIAlertAction()
+        for name in beacons.values {
+            actionButton = UIAlertAction(title: name.capitalizedString, style: .Default, handler: { action -> Void in
+                sender.setTitle(name.capitalizedString, forState: .Normal)
+                self.task.setLocation(name, index: sender.tag)
+            })
+            actionSheet.addAction(actionButton)
+        }
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

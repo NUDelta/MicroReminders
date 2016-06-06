@@ -20,7 +20,9 @@ class PostTask {
     // Each task will hold an owner, completion date, description, completed boolean, current step (which task are we on), and a dictionary of MTs. The MTs are stored as [order: UUID].
     func post(owner: String, completionDate: String, description: String, completed: Bool, microtasks: [String: String], step: Int) {
         
-        let task = ["owner": owner, "completionDate": completionDate, "description": description, "completed": completed, "microtasks": microtasks, "step": step]
+        let time = date_to_string()
+        
+        let task = ["owner": owner, "completionDate": completionDate, "description": description, "completed": completed, "microtasks": microtasks, "step": step, "timeStarted": time]
         
         ref.childByAppendingPath(_id).setValue(task as AnyObject)
     }

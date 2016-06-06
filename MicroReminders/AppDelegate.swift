@@ -14,14 +14,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     
     var window: UIWindow?
     let beaconManager = ESTBeaconManager()
-//    var beacons: [UInt16: String] = [59582: "romeo", 39192: "whiskey", 49825: "quebec"]
-//    var beacons: [UInt16: String] = [59582: "romeo"]
-    var beacons: [UInt16: String] = [39192: "whiskey"]
-//    var beacons: [UInt16: String] = [49825: "quebec"]
+    
+    // ADEL
+//    var beacons: [UInt16: String] = [53805: "bike", 41424: "bedroom", 35710: "helens apartment"]
+    // hotel (bedroom): 41424
+    // bravo (bike): 53805
+    // delta (helens apartment): 35710
+    
+    // HELEN
+//    var beacons: [UInt16: String] = [34944: "car", 62318: "living room", 44363: "bedroom"]
+    // tango (car): 34944
+    // uniform (living room): 62318
+    // victor (bedroom): 44363
+    
+    // BILL
+    var beacons: [UInt16: String] = [30885: "india", 32706: "papa", 58574: "alpha"]
+    // papa (bedroom): 32706
+    // alpha (suite lounge): 58574
+    // india (AG52): 30885
+    
+    // ME/Max
+//    var beacons: [UInt16: String] = [59582: "kitchen", 39192: "fireplace", 49825: "bathroom"]
+    // var beacons: [UInt16: String] = [59582: "romeo"]
+    // var beacons: [UInt16: String] = [39192: "whiskey"]
+    // var beacons: [UInt16: String] = [49825: "quebec"]
     
     let notify = NotifyMicrotasks()
+    let log = LogData(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        if (launchOptions != nil) {
+            if let notification = launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification? {
+                handleNotificationInApp(notification)
+            }
+        }
+        
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
@@ -31,22 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         }
         
         /* Set up notification actions */
-        // mark as done
-        let notificationActionMarkDone = UIMutableUserNotificationAction()
-        notificationActionMarkDone.identifier = "MARK_DONE"
-        notificationActionMarkDone.title = "Done!"
-        notificationActionMarkDone.destructive = true
-        notificationActionMarkDone.authenticationRequired = false
-        notificationActionMarkDone.activationMode = UIUserNotificationActivationMode.Background
-        
-        // mark as for later
-        let notificationActionForLater = UIMutableUserNotificationAction()
-        notificationActionForLater.identifier = "FOR_LATER"
-        notificationActionForLater.title = "Later"
-        notificationActionForLater.destructive = true
-        notificationActionForLater.authenticationRequired = false
-        notificationActionForLater.activationMode = UIUserNotificationActivationMode.Background
-        
+        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Done!", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Later", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
         // put our actions in a category
         let notificationCategoryRespondToMT = UIMutableUserNotificationCategory()
         notificationCategoryRespondToMT.identifier = "RESPOND_TO_MT_DEFAULT"
@@ -59,15 +73,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
-        // set contexts to monitor
+        
+        /* set contexts to monitor */
         notify.setContext(Array(beacons.values))
         
         return true
     }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        handleNotificationInApp(notification)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // **********************************
+    // Utility functions
+    // **********************************
+    
+    /* Create and show alertController to handle notification in-app */
+    func handleNotificationInApp(notification: UILocalNotification) {
+        let alert = handleMTAlertController(notification)
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: {
+        })
+    }
+    
+    /* Create alertController to handle notification in-app */
+    func handleMTAlertController(notification: UILocalNotification) -> UIAlertController {
+        let alert = UIAlertController(title: "\(notification.userInfo!["description"]!)", message: "Would you like to snooze this microtask or mark it done?", preferredStyle: .Alert)
+        let cancel = UIAlertAction(title: "Snooze", style: .Cancel, handler: { [unowned self, notification] (action: UIAlertAction) in
+                self.notify.removeActiveNotification(notification)
+                self.log.logDismissed(notification)
+            })
+        let markDone = UIAlertAction(title: "Mark done", style: .Default, handler: { [unowned self, notification] (action: UIAlertAction) in
+                self.notify.markMTdone(notification)
+                self.log.logCompleted(notification)
+            })
+        alert.addAction(cancel); alert.addAction(markDone)
+        return alert
+    }
+    
+    /* Create notification actions */
+    func createNotificationAction(identifier: String, title: String, destructive: Bool, authenticationRequired: Bool, activationMode: UIUserNotificationActivationMode) -> UIMutableUserNotificationAction {
+        let notificationAction = UIMutableUserNotificationAction()
+        notificationAction.identifier = identifier; notificationAction.title = title
+        notificationAction.destructive = true; notificationAction.authenticationRequired = false
+        notificationAction.activationMode = UIUserNotificationActivationMode.Background
+        return notificationAction
+    }
     
     /* Handle notification actions */
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: (() -> Void)) {
-        
         // switch on the action identifier
         switch identifier!{
         case "MARK_DONE":
@@ -84,45 +149,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         print("marked done action")
         notify.removeActiveNotification(notification)
         notify.markMTdone(notification)
+        log.logCompleted(notification)
     }
     
     func handleForLater(notification: UILocalNotification){
         print("for later action")
         notify.removeActiveNotification(notification)
+        log.logDismissed(notification)
     }
     
     /* Send notifications when we enter a region */
     func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
         notify.notify()
+        log.logEntered(region.identifier)
     }
     
-    
-    
-    // Autopopulated functions
-    //*********************************************
-    
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
+        log.logExited(region.identifier)
     }
-    
-    func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-    
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-    
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
     
 }
 

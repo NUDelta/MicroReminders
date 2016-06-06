@@ -3,5 +3,5 @@
 
 xcodebuild clean -project MicroReminders -configuration Release -alltargets
 xcodebuild archive -workspace MicroReminders.xcworkspace -scheme MicroReminders -archivePath MicroReminders.xcarchive
-xcodebuild -exportArchive -archivePath MicroReminders.xcarchive -exportPath MicroReminders -exportFormat ipa -exportProvisioningProfile "Delta"
+xcodebuild -exportArchive -archivePath MicroReminders.xcarchive -exportPath MicroReminders -exportFormat ipa -exportProvisioningProfile "Delta Lab M"
 mv MicroReminders.ipa ~/Dropbox/Public/

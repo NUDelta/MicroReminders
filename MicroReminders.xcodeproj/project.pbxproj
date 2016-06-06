@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9951705E82CC1995199C0FA3 /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */; };
+		D90323871CE811CE0025FEBB /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90323861CE811CE0025FEBB /* TaskTableViewCell.swift */; };
+		D90323891CE813AA0025FEBB /* TaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90323881CE813AA0025FEBB /* TaskTableViewController.swift */; };
 		D992369F1CC97260009C4271 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D992369E1CC97260009C4271 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D9C286641CC5CB5300A4CF98 /* NotifyMicrotasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
@@ -16,11 +18,15 @@
 		D9E5889F1CC538650084D7E7 /* PostMicrotasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588991CC538650084D7E7 /* PostMicrotasks.swift */; };
 		D9E588A01CC538650084D7E7 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
+		D9EEA8CA1CEE7FB1000C64A0 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */; };
+		D9EEA8CC1CEE80ED000C64A0 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.release.xcconfig"; sourceTree = "<group>"; };
 		CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.debug.xcconfig"; sourceTree = "<group>"; };
+		D90323861CE811CE0025FEBB /* TaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		D90323881CE813AA0025FEBB /* TaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewController.swift; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D992369E1CC97260009C4271 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyMicrotasks.swift; sourceTree = "<group>"; };
@@ -32,7 +38,8 @@
 		D9E588991CC538650084D7E7 /* PostMicrotasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMicrotasks.swift; sourceTree = "<group>"; };
 		D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D9EAF0F11CCC5725006823AE /* toDo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = toDo.txt; sourceTree = "<group>"; };
+		D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogData.swift; sourceTree = "<group>"; };
 		ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,6 +74,37 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D90323831CE810FE0025FEBB /* MakeTask */ = {
+			isa = PBXGroup;
+			children = (
+				D9E588981CC538650084D7E7 /* MakeTask.swift */,
+				D9E588991CC538650084D7E7 /* PostMicrotasks.swift */,
+				D9E588971CC538650084D7E7 /* PostTask.swift */,
+				D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */,
+			);
+			name = MakeTask;
+			sourceTree = "<group>";
+		};
+		D90323841CE811160025FEBB /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				D9E588951CC538650084D7E7 /* Info.plist */,
+				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
+				D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */,
+				D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		D90323851CE8116C0025FEBB /* DisplayTask */ = {
+			isa = PBXGroup;
+			children = (
+				D90323861CE811CE0025FEBB /* TaskTableViewCell.swift */,
+				D90323881CE813AA0025FEBB /* TaskTableViewController.swift */,
+			);
+			name = DisplayTask;
+			sourceTree = "<group>";
+		};
 		D93CB78F1CC5372D00F8C73B = {
 			isa = PBXGroup;
 			children = (
@@ -88,26 +126,22 @@
 		D93CB79A1CC5372D00F8C73B /* MicroReminders */ = {
 			isa = PBXGroup;
 			children = (
-				D9E588A21CC538E80084D7E7 /* Base.lproj */,
-				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
-				D9E588951CC538650084D7E7 /* Info.plist */,
-				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
-				D9E588971CC538650084D7E7 /* PostTask.swift */,
-				D9E588981CC538650084D7E7 /* MakeTask.swift */,
-				D9E588991CC538650084D7E7 /* PostMicrotasks.swift */,
-				D9E5889A1CC538650084D7E7 /* CreateTaskViewController.swift */,
-				D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */,
-				D9EAF0F11CCC5725006823AE /* toDo.txt */,
+				D98D4C881CF3BDC100DC995B /* NotifyTask */,
+				D90323851CE8116C0025FEBB /* DisplayTask */,
+				D90323841CE811160025FEBB /* Supporting files */,
+				D90323831CE810FE0025FEBB /* MakeTask */,
+				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 			);
 			path = MicroReminders;
 			sourceTree = "<group>";
 		};
-		D9E588A21CC538E80084D7E7 /* Base.lproj */ = {
+		D98D4C881CF3BDC100DC995B /* NotifyTask */ = {
 			isa = PBXGroup;
 			children = (
-				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
+				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
+				D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */,
 			);
-			name = Base.lproj;
+			name = NotifyTask;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,11 +265,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90323871CE811CE0025FEBB /* TaskTableViewCell.swift in Sources */,
 				D9E5889D1CC538650084D7E7 /* PostTask.swift in Sources */,
+				D90323891CE813AA0025FEBB /* TaskTableViewController.swift in Sources */,
+				D9EEA8CC1CEE80ED000C64A0 /* LogData.swift in Sources */,
 				D9E5889F1CC538650084D7E7 /* PostMicrotasks.swift in Sources */,
 				D9E5889E1CC538650084D7E7 /* MakeTask.swift in Sources */,
 				D9C286641CC5CB5300A4CF98 /* NotifyMicrotasks.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
+				D9EEA8CA1CEE7FB1000C64A0 /* Utilities.swift in Sources */,
 				D9E588A01CC538650084D7E7 /* CreateTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,8 +382,8 @@
 			baseConfigurationReference = CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Northwestern University";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -354,7 +392,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6561e925-7a8b-423e-8e1b-f6bcf15caf90";
+				PROVISIONING_PROFILE = "f664e43e-25fa-4a90-a6cf-7c9f0e28f506";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALIDATE_PRODUCT = YES;
@@ -367,7 +405,7 @@
 			baseConfigurationReference = 7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alexander Weiss (C58M53AJ28)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Northwestern University";
 				ENABLE_BITCODE = NO;
@@ -379,7 +417,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6561e925-7a8b-423e-8e1b-f6bcf15caf90";
+				PROVISIONING_PROFILE = "f664e43e-25fa-4a90-a6cf-7c9f0e28f506";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
