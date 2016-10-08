@@ -4,8 +4,10 @@ MicroReminders relies on iBeacon technology, and so both beacons and a physical 
 
 To run MicroReminders:
 
-1) use CocoaPods to install the Estimote and Firebase SDKs.
-2) verify that you have an appropriate code-signing certificate and permissions.
-3) open MicroReminders.xcworkspace in Xcode.
-4) in AppDelegate, update the "beacons" variable to be a dictionary of your beacons in the format [<beacon minor ID>:<beacon description>].
-5) build to a physical device (simulator cannot interact with beacons).
+1) verify that you have an appropriate code-signing certificate and permissions.
+
+2) open MicroReminders.xcworkspace in Xcode.
+
+3) in AppDelegate, update the "beacons" variable to be a dictionary of your beacons in the format [<beacon minor ID>:<beacon description>].
+
+4) build to a physical device (simulator cannot interact with beacons).
