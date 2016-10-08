@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 class PostTask {
-    let ref = Firebase(url: "https://microreminders.firebaseio.com/Tasks")
+    let ref: FIRDatabaseReference! = FIRDatabase.database().reference().child("Tasks")
     let _id: String
     
     init(_id: String){
@@ -24,7 +24,7 @@ class PostTask {
         
         let task = ["owner": owner, "completionDate": completionDate, "description": description, "completed": completed, "microtasks": microtasks, "step": step, "timeStarted": time]
         
-        ref.childByAppendingPath(_id).setValue(task as AnyObject)
+        ref.child(_id).setValue(task as AnyObject)
     }
     
 }

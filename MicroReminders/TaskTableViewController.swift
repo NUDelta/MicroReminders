@@ -12,8 +12,8 @@ import SwiftyJSON
 
 class TaskTableViewController: UITableViewController {
     
-    let tasksref = Firebase(url: "https://microreminders.firebaseio.com/Tasks")
-    let microtasksref = Firebase(url: "https://microreminders.firebaseio.com/Microtasks")
+    let tasksref = FIRDatabase.database().reference()
+    let microtasksref = FIRDatabase.database().reference()
     let my_id = UIDevice.currentDevice().identifierForVendor!.UUIDString
     
     var tasks_list = [task]()
@@ -64,13 +64,13 @@ class TaskTableViewController: UITableViewController {
     /* Fill the list of tasks for display */
     func fillTasksList(){
         tasksref.queryOrderedByChild("owner").queryEqualToValue(my_id).observeSingleEventOfType(.Value, withBlock: { snapshot in
-            let tasks = JSON(snapshot.value)
+            let tasks = JSON(snapshot.value!)
             for (key, value) in tasks {
                 if value["completed"].boolValue {
                     continue
                 }
                 self.microtasksref.queryOrderedByChild("owner").queryEqualToValue(key).observeSingleEventOfType(.Value, withBlock: { snapshot in
-                    let microtasks = JSON(snapshot.value)
+                    let microtasks = JSON(snapshot.value!)
                     var t = task()
                     
                     t.completed = value["completed"].boolValue

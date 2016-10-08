@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     // victor (bedroom): 44363
     
     // BILL
-    var beacons: [UInt16: String] = [30885: "india", 32706: "papa", 58574: "alpha"]
+//    var beacons: [UInt16: String] = [32706: "bedroom", 58574: "suite lounge"]
     // papa (bedroom): 32706
     // alpha (suite lounge): 58574
     // india (AG52): 30885
@@ -39,8 +40,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     // var beacons: [UInt16: String] = [39192: "whiskey"]
     // var beacons: [UInt16: String] = [49825: "quebec"]
     
-    let notify = NotifyMicrotasks()
-    let log = LogData(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
+    // No beacons
+    var beacons: [UInt16: String] = [:]
+    
+    var notify: NotifyMicrotasks
+    var log: LogData
+    
+    
+    override init() {
+        
+        /* Configure Firebase and Firebase-using clients */
+        FIRApp.configure()
+        notify = NotifyMicrotasks()
+        log = LogData(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
+        
+    }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -59,20 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         }
         
         /* Set up notification actions */
-        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Done!", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
-        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Later", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
-        // put our actions in a category
-        let notificationCategoryRespondToMT = UIMutableUserNotificationCategory()
-        notificationCategoryRespondToMT.identifier = "RESPOND_TO_MT_DEFAULT"
-        let actions = [notificationActionMarkDone, notificationActionForLater]
-        notificationCategoryRespondToMT.setActions(actions, forContext: UIUserNotificationActionContext.Default)
-        notificationCategoryRespondToMT.setActions([notificationActionMarkDone, notificationActionForLater], forContext: UIUserNotificationActionContext.Minimal)
-        
-        // register our actions
-        let types = UIUserNotificationType.Alert
-        let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
-        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-        
+        setUpNotificationActions()
         
         /* set contexts to monitor */
         notify.setContext(Array(beacons.values))
@@ -85,20 +86,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // **********************************
     // Utility functions
     // **********************************
+    
+    /* Set up notification actions */
+    func setUpNotificationActions() {
+        
+        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Done!", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Later", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        
+        // put our actions in a category
+        let notificationCategoryRespondToMT = UIMutableUserNotificationCategory()
+        notificationCategoryRespondToMT.identifier = "RESPOND_TO_MT_DEFAULT"
+        let actions = [notificationActionMarkDone, notificationActionForLater]
+        notificationCategoryRespondToMT.setActions(actions, forContext: UIUserNotificationActionContext.Default)
+        notificationCategoryRespondToMT.setActions([notificationActionMarkDone, notificationActionForLater], forContext: UIUserNotificationActionContext.Minimal)
+        
+        // register our actions
+        let types = UIUserNotificationType.Alert
+        let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+    }
     
     /* Create and show alertController to handle notification in-app */
     func handleNotificationInApp(notification: UILocalNotification) {

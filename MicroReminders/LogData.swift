@@ -14,8 +14,8 @@ class LogData {
 
     let owner:String
 
-    let regionChangeRef = Firebase(url: "https://microreminders.firebaseio.com/RegionChange")
-    let notificationRef = Firebase(url: "https://microreminders.firebaseio.com/NotificationInteraction")
+    let regionChangeRef = FIRDatabase.database().reference().child("RegionChange")
+    let notificationRef = FIRDatabase.database().reference().child("NotificationInteraction")
 
     init(owner: String){
         self.owner = owner
@@ -23,12 +23,12 @@ class LogData {
 
     func logEntered(region:String){
         let log = ["region":region, "owner":owner, "state":"entered"]
-        regionChangeRef.childByAppendingPath(self.owner).childByAppendingPath(date_to_string()).setValue(log as AnyObject)
+        regionChangeRef.child(self.owner).child(date_to_string()).setValue(log as AnyObject)
     }
 
     func logExited(region:String){
         let log = ["region":region, "owner":owner, "state":"exited"]
-        regionChangeRef.childByAppendingPath(self.owner).childByAppendingPath(date_to_string()).setValue(log as AnyObject)
+        regionChangeRef.child(self.owner).child(date_to_string()).setValue(log as AnyObject)
     }
     
     func logDismissed(notification: UILocalNotification){
@@ -37,7 +37,7 @@ class LogData {
         let task = userInfo["owner"] as! String
         let step = userInfo["currentStep"] as! String
         let log = ["type":"dismissed", "microtask":microtask, "task":task, "step":step]
-        notificationRef.childByAppendingPath(self.owner).childByAppendingPath(date_to_string()).setValue(log as AnyObject)
+        notificationRef.child(self.owner).child(date_to_string()).setValue(log as AnyObject)
     }
     
     func logCompleted(notification:UILocalNotification){
@@ -46,7 +46,7 @@ class LogData {
         let task = userInfo["owner"] as! String
         let step = userInfo["currentStep"] as! String
         let log = ["type":"completed", "microtask":microtask, "task":task, "step":step]
-        notificationRef.childByAppendingPath(self.owner).childByAppendingPath(date_to_string()).setValue(log as AnyObject)
+        notificationRef.child(self.owner).child(date_to_string()).setValue(log as AnyObject)
     }
 
 }

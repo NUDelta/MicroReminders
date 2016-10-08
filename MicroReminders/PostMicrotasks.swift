@@ -11,7 +11,7 @@ import Firebase
 
 class PostMicrotasks {
 
-    let ref = Firebase(url: "https://microreminders.firebaseio.com/Microtasks")
+    let ref: FIRDatabaseReference! = FIRDatabase.database().reference().child("Microtasks")
     
     var microtasks = [String: NSDictionary]()
     var orders = [String: String]()
@@ -34,7 +34,7 @@ class PostMicrotasks {
         
         // Post individual microtasks
         for i in Array(microtasks.keys) {
-            ref.childByAppendingPath(i).setValue(microtasks[i]! as AnyObject)
+            ref.child(i).setValue(microtasks[i]! as AnyObject)
         }
         
         return orders // Hand back the keys to be given to the owning task

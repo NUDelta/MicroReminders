@@ -13,8 +13,8 @@ import UIKit
 
 class NotifyMicrotasks {
     
-    let tasksref = Firebase(url: "https://microreminders.firebaseio.com/Tasks")
-    let microtasksref = Firebase(url: "https://microreminders.firebaseio.com/Microtasks")
+    let tasksref = FIRDatabase.database().reference().child("Tasks")
+    let microtasksref = FIRDatabase.database().reference().child("Microtasks")
     var activeNotifications = [String: UILocalNotification]() // Stores the IDs of all the tasks actively notified, won't notify if already reminded
     var context = [String]()
     var my_id = UIDevice.currentDevice().identifierForVendor!.UUIDString
@@ -25,7 +25,7 @@ class NotifyMicrotasks {
     
     func notify(){
         tasksref.queryOrderedByChild("owner").queryEqualToValue(my_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
-            var tasks = JSON(snapshot.value) // Get each matching task
+            var tasks = JSON(snapshot.value!) // Get each matching task
             tasks = self.inactiveTasks(tasks)
             
             var task_id = String()
@@ -33,7 +33,7 @@ class NotifyMicrotasks {
                 task_id = key
             
                 self.microtasksref.queryOrderedByChild("owner").queryEqualToValue(task_id).observeSingleEventOfType(.Value, withBlock: {snapshot in
-                    let microtasks = JSON(snapshot.value)
+                    let microtasks = JSON(snapshot.value!)
 //                    print("microtasks", microtasks)
                     
                     let microtasksAtBat = self.currentMicrotasks(tasks, microtasks: microtasks) // For each task, check the microtask at the current step
@@ -131,25 +131,25 @@ class NotifyMicrotasks {
         
         // Mark the microtask as completed
         let mtID = notification.userInfo!["microtask"] as! String
-        let mtRef = microtasksref.childByAppendingPath(mtID)
-        mtRef.childByAppendingPath("completed").setValue(true)
-        mtRef.childByAppendingPath("completionDate").setValue(time)
+        let mtRef = microtasksref.child(mtID)
+        mtRef.child("completed").setValue(true)
+        mtRef.child("completionDate").setValue(time)
         
         
         // Increment the step of the task
         let taskID = notification.userInfo!["owner"] as! String
 //        print("taskID", taskID)
-        let taskRef = tasksref.childByAppendingPath(taskID)
+        let taskRef = tasksref.child(taskID)
         
         let step = Int(notification.userInfo!["currentStep"] as! String)!
 //        print("step", step)
         if (step == 2) {
-            taskRef.childByAppendingPath("completed").setValue(true)
-            taskRef.childByAppendingPath("completionDate").setValue(time)
+            taskRef.child("completed").setValue(true)
+            taskRef.child("completionDate").setValue(time)
         }
         else {
 //            print("setting")
-            taskRef.childByAppendingPath("step").setValue(step+1)
+            taskRef.child("step").setValue(step+1)
         }
         
         // remove the current active notification
