@@ -11,49 +11,78 @@ import Firebase
 
 class TaskLandingPageTableViewController: UITableViewController {
     
-    let prepopTaskRef = FIRDatabase.database().reference().child("Prepopulated")
-    var taskList = [Task]()
+    var prepopTaskRef: FIRDatabaseReference!
+    var myTaskRef: FIRDatabaseReference!
+    
+    var prepopTaskList = [Task]()
+    var myTaskList = [Task]()
+    var displayTaskList = [Task]()
 
+    // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        fillTaskList()
+        prepopTaskRef = FIRDatabase.database().reference().child("Prepopulated")
+        myTaskRef = FIRDatabase.database().reference().child("Tasks")
     }
-
-    func fillTaskList() -> Void {
-        prepopTaskRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            let taskJSON = snapshot.value as! NSDictionary
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        updateDisplayTasks()
+    }
+    
+    func updateDisplayTasks() -> Void {
+        prepopTaskList = [Task]()
+        myTaskList = [Task]()
+        displayTaskList = [Task]()
+        prepopTaskRef.observeSingleEventOfType(.Value, withBlock: { prepopSnapshot in
+            self.fillTaskList(prepopSnapshot, taskList: &self.prepopTaskList)
             
-            for (_id, taskData) in taskJSON {
-                var taskDict = taskData as! Dictionary<String, String>
-                self.taskList.append(Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
-                    taskDict["category3"]!, taskDict["mov_sta"]!))
-            }
-            
-            self.tableView.reloadData()
+            self.myTaskRef.observeSingleEventOfType(.Value, withBlock: { myTaskSnapshot in
+                self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
+                
+                let myTaskIds = self.myTaskList.map({ task in task._id })
+                self.displayTaskList = self.prepopTaskList.filter({ task in !myTaskIds.contains(task._id) })
+                
+                self.tableView.reloadData()
+            })
         })
     }
+    
+    func fillTaskList(snapshot: FIRDataSnapshot, inout taskList: [Task]) -> Void {
+        let taskJSON = snapshot.value as? NSDictionary
+        
+        if taskJSON != nil {
+            for (_id, taskData) in taskJSON! {
+                var taskDict = taskData as! Dictionary<String, String>
+                taskList.append(Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
+                    taskDict["category3"]!, taskDict["mov_sta"]!))
+            }
+        }
+    }
 
+    // Table display
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskList.count
+        return displayTaskList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TaskLandingPageCell", forIndexPath: indexPath) as! TaskLandingPageCell
 
-        let task = taskList[indexPath.row]
+        let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
         cell.taskTime.text = "1 min"
 
         return cell
     }
     
+    // Table interaction
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(taskList[indexPath.row])
+        print(displayTaskList[indexPath.row])
     }
     
  
@@ -103,24 +132,6 @@ class TaskLandingPageTableViewController: UITableViewController {
     }
     */
 
-}
-
-struct Task {
-    let _id: String
-    let name: String
-    let category1: String
-    let category2: String
-    let category3: String
-    let mov_sta: String
-    
-    init(_ _id: String, _ name: String, _ category1: String, _ category2: String, _ category3: String, _ mov_sta: String) {
-        self._id = _id
-        self.name = name
-        self.category1 = category1
-        self.category2 = category2
-        self.category3 = category3
-        self.mov_sta = mov_sta
-    }
 }
 
 
