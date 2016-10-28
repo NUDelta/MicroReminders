@@ -35,15 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     // india (AG52): 30885
     
     // ME/Max
-//    var beacons: [UInt16: String] = [59582: "kitchen", 39192: "fireplace", 49825: "bathroom"]
+    var beacons: [UInt16: String] = [59582: "kitchen", 39192: "fireplace", 49825: "bathroom"]
     // var beacons: [UInt16: String] = [59582: "romeo"]
     // var beacons: [UInt16: String] = [39192: "whiskey"]
     // var beacons: [UInt16: String] = [49825: "quebec"]
     
     // No beacons
-    var beacons: [UInt16: String] = [:]
+//    var beacons: [UInt16: String] = [:]
     
-    var notify: NotifyMicrotasks
+    var notify: Notify
     var log: LogData
     
     
@@ -51,13 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         
         /* Configure Firebase and Firebase-using clients */
         FIRApp.configure()
-        notify = NotifyMicrotasks()
+        notify = Notify()
         log = LogData(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
         
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // Handle notification in app after launching from notification (?)
         if (launchOptions != nil) {
             if let notification = launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification? {
                 handleNotificationInApp(notification)
@@ -75,12 +76,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         /* Set up notification actions */
         setUpNotificationActions()
         
-        /* set contexts to monitor */
-        notify.setContext(Array(beacons.values))
-        
         return true
     }
 
+    // Handle notification in app (received while in app)
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         handleNotificationInApp(notification)
     }
@@ -111,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     
     /* Create and show alertController to handle notification in-app */
     func handleNotificationInApp(notification: UILocalNotification) {
+        print("Handling notification in app!")
         let alert = handleMTAlertController(notification)
         self.window?.rootViewController?.presentViewController(alert, animated: true, completion: {
         })
@@ -118,14 +118,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     
     /* Create alertController to handle notification in-app */
     func handleMTAlertController(notification: UILocalNotification) -> UIAlertController {
-        let alert = UIAlertController(title: "\(notification.userInfo!["description"]!)", message: "Would you like to snooze this microtask or mark it done?", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "\(notification.userInfo!["task"]!)", message: "Would you like to snooze this microtask or mark it done?", preferredStyle: .Alert)
         let cancel = UIAlertAction(title: "Snooze", style: .Cancel, handler: { [unowned self, notification] (action: UIAlertAction) in
-                self.notify.removeActiveNotification(notification)
-                self.log.logDismissed(notification)
+            print("for later action")
+            // Handle snoozing
             })
         let markDone = UIAlertAction(title: "Mark done", style: .Default, handler: { [unowned self, notification] (action: UIAlertAction) in
-                self.notify.markMTdone(notification)
-                self.log.logCompleted(notification)
+            print("marked done action")
+            // Handle marking done
             })
         alert.addAction(cancel); alert.addAction(markDone)
         return alert
@@ -142,6 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     
     /* Handle notification actions */
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: (() -> Void)) {
+        
         // switch on the action identifier
         switch identifier!{
         case "MARK_DONE":
@@ -156,25 +157,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     
     func handleMarkDone(notification: UILocalNotification){
         print("marked done action")
-        notify.removeActiveNotification(notification)
-        notify.markMTdone(notification)
-        log.logCompleted(notification)
     }
     
     func handleForLater(notification: UILocalNotification){
         print("for later action")
-        notify.removeActiveNotification(notification)
-        log.logDismissed(notification)
     }
     
     /* Send notifications when we enter a region */
     func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
-        notify.notify()
-        log.logEntered(region.identifier)
+        print("entered \(region.identifier)")
+        notify.notify(beacons[UInt16((region.minor?.integerValue)!)]!)
     }
     
     func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
-        log.logExited(region.identifier)
+        print("exited \(region.identifier)")
+    }
+    
+    func pickLocationForTask(parentViewController: UIViewController, taskWithoutLoc: Task) {
+        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .ActionSheet)
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil )
+        actionSheet.addAction(cancelActionButton)
+        
+        var actionButton: UIAlertAction
+        for name in beacons.values {
+            actionButton = UIAlertAction(title: name.capitalizedString, style: .Default, handler: { action -> Void in
+                
+                Task(taskWithoutLoc._id, taskWithoutLoc.name, taskWithoutLoc.category1, taskWithoutLoc.category2, taskWithoutLoc.category3, taskWithoutLoc.mov_sta, action.title!).pushToFirebase()
+                
+                let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Close", style: .Default, handler: nil))
+                parentViewController.presentViewController(alert, animated: true, completion: nil)
+            })
+            actionSheet.addAction(actionButton)
+        }
+        
+        parentViewController.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
 }

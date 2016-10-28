@@ -7,10 +7,28 @@
 //
 
 import UIKit
+import Firebase
 
-class TaskLandingPageViewController: UIViewController {
+class TaskLandingPageViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var enterTask: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        enterTask.delegate = self
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        enterTask.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func sendCustomTask(sender: UIButton) {
+        if (enterTask.text != "") {
+            let task = Task(NSUUID().UUIDString, enterTask.text!, "user_entered", "user_entered", "user_entered", "user_entered")
+            
+            (UIApplication.sharedApplication().delegate as! AppDelegate).pickLocationForTask(self, taskWithoutLoc: task)
+            enterTask.text = ""
+        }
     }
 }
