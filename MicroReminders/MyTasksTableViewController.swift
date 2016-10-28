@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MyTasksPageTableViewController: UITableViewController {
+class MyTasksTableViewController: UITableViewController {
     
     var myTaskRef: FIRDatabaseReference!
     
@@ -18,7 +18,7 @@ class MyTasksPageTableViewController: UITableViewController {
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        myTaskRef = FIRDatabase.database().reference().child("Tasks")
+        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -31,6 +31,7 @@ class MyTasksPageTableViewController: UITableViewController {
         self.myTaskRef.observeSingleEventOfType(.Value, withBlock: { myTaskSnapshot in
             self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
             
+            self.myTaskList.sortInPlace({ (task1, task2) in task1.name < task2.name })
             self.tableView.reloadData()
         })
     }
@@ -41,8 +42,10 @@ class MyTasksPageTableViewController: UITableViewController {
         if taskJSON != nil {
             for (_id, taskData) in taskJSON! {
                 var taskDict = taskData as! Dictionary<String, String>
-                taskList.append(Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
-                    taskDict["category3"]!, taskDict["mov_sta"]!))
+                let task = Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
+                                taskDict["category3"]!, taskDict["mov_sta"]!, taskDict["location"]!)
+                
+                taskList.append(task)
             }
         }
     }
@@ -58,7 +61,7 @@ class MyTasksPageTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TaskLandingPageCell", forIndexPath: indexPath) as! MyTasksTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MyTasksTableCell", forIndexPath: indexPath) as! MyTasksTableCell
         
         let task = myTaskList[indexPath.row]
         cell.taskName.text = task.name

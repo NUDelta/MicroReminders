@@ -17,12 +17,14 @@ class TaskLandingPageTableViewController: UITableViewController {
     var prepopTaskList = [Task]()
     var myTaskList = [Task]()
     var displayTaskList = [Task]()
+    
+    var tappedCell = -1
 
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepopTaskRef = FIRDatabase.database().reference().child("Prepopulated")
-        myTaskRef = FIRDatabase.database().reference().child("Tasks")
+        prepopTaskRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
+        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,6 +45,7 @@ class TaskLandingPageTableViewController: UITableViewController {
                 let myTaskIds = self.myTaskList.map({ task in task._id })
                 self.displayTaskList = self.prepopTaskList.filter({ task in !myTaskIds.contains(task._id) })
                 
+                self.displayTaskList.sortInPlace({ (task1, task2) in task1.name < task2.name })
                 self.tableView.reloadData()
             })
         })
@@ -54,8 +57,10 @@ class TaskLandingPageTableViewController: UITableViewController {
         if taskJSON != nil {
             for (_id, taskData) in taskJSON! {
                 var taskDict = taskData as! Dictionary<String, String>
-                taskList.append(Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
-                    taskDict["category3"]!, taskDict["mov_sta"]!))
+                let task = Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
+                                taskDict["category3"]!, taskDict["mov_sta"]!, taskDict["location"]!)
+                
+                taskList.append(task)
             }
         }
     }
@@ -75,14 +80,19 @@ class TaskLandingPageTableViewController: UITableViewController {
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
-        cell.taskTime.text = "1 min"
+        cell.taskTime.text = task.length
 
         return cell
     }
     
     // Table interaction
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(displayTaskList[indexPath.row])
+        let taskInd = indexPath.row
+        if (tappedCell == indexPath.row) {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).pickLocationForTask(self, taskWithoutLoc: self.displayTaskList[taskInd])
+        }
+        
+        tappedCell = taskInd
     }
     
  
