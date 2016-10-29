@@ -9,10 +9,10 @@
 import Foundation
 
 func date_to_string() -> String {
-    let date = NSDate()
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.locale = NSLocale(localeIdentifier: "en_US")
-    dateFormatter.dateStyle = .MediumStyle
-    dateFormatter.timeStyle = .MediumStyle
-    return dateFormatter.stringFromDate(date)
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US")
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .medium
+    return dateFormatter.string(from: date)
 }

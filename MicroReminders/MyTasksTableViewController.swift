@@ -18,25 +18,25 @@ class MyTasksTableViewController: UITableViewController {
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)")
+        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateDisplayTasks()
     }
     
     func updateDisplayTasks() -> Void {
         myTaskList = [Task]()
-        self.myTaskRef.observeSingleEventOfType(.Value, withBlock: { myTaskSnapshot in
+        self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
             self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
             
-            self.myTaskList.sortInPlace({ (task1, task2) in task1.name < task2.name })
+            self.myTaskList.sort(by: { (task1, task2) in task1.name < task2.name })
             self.tableView.reloadData()
         })
     }
     
-    func fillTaskList(snapshot: FIRDataSnapshot, inout taskList: [Task]) -> Void {
+    func fillTaskList(_ snapshot: FIRDataSnapshot, taskList: inout [Task]) -> Void {
         let taskJSON = snapshot.value as? NSDictionary
         
         if taskJSON != nil {
@@ -51,17 +51,17 @@ class MyTasksTableViewController: UITableViewController {
     }
     
     // Table display
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myTaskList.count
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyTasksTableCell", forIndexPath: indexPath) as! MyTasksTableCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTasksTableCell", for: indexPath) as! MyTasksTableCell
         
         let task = myTaskList[indexPath.row]
         cell.taskName.text = task.name
@@ -71,7 +71,7 @@ class MyTasksTableViewController: UITableViewController {
     }
     
     // Table interaction
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(myTaskList[indexPath.row])
     }
     

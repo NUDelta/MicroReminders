@@ -18,14 +18,14 @@ class TaskLandingPageViewController: UIViewController, UITextFieldDelegate {
         enterTask.delegate = self
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterTask.resignFirstResponder()
         return true
     }
     
-    @IBAction func sendCustomTask(sender: UIButton) {
+    @IBAction func sendCustomTask(_ sender: UIButton) {
         if (enterTask.text != "") {
-            var task = Task(NSUUID().UUIDString, enterTask.text!, "user_entered", "user_entered", "user_entered", "user_entered")
+            let task = Task(UUID().uuidString, enterTask.text!, "user_entered", "user_entered", "user_entered", "user_entered")
             
             task.pickLocationAndPushTask(self)
             enterTask.text = ""

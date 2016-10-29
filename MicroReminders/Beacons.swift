@@ -37,5 +37,5 @@ class Beacons {
     //    var beacons: [UInt16: String] = [:]
 
     
-    private init() {}
+    fileprivate init() {}
 }

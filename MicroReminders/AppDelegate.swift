@@ -26,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         notify = Notify()
     }
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Handle notification in app after launching from notification (?)
         if (launchOptions != nil) {
-            if let notification = launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification? {
+            if let notification = launchOptions![UIApplicationLaunchOptionsKey.localNotification] as! UILocalNotification? {
                 handleNotificationInApp(notification)
             }
         }
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         
         /* register our beacons */
         for minor in beacons.keys {
-            self.beaconManager.startMonitoringForRegion(CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
+            self.beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
         }
         
         /* Set up notification actions */
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     }
 
     // Handle notification in app (received while in app)
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         handleNotificationInApp(notification)
     }
     
@@ -62,38 +62,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     /* Set up notification actions */
     func setUpNotificationActions() {
         
-        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Mark done", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
-        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Snooze", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Mark done", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.background)
+        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Snooze", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.background)
         
         // put our actions in a category
         let notificationCategoryRespondToMT = UIMutableUserNotificationCategory()
         notificationCategoryRespondToMT.identifier = "RESPOND_TO_MT_DEFAULT"
         let actions = [notificationActionMarkDone, notificationActionForLater]
-        notificationCategoryRespondToMT.setActions(actions, forContext: UIUserNotificationActionContext.Default)
-        notificationCategoryRespondToMT.setActions([notificationActionMarkDone, notificationActionForLater], forContext: UIUserNotificationActionContext.Minimal)
+        notificationCategoryRespondToMT.setActions(actions, for: UIUserNotificationActionContext.default)
+        notificationCategoryRespondToMT.setActions([notificationActionMarkDone, notificationActionForLater], for: UIUserNotificationActionContext.minimal)
         
         // register our actions
-        let types = UIUserNotificationType.Alert
-        let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
-        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        let types = UIUserNotificationType.alert
+        let settings = UIUserNotificationSettings(types: types, categories: NSSet(object: notificationCategoryRespondToMT) as? Set<UIUserNotificationCategory>)
+        UIApplication.shared.registerUserNotificationSettings(settings)
     }
     
     /* Create and show alertController to handle notification in-app */
-    func handleNotificationInApp(notification: UILocalNotification) {
+    func handleNotificationInApp(_ notification: UILocalNotification) {
         print("Handling notification in app!")
         let alert = handleMTAlertController(notification)
-        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: {
+        self.window?.rootViewController?.present(alert, animated: true, completion: {
         })
     }
     
     /* Create alertController to handle notification in-app */
-    func handleMTAlertController(notification: UILocalNotification) -> UIAlertController {
-        let alert = UIAlertController(title: "\(notification.userInfo!["task"]!)", message: "Would you like to snooze this microtask or mark it done?", preferredStyle: .Alert)
-        let cancel = UIAlertAction(title: "Snooze", style: .Cancel, handler: { [unowned self, notification] (action: UIAlertAction) in
+    func handleMTAlertController(_ notification: UILocalNotification) -> UIAlertController {
+        let alert = UIAlertController(title: "\(notification.userInfo!["task"]!)", message: "Would you like to snooze this microtask or mark it done?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Snooze", style: .cancel, handler: { [unowned self, notification] (action: UIAlertAction) in
             print("for later action")
             // Handle snoozing
             })
-        let markDone = UIAlertAction(title: "Mark done", style: .Default, handler: { [unowned self, notification] (action: UIAlertAction) in
+        let markDone = UIAlertAction(title: "Mark done", style: .default, handler: { [unowned self, notification] (action: UIAlertAction) in
             print("marked done action")
             // Handle marking done
             })
@@ -102,16 +102,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     }
     
     /* Create notification actions */
-    func createNotificationAction(identifier: String, title: String, destructive: Bool, authenticationRequired: Bool, activationMode: UIUserNotificationActivationMode) -> UIMutableUserNotificationAction {
+    func createNotificationAction(_ identifier: String, title: String, destructive: Bool, authenticationRequired: Bool, activationMode: UIUserNotificationActivationMode) -> UIMutableUserNotificationAction {
         let notificationAction = UIMutableUserNotificationAction()
         notificationAction.identifier = identifier; notificationAction.title = title
-        notificationAction.destructive = true; notificationAction.authenticationRequired = false
-        notificationAction.activationMode = UIUserNotificationActivationMode.Background
+        notificationAction.isDestructive = true; notificationAction.isAuthenticationRequired = false
+        notificationAction.activationMode = UIUserNotificationActivationMode.background
         return notificationAction
     }
     
     /* Handle notification actions */
-    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: (() -> Void)) {
+    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: (@escaping () -> Void)) {
         
         // switch on the action identifier
         switch identifier!{
@@ -125,21 +125,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         completionHandler()
     }
     
-    func handleMarkDone(notification: UILocalNotification){
+    func handleMarkDone(_ notification: UILocalNotification){
         print("marked done action")
     }
     
-    func handleForLater(notification: UILocalNotification){
+    func handleForLater(_ notification: UILocalNotification){
         print("for later action")
     }
     
     /* Send notifications when we enter a region */
-    func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
+    func beaconManager(_ manager: Any, didEnter region: CLBeaconRegion) {
         print("entered \(region.identifier)")
-        notify.notify(beacons[UInt16((region.minor?.integerValue)!)]!)
+        notify.notify(beacons[UInt16((region.minor?.intValue)!)]!)
     }
     
-    func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
+    func beaconManager(_ manager: Any, didExitRegion region: CLBeaconRegion) {
         print("exited \(region.identifier)")
     }
 }

@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 
 class Notify {
-    let myId = UIDevice.currentDevice().identifierForVendor!.UUIDString
+    let myId = UIDevice.current.identifierForVendor!.uuidString
     
     
-    func sendNotification(task: Task) {
+    func sendNotification(_ task: Task) {
         let notif = UILocalNotification()
         notif.alertBody = "Reminder: \(task.name)!"
         notif.category = "RESPOND_TO_MT_DEFAULT"
@@ -21,22 +21,22 @@ class Notify {
         let userInfo = ["task":task.name]
         notif.userInfo = userInfo
         
-        UIApplication.sharedApplication().presentLocalNotificationNow(notif)
+        UIApplication.shared.presentLocalNotificationNow(notif)
     }
     
 //    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
 //        
 //    }
     
-    func notify(region: String) {
+    func notify(_ region: String) {
         let myTasksRef = FIRDatabase.database().reference().child("Tasks/\(myId)")
         
-        myTasksRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        myTasksRef.observeSingleEvent(of: .value, with: { snapshot in
             let tasksJSON = snapshot.value as? Dictionary<String, Dictionary<String, String>>
             
             if tasksJSON != nil {
                 for (_id, taskData) in tasksJSON! {
-                    if (taskData["location"]!.lowercaseString == region){
+                    if (taskData["location"]!.lowercased() == region){
                         let task = Task(_id, taskData["task"]!, taskData["category1"]!, taskData["category2"]!,
                             taskData["category3"]!, taskData["mov_sta"]!, taskData["location"]!)
                         

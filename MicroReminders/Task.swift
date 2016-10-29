@@ -8,7 +8,7 @@
 
 import Firebase
 
-struct Task {
+class Task {
     let _id: String
     let name: String
     let category1: String
@@ -39,32 +39,32 @@ struct Task {
     }
     
     func pushToFirebase() -> Void {
-        let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)")
+        let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
         myTaskRef.child(_id).setValue(["task":name, "category1":category1, "category2":category2, "category3":category3, "mov_sta":mov_sta, "length":length, "location":location])
     }
     
-    mutating func pickLocationAndPushTask(parentViewController: UIViewController) {
-        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .ActionSheet)
+    func pickLocationAndPushTask(_ parentViewController: UIViewController) {
+        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .actionSheet)
         
-        let cancelActionButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil )
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
         actionSheet.addAction(cancelActionButton)
         
         var actionButton: UIAlertAction
         for name in Beacons.sharedInstance.beacons.values {
-            actionButton = UIAlertAction(title: name.capitalizedString, style: .Default, handler: { action -> Void in
+            actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { [unowned self] (action) -> Void in
                 
                 self.location = action.title!
                 self.pushToFirebase()
                 
-                let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Close", style: .Default, handler: nil))
-                parentViewController.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                parentViewController.present(alert, animated: true, completion: nil)
             })
             actionSheet.addAction(actionButton)
         }
         
-        parentViewController.presentViewController(actionSheet, animated: true, completion: nil)
+        parentViewController.present(actionSheet, animated: true, completion: nil)
     }
 }
 

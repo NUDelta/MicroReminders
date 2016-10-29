@@ -24,10 +24,10 @@ class TaskLandingPageTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepopTaskRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
-        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)")
+        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateDisplayTasks()
     }
@@ -36,22 +36,22 @@ class TaskLandingPageTableViewController: UITableViewController {
         prepopTaskList = [Task]()
         myTaskList = [Task]()
         displayTaskList = [Task]()
-        prepopTaskRef.observeSingleEventOfType(.Value, withBlock: { prepopSnapshot in
+        prepopTaskRef.observeSingleEvent(of: .value, with: { prepopSnapshot in
             self.fillTaskList(prepopSnapshot, taskList: &self.prepopTaskList)
             
-            self.myTaskRef.observeSingleEventOfType(.Value, withBlock: { myTaskSnapshot in
+            self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
                 self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
                 
                 let myTaskIds = self.myTaskList.map({ task in task._id })
                 self.displayTaskList = self.prepopTaskList.filter({ task in !myTaskIds.contains(task._id) })
                 
-                self.displayTaskList.sortInPlace({ (task1, task2) in task1.name < task2.name })
+                self.displayTaskList.sort(by: { (task1, task2) in task1.name < task2.name })
                 self.tableView.reloadData()
             })
         })
     }
     
-    func fillTaskList(snapshot: FIRDataSnapshot, inout taskList: [Task]) -> Void {
+    func fillTaskList(_ snapshot: FIRDataSnapshot, taskList: inout [Task]) -> Void {
         let taskJSON = snapshot.value as? NSDictionary
         
         if taskJSON != nil {
@@ -66,17 +66,17 @@ class TaskLandingPageTableViewController: UITableViewController {
     }
 
     // Table display
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayTaskList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TaskLandingPageCell", forIndexPath: indexPath) as! TaskLandingPageCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskLandingPageCell", for: indexPath) as! TaskLandingPageCell
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
@@ -86,7 +86,7 @@ class TaskLandingPageTableViewController: UITableViewController {
     }
     
     // Table interaction
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskInd = indexPath.row
         if (tappedCell == indexPath.row) {
             displayTaskList[taskInd].pickLocationAndPushTask(self)
