@@ -6,5 +6,4 @@ use_frameworks!
 target 'MicroReminders' do
     pod 'Firebase/Database' #, '>= 2.5.1'
     pod 'EstimoteSDK'
-    pod 'SwiftyJSON', '~> 2.4.0'
 end
