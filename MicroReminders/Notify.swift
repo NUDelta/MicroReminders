@@ -13,40 +13,37 @@ class Notify {
     let myId = UIDevice.currentDevice().identifierForVendor!.UUIDString
     
     
-    func sendNotifications(tasks: [Task]) {
-        for task in tasks {
-            let notif = UILocalNotification()
-            notif.alertBody = "Reminder: \(task.name)!"
-            notif.category = "RESPOND_TO_MT_DEFAULT"
-            
-            let userInfo = ["task":task.name]
-            notif.userInfo = userInfo
-            
-            UIApplication.sharedApplication().presentLocalNotificationNow(notif)
-        }
+    func sendNotification(task: Task) {
+        let notif = UILocalNotification()
+        notif.alertBody = "Reminder: \(task.name)!"
+        notif.category = "RESPOND_TO_MT_DEFAULT"
+        
+        let userInfo = ["task":task.name]
+        notif.userInfo = userInfo
+        
+        UIApplication.sharedApplication().presentLocalNotificationNow(notif)
     }
+    
+//    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
+//        
+//    }
     
     func notify(region: String) {
         let myTasksRef = FIRDatabase.database().reference().child("Tasks/\(myId)")
-        var tasks = [Task]()
         
         myTasksRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            let tasksJSON = snapshot.value as? NSDictionary
+            let tasksJSON = snapshot.value as? Dictionary<String, Dictionary<String, String>>
             
             if tasksJSON != nil {
                 for (_id, taskData) in tasksJSON! {
-                    var taskDict = taskData as! Dictionary<String, String>
-                    
-                    if (taskDict["location"]!.lowercaseString == region){
-                        let task = Task(_id as! String, taskDict["task"]!, taskDict["category1"]!, taskDict["category2"]!,
-                            taskDict["category3"]!, taskDict["mov_sta"]!, taskDict["location"]!)
+                    if (taskData["location"]!.lowercaseString == region){
+                        let task = Task(_id, taskData["task"]!, taskData["category1"]!, taskData["category2"]!,
+                            taskData["category3"]!, taskData["mov_sta"]!, taskData["location"]!)
                         
-                        tasks.append(task)
+                        self.sendNotification(task)
                     }
                 }
             }
-            
-            self.sendNotifications(tasks)
         })
     }
 

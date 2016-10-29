@@ -16,44 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     var window: UIWindow?
     let beaconManager = ESTBeaconManager()
     
-    // ADEL
-//    var beacons: [UInt16: String] = [53805: "bike", 41424: "bedroom", 35710: "helens apartment"]
-    // hotel (bedroom): 41424
-    // bravo (bike): 53805
-    // delta (helens apartment): 35710
-    
-    // HELEN
-//    var beacons: [UInt16: String] = [34944: "car", 62318: "living room", 44363: "bedroom"]
-    // tango (car): 34944
-    // uniform (living room): 62318
-    // victor (bedroom): 44363
-    
-    // BILL
-//    var beacons: [UInt16: String] = [32706: "bedroom", 58574: "suite lounge"]
-    // papa (bedroom): 32706
-    // alpha (suite lounge): 58574
-    // india (AG52): 30885
-    
-    // ME/Max
-    var beacons: [UInt16: String] = [59582: "kitchen", 39192: "fireplace", 49825: "bathroom"]
-    // var beacons: [UInt16: String] = [59582: "romeo"]
-    // var beacons: [UInt16: String] = [39192: "whiskey"]
-    // var beacons: [UInt16: String] = [49825: "quebec"]
-    
-    // No beacons
-//    var beacons: [UInt16: String] = [:]
-    
     var notify: Notify
-    var log: LogData
-    
+    var beacons = Beacons.sharedInstance.beacons
     
     override init() {
         
         /* Configure Firebase and Firebase-using clients */
         FIRApp.configure()
         notify = Notify()
-        log = LogData(owner: UIDevice.currentDevice().identifierForVendor!.UUIDString)
-        
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -92,8 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     /* Set up notification actions */
     func setUpNotificationActions() {
         
-        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Done!", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
-        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Later", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        let notificationActionMarkDone = createNotificationAction("MARK_DONE", title: "Mark done", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
+        let notificationActionForLater = createNotificationAction("FOR_LATER", title: "Snooze", destructive: true, authenticationRequired: false, activationMode: UIUserNotificationActivationMode.Background)
         
         // put our actions in a category
         let notificationCategoryRespondToMT = UIMutableUserNotificationCategory()
@@ -172,28 +142,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
     func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
         print("exited \(region.identifier)")
     }
-    
-    func pickLocationForTask(parentViewController: UIViewController, taskWithoutLoc: Task) {
-        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .ActionSheet)
-        
-        let cancelActionButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil )
-        actionSheet.addAction(cancelActionButton)
-        
-        var actionButton: UIAlertAction
-        for name in beacons.values {
-            actionButton = UIAlertAction(title: name.capitalizedString, style: .Default, handler: { action -> Void in
-                
-                Task(taskWithoutLoc._id, taskWithoutLoc.name, taskWithoutLoc.category1, taskWithoutLoc.category2, taskWithoutLoc.category3, taskWithoutLoc.mov_sta, action.title!).pushToFirebase()
-                
-                let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Close", style: .Default, handler: nil))
-                parentViewController.presentViewController(alert, animated: true, completion: nil)
-            })
-            actionSheet.addAction(actionButton)
-        }
-        
-        parentViewController.presentViewController(actionSheet, animated: true, completion: nil)
-    }
-    
 }
 

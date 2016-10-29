@@ -13,7 +13,7 @@
 		D973D9721DA833B500CAD9A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D973D9711DA833B500CAD9A3 /* GoogleService-Info.plist */; };
 		D97A44191DC3B3DE00B3A184 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* Notify.swift */; };
 		D992369F1CC97260009C4271 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D992369E1CC97260009C4271 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		D9C286641CC5CB5300A4CF98 /* NotifyMicrotasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */; };
+		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */; };
 		D9DF32E61DBBE61100281264 /* MyTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E51DBBE61100281264 /* MyTasksViewController.swift */; };
 		D9DF32E81DBBE64C00281264 /* MyTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E71DBBE64C00281264 /* MyTasksTableViewController.swift */; };
@@ -22,7 +22,6 @@
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 		D9EEA8CA1CEE7FB1000C64A0 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */; };
-		D9EEA8CC1CEE80ED000C64A0 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,7 @@
 		D973D9711DA833B500CAD9A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D97A44181DC3B3DE00B3A184 /* Notify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		D992369E1CC97260009C4271 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyMicrotasks.swift; sourceTree = "<group>"; };
+		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableViewController.swift; sourceTree = "<group>"; };
 		D9DF32E51DBBE61100281264 /* MyTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTasksViewController.swift; sourceTree = "<group>"; };
 		D9DF32E71DBBE64C00281264 /* MyTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTasksTableViewController.swift; sourceTree = "<group>"; };
@@ -45,7 +44,6 @@
 		D9E588961CC538650084D7E7 /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogData.swift; sourceTree = "<group>"; };
 		ECEE916698B983E30478A6B5 /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,7 +85,6 @@
 				D973D9711DA833B500CAD9A3 /* GoogleService-Info.plist */,
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
 				D9EEA8C91CEE7FB1000C64A0 /* Utilities.swift */,
-				D9EEA8CB1CEE80ED000C64A0 /* LogData.swift */,
 			);
 			name = "Supporting files";
 			sourceTree = "<group>";
@@ -119,6 +116,7 @@
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
+				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 			);
 			path = MicroReminders;
 			sourceTree = "<group>";
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
-				D9C286631CC5CB5300A4CF98 /* NotifyMicrotasks.swift */,
 				D97A44181DC3B3DE00B3A184 /* Notify.swift */,
 			);
 			name = NotifyTask;
@@ -275,13 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9EEA8CC1CEE80ED000C64A0 /* LogData.swift in Sources */,
 				D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */,
+				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D9DF32E61DBBE61100281264 /* MyTasksViewController.swift in Sources */,
 				D9DF32EC1DBBE84400281264 /* MyTasksTableCell.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
 				D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */,
-				D9C286641CC5CB5300A4CF98 /* NotifyMicrotasks.swift in Sources */,
 				D9DF32E81DBBE64C00281264 /* MyTasksTableViewController.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* Notify.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,

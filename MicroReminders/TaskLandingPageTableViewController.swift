@@ -89,7 +89,7 @@ class TaskLandingPageTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let taskInd = indexPath.row
         if (tappedCell == indexPath.row) {
-            (UIApplication.sharedApplication().delegate as! AppDelegate).pickLocationForTask(self, taskWithoutLoc: self.displayTaskList[taskInd])
+            displayTaskList[taskInd].pickLocationAndPushTask(self)
         }
         
         tappedCell = taskInd

@@ -25,9 +25,9 @@ class TaskLandingPageViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func sendCustomTask(sender: UIButton) {
         if (enterTask.text != "") {
-            let task = Task(NSUUID().UUIDString, enterTask.text!, "user_entered", "user_entered", "user_entered", "user_entered")
+            var task = Task(NSUUID().UUIDString, enterTask.text!, "user_entered", "user_entered", "user_entered", "user_entered")
             
-            (UIApplication.sharedApplication().delegate as! AppDelegate).pickLocationForTask(self, taskWithoutLoc: task)
+            task.pickLocationAndPushTask(self)
             enterTask.text = ""
         }
     }
