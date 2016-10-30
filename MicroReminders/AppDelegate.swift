@@ -59,14 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         switch response.actionIdentifier {
-        case "mark done":
-            handleMarkDone(response.notification)
+        case "done":
+            handleDone(response.notification)
         case "snooze":
-            handleForLater(response.notification)
+            handleSnooze(response.notification)
         case UNNotificationDismissActionIdentifier:
-            print("dismissing")
+            handleSnooze(response.notification)
         case UNNotificationDefaultActionIdentifier:
-            print("default handler")
+            handleDefault(response.notification)
         default:
             break
         }
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* Set up notification actions */
     func setUpNotificationActions() {
         
-        let done = UNNotificationAction(identifier: "mark done", title: "Mark done", options: [])
+        let done = UNNotificationAction(identifier: "done", title: "Done with task!", options: [])
         let snooze = UNNotificationAction(identifier: "snooze", title: "Snooze", options: [])
         
         // put our actions in a category
@@ -91,12 +91,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         UNUserNotificationCenter.current().setNotificationCategories([respond])
     }
     
-    func handleMarkDone(_ notification: UNNotification){
+    /* Handle marking a task done */
+    func handleDone(_ notification: UNNotification){
         print("marked done action")
     }
     
-    func handleForLater(_ notification: UNNotification){
+    /* Handle snoozing a task */
+    func handleSnooze(_ notification: UNNotification){
         print("for later action")
+    }
+    
+    /* Create alertController to handle notification in-app */
+    func handleDefault(_ notification: UNNotification) {
+        let title = "\(notification.request.content.userInfo["task"]!)"
+        let alert = UIAlertController(title: title, message: "Would you like to snooze this microtask or is it done?", preferredStyle: .alert)
+        let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { [unowned self, notification] (action: UIAlertAction) in
+            self.handleSnooze(notification)
+        })
+        let markDone = UIAlertAction(title: "Done with task", style: .default, handler: { [unowned self, notification] (action: UIAlertAction) in
+            self.handleDone(notification)
+        })
+        alert.addAction(snooze); alert.addAction(markDone)
+        
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     /* Send notifications when we enter a region */
