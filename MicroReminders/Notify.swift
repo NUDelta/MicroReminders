@@ -7,21 +7,30 @@
 //
 
 import UIKit
+import UserNotifications
 import Firebase
 
 class Notify {
     let myId = UIDevice.current.identifierForVendor!.uuidString
+    let requestIdentifier = "reminder"
     
     
     func sendNotification(_ task: Task) {
-        let notif = UILocalNotification()
-        notif.alertBody = "Reminder: \(task.name)!"
-        notif.category = "RESPOND_TO_MT_DEFAULT"
+        print("Notifying \(task.name)")
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder!"
+        content.body = "\(task.name)"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "respond_to_task"
         
         let userInfo = ["task":task.name]
-        notif.userInfo = userInfo
+        content.userInfo = userInfo
         
-        UIApplication.shared.presentLocalNotificationNow(notif)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
 //    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
