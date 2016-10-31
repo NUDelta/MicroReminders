@@ -11,8 +11,39 @@ import UserNotifications
 import Firebase
 
 class TaskNotificationManager {
-    let myId = UIDevice.current.identifierForVendor!.uuidString
-    let responder = TaskNotificationResponder()
+    fileprivate enum TaskNotificationAction {
+        case thrown
+        case snoozed
+        case done
+        case cleared
+    }
+    
+    fileprivate let myId = UIDevice.current.identifierForVendor!.uuidString
+    
+    /** Get Firebase ref for logging a task notification action happening now */
+    fileprivate func logTaskNotificationAction(_ task: Task, action: TaskNotificationAction) {
+        let ref = FIRDatabase.database().reference().child("Notifications/\(myId)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
+        
+        switch action {
+        case .thrown:
+            ref.setValue("thrown")
+        case .snoozed:
+            ref.setValue("snoozed")
+        case .done:
+            ref.setValue("done")
+        case .cleared:
+            ref.setValue("clearSnoozed")
+        }
+    }
+    
+    /** Get Firebase ref for my tasks */
+    fileprivate func firebaseRefForMyTasks() -> FIRDatabaseReference {
+        return FIRDatabase.database().reference().child("Tasks/\(myId)")
+    }
+}
+
+/** Send task notifications */
+class TaskNotificationSender: TaskNotificationManager {
     fileprivate let scheduler = TaskScheduler()
     
     /** Convert a task to a dictionary for storage in a notification */
@@ -31,7 +62,7 @@ class TaskNotificationManager {
         ]
     }
     
-    func sendNotification(_ task: Task) {
+    fileprivate func sendNotification(_ task: Task) {
         print("Notifying \(task.name)")
         let content = UNMutableNotificationContent()
         content.title = "Reminder!"
@@ -47,34 +78,39 @@ class TaskNotificationManager {
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        logTaskNotificationAction(task, action: .thrown)
     }
     
     /** Select and notify for tasks for a given location */
     func notify(_ location: String) {
-        let myTasksRef = FIRDatabase.database().reference().child("Tasks/\(myId)")
+        let myTasksRef = firebaseRefForMyTasks()
         
         myTasksRef
-            .queryEqual(toValue: location, childKey: "location")
             .observeSingleEvent(of: .value, with: { snapshot in
                 let tasksJSON = snapshot.value as? [String: [String: String]]
                 
                 if (tasksJSON != nil) {
-                    var incomplete = tasksJSON!
-                    for (_id, taskData) in incomplete {
-                        if taskData["completed"] != "false" { incomplete.removeValue(forKey: _id) }
+                    var candidatesForNotification = tasksJSON!
+                    for (_id, taskData) in candidatesForNotification {
+                        if (taskData["completed"] != "false" ||
+                            taskData["location"] != location)
+                        {
+                                candidatesForNotification.removeValue(forKey: _id)
+                        }
                     }
                     
-                    if (!incomplete.isEmpty) {
-                        let taskToNotify = self.scheduler.pickTaskToNotify(tasksJSON: incomplete)
+                    if (!candidatesForNotification.isEmpty) {
+                        let taskToNotify = self.scheduler.pickTaskToNotify(tasksJSON: candidatesForNotification)
                         self.sendNotification(taskToNotify)
                     }
                 }
-        })
+            })
     }
 }
 
 /** Respond to a task notification */
-class TaskNotificationResponder {
+class TaskNotificationResponder: TaskNotificationManager {
     
     /** Extract a a task from a notification */
     func extractTaskFromNotification(_ notification: UNNotification) -> Task {
@@ -98,6 +134,7 @@ class TaskNotificationResponder {
         let task = extractTaskFromNotification(notification)
         task.completed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase()
+        logTaskNotificationAction(task, action: .done)
     }
     
     /** Snooze a task */
@@ -105,6 +142,14 @@ class TaskNotificationResponder {
         let task = extractTaskFromNotification(notification)
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase()
+        logTaskNotificationAction(task, action: .snoozed)
+    }
+    
+    func clearSnooze(_ notification: UNNotification) {
+        let task = extractTaskFromNotification(notification)
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+        task.pushToFirebase()
+        logTaskNotificationAction(task, action: .cleared)
     }
 }
 
@@ -145,8 +190,8 @@ fileprivate class TaskScheduler {
     
     /** Pick a scheduling policy, and notify for that task */
     func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
-        return pickRandom(tasksJSON: tasksJSON)
-        // return pickLastSnoozed(tasksJSON: tasksJSON)
+        // return pickRandom(tasksJSON: tasksJSON)
+        return pickLastSnoozed(tasksJSON: tasksJSON)
     }
 }
 

@@ -37,6 +37,8 @@ class Task {
         self.category2 = category2
         self.category3 = category3
         self.mov_sta = mov_sta
+        self.location = location
+        self.completed = completed
         self.lastSnoozed = timeRightNow()
     }
     
@@ -69,7 +71,7 @@ class Task {
         var actionButton: UIAlertAction
         for name in Beacons.sharedInstance.beacons.values {
             actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { (action) -> Void in
-                self.location = action.title!
+                self.location = action.title!.lowercased()
                 self.lastSnoozed = self.timeRightNow()
                 self.pushToFirebase()
                 
