@@ -52,7 +52,7 @@ class TaskLandingPageTableViewController: UITableViewController {
     }
     
     func fillTaskList(_ snapshot: FIRDataSnapshot, taskList: inout [Task]) -> Void {
-        let taskJSON = snapshot.value as? Dictionary<String, Dictionary<String, String>>
+        let taskJSON = snapshot.value as? [String: [String: String]]
         
         if taskJSON != nil {
             for (_id, taskData) in taskJSON! {
@@ -65,7 +65,7 @@ class TaskLandingPageTableViewController: UITableViewController {
                     mov_sta: taskData["mov_sta"]!,
                     location: taskData["location"]!,
                     completed: taskData["completed"]!,
-                    timeSinceNotified: taskData["timeSinceNotified"]!
+                    lastSnoozed: taskData["lastSnoozed"]!
                 )
                 
                 taskList.append(task)

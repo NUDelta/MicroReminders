@@ -52,7 +52,6 @@ class MyIncompleteTasksTableViewController: UITableViewController {
     }
     
     func updateDisplayTasks() -> Void {
-        myTaskList = [Task]()
         self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
             self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
             self.displayTaskList = self.myTaskList.filter({ task in task.completed == "false" })
@@ -63,7 +62,9 @@ class MyIncompleteTasksTableViewController: UITableViewController {
     }
     
     func fillTaskList(_ snapshot: FIRDataSnapshot, taskList: inout [Task]) -> Void {
-        let taskJSON = snapshot.value as? Dictionary<String, Dictionary<String, String>>
+        taskList = [Task]()
+        
+        let taskJSON = snapshot.value as? [String: [String: String]]
         
         if taskJSON != nil {
             for (_id, taskData) in taskJSON! {
@@ -76,7 +77,7 @@ class MyIncompleteTasksTableViewController: UITableViewController {
                     mov_sta: taskData["mov_sta"]!,
                     location: taskData["location"]!,
                     completed: taskData["completed"]!,
-                    timeSinceNotified: taskData["timeSinceNotified"]!
+                    lastSnoozed: taskData["lastSnoozed"]!
                 )
                 
                 taskList.append(task)

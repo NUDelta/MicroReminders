@@ -18,7 +18,7 @@ class Task {
     let length: String = "1 min"
     var location: String = "unassigned"
     var completed: String = "false"
-    var timeSinceNotified: String = String(Date().timeIntervalSince1970)
+    var lastSnoozed: String = "-1"
     
     init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String) {
         self._id = _id
@@ -27,24 +27,37 @@ class Task {
         self.category2 = category2
         self.category3 = category3
         self.mov_sta = mov_sta
+        self.lastSnoozed = timeRightNow()
     }
     
-    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String, location: String, completed: String, timeSinceNotified: String) {
+    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String, location: String, completed: String, lastSnoozed: String) {
         self._id = _id
         self.name = name
         self.category1 = category1
         self.category2 = category2
         self.category3 = category3
         self.mov_sta = mov_sta
-        self.location = location
-        self.completed = completed
-        self.timeSinceNotified = timeSinceNotified
+        self.lastSnoozed = timeRightNow()
+    }
+    
+    func timeRightNow() -> String {
+        return String(Int(Date().timeIntervalSince1970))
     }
     
     func pushToFirebase() -> Void {
         let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
-        myTaskRef.child(_id).setValue(["task":name, "category1":category1, "category2":category2, "category3":category3, "mov_sta":mov_sta, "length":length, "location":location, "completed": completed])
+        myTaskRef.child(_id).setValue([
+            "task":name,
+            "category1":category1,
+            "category2":category2,
+            "category3":category3,
+            "mov_sta":mov_sta,
+            "length":length,
+            "location":location,
+            "completed":completed,
+            "lastSnoozed":lastSnoozed
+            ])
     }
     
     func pickLocationAndPushTask(_ parentViewController: UIViewController) {
@@ -57,6 +70,7 @@ class Task {
         for name in Beacons.sharedInstance.beacons.values {
             actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { (action) -> Void in
                 self.location = action.title!
+                self.lastSnoozed = self.timeRightNow()
                 self.pushToFirebase()
                 
                 let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)

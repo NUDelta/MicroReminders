@@ -32,7 +32,7 @@ class Notify {
             "t_length":task.length,
             "t_location":task.location,
             "t_mov_sta":task.mov_sta,
-            "t_timeSinceNotified":task.timeSinceNotified
+            "t_lastSnoozed":task.lastSnoozed
         ]
         content.userInfo = userInfo
         
@@ -43,34 +43,52 @@ class Notify {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
-//    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
-//        
-//    }
+    /** Build a task from a dictionary entry from Firebase */
+    func dictToTask(_id: String, taskJSON: [String: String]) -> Task {
+        return Task(
+            _id,
+            name: taskJSON["task"]!,
+            category1: taskJSON["category1"]!,
+            category2: taskJSON["category2"]!,
+            category3: taskJSON["category3"]!,
+            mov_sta: taskJSON["mov_sta"]!,
+            location: taskJSON["location"]!,
+            completed: taskJSON["completed"]!,
+            lastSnoozed: taskJSON["lastSnoozed"]!
+        )
+    }
+    
+    /** Pick the oldest (last snoozed/created) task to notify (FIFO) */
+    func pickLastSnoozed(tasksJSON: [String: [String: String]]) -> Task {
+        let sortedByAge = tasksJSON.sorted(by: { (task1: (_id: String, data: [String: String]), task2: (_id: String, data: [String: String])) in
+            Int(task1.data["lastSnoozed"]!)! < Int(task2.data["lastSnoozed"]!)!
+        })
+        let oldest = sortedByAge.first!
+        return dictToTask(_id: oldest.key, taskJSON: oldest.value)
+    }
+    
+    /** Pick a random task */
+    func pickRandom(tasksJSON: [String: [String: String]]) -> Task {
+        let randomInd = Int(arc4random()) % tasksJSON.keys.count
+        let randomKey = Array(tasksJSON.keys)[randomInd]
+        return dictToTask(_id: randomKey, taskJSON: tasksJSON[randomKey]!)
+    }
+    
+    /** Pick a scheduling policy, and notify for that task */
+    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
+        // return pickRandom(tasksJSON: tasksJSON)
+        return pickLastSnoozed(tasksJSON: tasksJSON)
+    }
     
     func notify(_ region: String) {
         let myTasksRef = FIRDatabase.database().reference().child("Tasks/\(myId)")
         
         myTasksRef.observeSingleEvent(of: .value, with: { snapshot in
-            let tasksJSON = snapshot.value as? Dictionary<String, Dictionary<String, String>>
+            let tasksJSON = snapshot.value as? [String: [String: String]]
             
             if tasksJSON != nil {
-                for (_id, taskData) in tasksJSON! {
-                    if (taskData["location"]!.lowercased() == region){
-                        let task = Task(
-                            _id,
-                            name: taskData["task"]!,
-                            category1: taskData["category1"]!,
-                            category2: taskData["category2"]!,
-                            category3: taskData["category3"]!,
-                            mov_sta: taskData["mov_sta"]!,
-                            location: taskData["location"]!,
-                            completed: taskData["completed"]!,
-                            timeSinceNotified: taskData["timeSinceNotified"]!
-                        )
-                        
-                        self.sendNotification(task)
-                    }
-                }
+                let taskToNotify = self.pickTaskToNotify(tasksJSON: tasksJSON!)
+                self.sendNotification(taskToNotify)
             }
         })
     }

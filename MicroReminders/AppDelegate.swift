@@ -93,17 +93,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* Handle marking a task done */
     func handleDone(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
-        task.completed = String(Date().timeIntervalSince1970)
+        task.completed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase()
     }
     
     /* Handle snoozing a task */
     func handleSnooze(_ notification: UNNotification) {
-        
-        // Compute time since last notified (or created) and update
         let task = extractTaskFromNotification(notification)
-        let elapsed = Int(Date().timeIntervalSince1970) - Int(task.timeSinceNotified)!
-        task.timeSinceNotified = String(elapsed)
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase()
     }
     
@@ -134,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             mov_sta: userInfo["t_mov_sta"] as! String,
             location: userInfo["t_location"] as! String,
             completed: userInfo["t_completed"] as! String,
-            timeSinceNotified: userInfo["t_timeSinceNotified"] as! String
+            lastSnoozed: userInfo["t_lastSnoozed"] as! String
         )
     }
     
