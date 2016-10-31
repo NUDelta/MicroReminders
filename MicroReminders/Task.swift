@@ -17,9 +17,10 @@ class Task {
     let mov_sta: String
     let length: String = "1 min"
     var location: String = "unassigned"
-    var timeSinceNotified: Int = Int.max
+    var completed: String = "false"
+    var timeSinceNotified: String = String(Date().timeIntervalSince1970)
     
-    init(_ _id: String, _ name: String, _ category1: String, _ category2: String, _ category3: String, _ mov_sta: String) {
+    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String) {
         self._id = _id
         self.name = name
         self.category1 = category1
@@ -28,7 +29,7 @@ class Task {
         self.mov_sta = mov_sta
     }
     
-    init(_ _id: String, _ name: String, _ category1: String, _ category2: String, _ category3: String, _ mov_sta: String, _ location: String) {
+    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String, location: String, completed: String, timeSinceNotified: String) {
         self._id = _id
         self.name = name
         self.category1 = category1
@@ -36,12 +37,14 @@ class Task {
         self.category3 = category3
         self.mov_sta = mov_sta
         self.location = location
+        self.completed = completed
+        self.timeSinceNotified = timeSinceNotified
     }
     
     func pushToFirebase() -> Void {
         let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
-        myTaskRef.child(_id).setValue(["task":name, "category1":category1, "category2":category2, "category3":category3, "mov_sta":mov_sta, "length":length, "location":location])
+        myTaskRef.child(_id).setValue(["task":name, "category1":category1, "category2":category2, "category3":category3, "mov_sta":mov_sta, "length":length, "location":location, "completed": completed])
     }
     
     func pickLocationAndPushTask(_ parentViewController: UIViewController) {
@@ -52,8 +55,7 @@ class Task {
         
         var actionButton: UIAlertAction
         for name in Beacons.sharedInstance.beacons.values {
-            actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { [unowned self] (action) -> Void in
-                
+            actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { (action) -> Void in
                 self.location = action.title!
                 self.pushToFirebase()
                 

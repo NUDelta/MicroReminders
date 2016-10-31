@@ -14,7 +14,6 @@ class Notify {
     let myId = UIDevice.current.identifierForVendor!.uuidString
     let requestIdentifier = "reminder"
     
-    
     func sendNotification(_ task: Task) {
         print("Notifying \(task.name)")
         let content = UNMutableNotificationContent()
@@ -23,7 +22,18 @@ class Notify {
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "respond_to_task"
         
-        let userInfo = ["task":task.name]
+        let userInfo = [
+            "t_id":task._id,
+            "t_name":task.name,
+            "t_category1":task.category1,
+            "t_category2":task.category2,
+            "t_category3":task.category3,
+            "t_completed":task.completed,
+            "t_length":task.length,
+            "t_location":task.location,
+            "t_mov_sta":task.mov_sta,
+            "t_timeSinceNotified":task.timeSinceNotified
+        ]
         content.userInfo = userInfo
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
@@ -46,8 +56,17 @@ class Notify {
             if tasksJSON != nil {
                 for (_id, taskData) in tasksJSON! {
                     if (taskData["location"]!.lowercased() == region){
-                        let task = Task(_id, taskData["task"]!, taskData["category1"]!, taskData["category2"]!,
-                            taskData["category3"]!, taskData["mov_sta"]!, taskData["location"]!)
+                        let task = Task(
+                            _id,
+                            name: taskData["task"]!,
+                            category1: taskData["category1"]!,
+                            category2: taskData["category2"]!,
+                            category3: taskData["category3"]!,
+                            mov_sta: taskData["mov_sta"]!,
+                            location: taskData["location"]!,
+                            completed: taskData["completed"]!,
+                            timeSinceNotified: taskData["timeSinceNotified"]!
+                        )
                         
                         self.sendNotification(task)
                     }
