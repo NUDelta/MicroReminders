@@ -76,8 +76,8 @@ class Notify {
     
     /** Pick a scheduling policy, and notify for that task */
     func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
-        // return pickRandom(tasksJSON: tasksJSON)
-        return pickLastSnoozed(tasksJSON: tasksJSON)
+        return pickRandom(tasksJSON: tasksJSON)
+        // return pickLastSnoozed(tasksJSON: tasksJSON)
     }
     
     func notify(_ region: String) {
@@ -86,11 +86,29 @@ class Notify {
         myTasksRef.observeSingleEvent(of: .value, with: { snapshot in
             let tasksJSON = snapshot.value as? [String: [String: String]]
             
-            if tasksJSON != nil {
-                let taskToNotify = self.pickTaskToNotify(tasksJSON: tasksJSON!)
-                self.sendNotification(taskToNotify)
+            if (tasksJSON != nil) {
+                var incomplete = tasksJSON!
+                for (_id, taskData) in incomplete {
+                    if taskData["completed"] != "false" { incomplete.removeValue(forKey: _id) }
+                }
+                
+                if (!incomplete.isEmpty) {
+                    let taskToNotify = self.pickTaskToNotify(tasksJSON: incomplete)
+                    self.sendNotification(taskToNotify)
+                }
             }
         })
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+

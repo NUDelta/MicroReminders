@@ -11,6 +11,7 @@
 		D94BB5041DC68DBC0050B8DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D94BB5031DC68DBC0050B8DA /* GoogleService-Info.plist */; };
 		D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */; };
 		D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */; };
+		D94BB5101DC7B9830050B8DA /* MockRegionEnteredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50F1DC7B9830050B8DA /* MockRegionEnteredVC.swift */; };
 		D972FB041DAEB8040052DBC1 /* TaskLandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */; };
 		D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */; };
 		D97A44191DC3B3DE00B3A184 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* Notify.swift */; };
@@ -32,6 +33,7 @@
 		D94BB5031DC68DBC0050B8DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableViewController.swift; sourceTree = "<group>"; };
 		D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableCell.swift; sourceTree = "<group>"; };
+		D94BB50F1DC7B9830050B8DA /* MockRegionEnteredVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRegionEnteredVC.swift; sourceTree = "<group>"; };
 		D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageViewController.swift; sourceTree = "<group>"; };
 		D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableCell.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* Notify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
 				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
+				D94BB50F1DC7B9830050B8DA /* MockRegionEnteredVC.swift */,
 			);
 			path = MicroReminders;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
+				D94BB5101DC7B9830050B8DA /* MockRegionEnteredVC.swift in Sources */,
 				D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */,
 				D9DF32E61DBBE61100281264 /* MyTasksViewController.swift in Sources */,
 				D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */,
