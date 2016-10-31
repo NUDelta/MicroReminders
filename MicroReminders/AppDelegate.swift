@@ -19,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     var beacons = Beacons.sharedInstance.beacons
     let beaconManager = ESTBeaconManager()
     
-    var notify: Notify
+    var taskNotificationManager: TaskNotificationManager
     
     override init() {
         FIRApp.configure() // Configure Firebase (must happen before any Firebase-using classes init)
-        notify = Notify()
+        taskNotificationManager = TaskNotificationManager()
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         case UNNotificationDismissActionIdentifier:
             handleSnooze(response.notification)
         case UNNotificationDefaultActionIdentifier:
-            handleDefault(response.notification)
+            handleInApp(response.notification)
         default:
             break
         }
@@ -92,21 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /* Handle marking a task done */
     func handleDone(_ notification: UNNotification) {
-        let task = extractTaskFromNotification(notification)
-        task.completed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase()
+        taskNotificationManager.responder.markDone(notification)
     }
     
     /* Handle snoozing a task */
     func handleSnooze(_ notification: UNNotification) {
-        let task = extractTaskFromNotification(notification)
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase()
+        taskNotificationManager.responder.snooze(notification)
     }
     
     /* Create alertController to handle notification in-app */
-    func handleDefault(_ notification: UNNotification) {
-        let title = "\(extractTaskFromNotification(notification).name)"
+    func handleInApp(_ notification: UNNotification) {
+        let title = "\(notification.request.content.userInfo["t_name"])"
         let alert = UIAlertController(title: title, message: "Would you like to snooze this microtask or is it done?", preferredStyle: .alert)
         let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { [unowned self, notification] (action: UIAlertAction) in
             self.handleSnooze(notification)
@@ -119,26 +115,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func extractTaskFromNotification(_ notification: UNNotification) -> Task {
-        let userInfo = notification.request.content.userInfo
-        
-        return Task(
-            userInfo["t_id"] as! String,
-            name: userInfo["t_name"] as! String,
-            category1: userInfo["t_category1"] as! String,
-            category2: userInfo["t_category2"] as! String,
-            category3: userInfo["t_category3"] as! String,
-            mov_sta: userInfo["t_mov_sta"] as! String,
-            location: userInfo["t_location"] as! String,
-            completed: userInfo["t_completed"] as! String,
-            lastSnoozed: userInfo["t_lastSnoozed"] as! String
-        )
-    }
-    
     /* Send notifications when we enter a region */
     func beaconManager(_ manager: Any, didEnter region: CLBeaconRegion) {
         print("entered \(region.identifier)")
-        notify.notify(beacons[UInt16((region.minor?.intValue)!)]!)
+        taskNotificationManager.notify(beacons[UInt16((region.minor?.intValue)!)]!)
     }
     
     func beaconManager(_ manager: Any, didExitRegion region: CLBeaconRegion) {

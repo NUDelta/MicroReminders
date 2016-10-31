@@ -14,7 +14,7 @@
 		D94BB5101DC7B9830050B8DA /* MockRegionEnteredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50F1DC7B9830050B8DA /* MockRegionEnteredVC.swift */; };
 		D972FB041DAEB8040052DBC1 /* TaskLandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */; };
 		D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */; };
-		D97A44191DC3B3DE00B3A184 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* Notify.swift */; };
+		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */; };
 		D9DF32E61DBBE61100281264 /* MyTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E51DBBE61100281264 /* MyTasksViewController.swift */; };
@@ -36,7 +36,7 @@
 		D94BB50F1DC7B9830050B8DA /* MockRegionEnteredVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRegionEnteredVC.swift; sourceTree = "<group>"; };
 		D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageViewController.swift; sourceTree = "<group>"; };
 		D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableCell.swift; sourceTree = "<group>"; };
-		D97A44181DC3B3DE00B3A184 /* Notify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
+		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableViewController.swift; sourceTree = "<group>"; };
 		D9DF32E51DBBE61100281264 /* MyTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTasksViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
-				D97A44181DC3B3DE00B3A184 /* Notify.swift */,
+				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -289,7 +289,7 @@
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
 				D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */,
 				D9DF32E81DBBE64C00281264 /* MyIncompleteTasksTableViewController.swift in Sources */,
-				D97A44191DC3B3DE00B3A184 /* Notify.swift in Sources */,
+				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
 				D972FB041DAEB8040052DBC1 /* TaskLandingPageViewController.swift in Sources */,
 				D9EEA8CA1CEE7FB1000C64A0 /* Utilities.swift in Sources */,
