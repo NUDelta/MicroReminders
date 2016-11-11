@@ -41,7 +41,8 @@ class MyIncompleteTasksTableViewController: UITableViewController {
         
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
-        cell.taskTime.text = "1 min"
+        cell.task = task
+        cell.tableViewController = self
         
         return cell
     }

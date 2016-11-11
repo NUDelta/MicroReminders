@@ -18,7 +18,10 @@ class TaskLandingPageTableViewController: UITableViewController {
     var myTaskList = [Task]()
     var displayTaskList = [Task]()
     
-    var tappedCell = -1
+    var tappedCell: Task!
+    
+    let myLightGrey = UIColor(colorLiteralRed: 217.0/255, green: 217.0/255, blue: 217.0/255, alpha: 1)
+    let myDarkGrey = UIColor(colorLiteralRed: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
 
     // Table loading
     override func viewDidLoad() {
@@ -86,19 +89,22 @@ class TaskLandingPageTableViewController: UITableViewController {
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
-        cell.taskTime.text = task.length
+        cell.task = task
+        cell.tableViewController = self
+        
+        if (indexPath.row % 2 == 0) {
+            cell.backgroundColor = myLightGrey
+        }
+        else {
+            cell.backgroundColor = myDarkGrey
+        }
 
         return cell
     }
     
     // Table interaction
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskInd = indexPath.row
-        if (tappedCell == indexPath.row) {
-            displayTaskList[taskInd].pickLocationAndPushTask(self)
-        }
-        
-        tappedCell = taskInd
+        tappedCell = displayTaskList[indexPath.row]
     }
 }
 

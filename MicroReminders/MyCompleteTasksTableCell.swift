@@ -11,6 +11,13 @@ import UIKit
 class MyCompleteTasksTableCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
-    @IBOutlet weak var taskCompleted: UILabel!
+    @IBOutlet weak var timeCompleted: UILabel!
+    var tableViewController: UITableViewController! = nil
+ 
+    var task: Task! = nil
     
+    
+    @IBAction func infoTapped(_ sender: UIButton) {
+        task.viewTaskDetailAlert(tableViewController)
     }
+}

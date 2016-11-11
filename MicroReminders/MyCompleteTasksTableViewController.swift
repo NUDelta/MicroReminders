@@ -15,6 +15,8 @@ class MyCompleteTasksTableViewController: UITableViewController {
     var myTaskList = [Task]()
     var displayTaskList = [Task]()
     
+    var tappedCell = -1
+    
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,20 +37,39 @@ class MyCompleteTasksTableViewController: UITableViewController {
         return displayTaskList.count
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCompleteTasksTableCell", for: indexPath) as! MyCompleteTasksTableCell
         
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
-        cell.taskCompleted.text = "1 min"
+        cell.task = task
+        cell.tableViewController = self
         
         return cell
     }
     
     // Table interaction
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(myTaskList[indexPath.row])
+        let taskInd = indexPath.row
+        if (tappedCell == indexPath.row) {
+            let task = displayTaskList[tappedCell]
+            let actionSheet = UIAlertController(title: "Reactivate task: \(task.name)?", message: "Would you like to reactivate this task?", preferredStyle: .actionSheet)
+            
+            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
+            actionSheet.addAction(cancelActionButton)
+            
+            let reactivateActionButton = UIAlertAction(title: "Reactivate", style: .default, handler: { (action) in
+                Task(task: task).pushToFirebase()
+            })
+            actionSheet.addAction(reactivateActionButton)
+            
+            let reactivateNewLocActionButton = UIAlertAction(title: "Reactivate with new location", style: .default, handler: { (action) in Task(task: task).pickLocationAndPushTask(self) })
+            actionSheet.addAction(reactivateNewLocActionButton)
+            
+            self.present(actionSheet, animated: true, completion: nil)
+        }
+        
+        tappedCell = taskInd
     }
     
     func updateDisplayTasks() -> Void {

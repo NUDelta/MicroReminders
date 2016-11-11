@@ -17,8 +17,10 @@ class Task {
     let mov_sta: String
     let length: String = "1 min"
     var location: String = "unassigned"
-    var completed: String = "false"
     var lastSnoozed: String = "-1"
+    
+    let created: String = String(Date().timeIntervalSince1970)
+    var completed: String = "false"
     
     init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String) {
         self._id = _id
@@ -42,6 +44,18 @@ class Task {
         self.lastSnoozed = timeRightNow()
     }
     
+    /** Create a copy of a task - completed and created are reset */
+    init(task: Task) {
+        self._id = UUID().uuidString
+        self.name = task.name
+        self.category1 = task.category1
+        self.category2 = task.category2
+        self.category3 = task.category3
+        self.mov_sta = task.mov_sta
+        self.location = task.location
+        self.lastSnoozed = timeRightNow()
+    }
+    
     func timeRightNow() -> String {
         return String(Int(Date().timeIntervalSince1970))
     }
@@ -58,7 +72,8 @@ class Task {
             "length":length,
             "location":location,
             "completed":completed,
-            "lastSnoozed":lastSnoozed
+            "lastSnoozed":lastSnoozed,
+            "created":created
             ])
     }
     
@@ -83,6 +98,72 @@ class Task {
         }
         
         parentViewController.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func viewTaskDetailAlert(_ parentViewController: UIViewController) {
+        let alert = UIAlertController(title: "\(self.name)", message: displayMessageString(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        parentViewController.present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func createdMessageString() -> String {
+        return "Created: " + secondsStringToTime(self.created, formatStyle: .medium)
+    }
+    
+    fileprivate func completedMessageString() -> String? {
+        if (self.completed == "false") {
+            return nil
+        }
+        else {
+            return "Completed: " + secondsStringToTime(self.completed, formatStyle: .medium)
+        }
+    }
+    
+    fileprivate func lastSnoozedMessageString() -> String? {
+        if (self.lastSnoozed == "-1") {
+            return nil
+        }
+        else {
+            return "Last snoozed: " + secondsStringToTime(self.lastSnoozed, formatStyle: .medium)
+        }
+    }
+    
+    fileprivate func lengthMessageString() -> String {
+        return "Estimated duration: " + self.length
+    }
+    
+    fileprivate func locationMessageString() -> String? {
+        if (self.location == "unassigned") {
+            return nil
+        }
+        else {
+            return "Assigned location: " + self.location
+        }
+    }
+    
+    fileprivate func displayMessageString() -> String {
+        var message = ""
+        let chunks: [String?] = [
+            createdMessageString(),
+            completedMessageString(),
+            lastSnoozedMessageString(),
+            lengthMessageString(),
+            locationMessageString()
+        ]
+        
+        for chunk in chunks {
+            if chunk != nil {
+                message.append(String(format: "%C \(chunk!)\n", 0x2022 as unichar))
+            }
+        }
+        return message
+    }
+    
+    fileprivate func secondsStringToTime(_ time: String, formatStyle: DateFormatter.Style) -> String {
+        let doubleTime = Double(time)!
+        let formatter = DateFormatter()
+        formatter.dateStyle = formatStyle
+        return formatter.string(for: Date(timeIntervalSince1970: doubleTime))!
     }
 }
 

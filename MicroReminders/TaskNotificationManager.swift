@@ -58,7 +58,8 @@ class TaskNotificationSender: TaskNotificationManager {
             "t_length":task.length,
             "t_location":task.location,
             "t_mov_sta":task.mov_sta,
-            "t_lastSnoozed":task.lastSnoozed
+            "t_lastSnoozed":task.lastSnoozed,
+            "t_created":task.created
         ]
     }
     
@@ -190,8 +191,8 @@ fileprivate class TaskScheduler {
     
     /** Pick a scheduling policy, and notify for that task */
     func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
-        // return pickRandom(tasksJSON: tasksJSON)
-        return pickLastSnoozed(tasksJSON: tasksJSON)
+        return pickRandom(tasksJSON: tasksJSON)
+        // return pickLastSnoozed(tasksJSON: tasksJSON)
     }
 }
 
