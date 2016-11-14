@@ -72,10 +72,8 @@ class MyIncompleteTasksTableViewController: UITableViewController {
                 let task = Task(
                     _id,
                     name: taskData["task"]!,
-                    category1: taskData["category1"]!,
-                    category2: taskData["category2"]!,
-                    category3: taskData["category3"]!,
-                    mov_sta: taskData["mov_sta"]!,
+                    category: taskData["category"]!,
+                    subcategory: taskData["subcategory"]!,
                     location: taskData["location"]!,
                     completed: taskData["completed"]!,
                     lastSnoozed: taskData["lastSnoozed"]!

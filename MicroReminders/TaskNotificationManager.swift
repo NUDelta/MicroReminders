@@ -51,13 +51,11 @@ class TaskNotificationSender: TaskNotificationManager {
         return [
             "t_id":task._id,
             "t_name":task.name,
-            "t_category1":task.category1,
-            "t_category2":task.category2,
-            "t_category3":task.category3,
+            "t_category":task.category,
+            "t_subcategory":task.subcategory,
             "t_completed":task.completed,
             "t_length":task.length,
             "t_location":task.location,
-            "t_mov_sta":task.mov_sta,
             "t_lastSnoozed":task.lastSnoozed,
             "t_created":task.created
         ]
@@ -120,10 +118,8 @@ class TaskNotificationResponder: TaskNotificationManager {
         return Task(
             userInfo["t_id"] as! String,
             name: userInfo["t_name"] as! String,
-            category1: userInfo["t_category1"] as! String,
-            category2: userInfo["t_category2"] as! String,
-            category3: userInfo["t_category3"] as! String,
-            mov_sta: userInfo["t_mov_sta"] as! String,
+            category: userInfo["t_category"] as! String,
+            subcategory: userInfo["t_subcategory"] as! String,
             location: userInfo["t_location"] as! String,
             completed: userInfo["t_completed"] as! String,
             lastSnoozed: userInfo["t_lastSnoozed"] as! String
@@ -163,10 +159,8 @@ fileprivate class TaskScheduler {
         return Task(
             _id,
             name: taskJSON["task"]!,
-            category1: taskJSON["category1"]!,
-            category2: taskJSON["category2"]!,
-            category3: taskJSON["category3"]!,
-            mov_sta: taskJSON["mov_sta"]!,
+            category: taskJSON["category"]!,
+            subcategory: taskJSON["subcategory"]!,
             location: taskJSON["location"]!,
             completed: taskJSON["completed"]!,
             lastSnoozed: taskJSON["lastSnoozed"]!

@@ -39,10 +39,8 @@ class TaskLandingPageViewController: UIViewController, UITextFieldDelegate {
             let task = Task(
                 UUID().uuidString,
                 name: enterTask.text!,
-                category1: "user_entered",
-                category2: "user_entered",
-                category3: "user_entered",
-                mov_sta: "user_entered"
+                category: "user_entered",
+                subcategory: "user_entered"
             )
             
             task.pickLocationAndPushTask(self)

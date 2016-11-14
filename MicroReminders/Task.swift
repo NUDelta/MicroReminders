@@ -11,10 +11,8 @@ import Firebase
 class Task {
     let _id: String
     let name: String
-    let category1: String
-    let category2: String
-    let category3: String
-    let mov_sta: String
+    let category: String
+    let subcategory: String
     let length: String = "1 min"
     var location: String = "unassigned"
     var lastSnoozed: String = "-1"
@@ -22,23 +20,19 @@ class Task {
     let created: String = String(Date().timeIntervalSince1970)
     var completed: String = "false"
     
-    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String) {
+    init(_ _id: String, name: String, category: String, subcategory: String) {
         self._id = _id
         self.name = name
-        self.category1 = category1
-        self.category2 = category2
-        self.category3 = category3
-        self.mov_sta = mov_sta
+        self.category = category
+        self.subcategory = subcategory
         self.lastSnoozed = timeRightNow()
     }
     
-    init(_ _id: String, name: String, category1: String, category2: String, category3: String, mov_sta: String, location: String, completed: String, lastSnoozed: String) {
+    init(_ _id: String, name: String, category: String, subcategory: String, location: String, completed: String, lastSnoozed: String) {
         self._id = _id
         self.name = name
-        self.category1 = category1
-        self.category2 = category2
-        self.category3 = category3
-        self.mov_sta = mov_sta
+        self.category = category
+        self.subcategory = subcategory
         self.location = location
         self.completed = completed
         self.lastSnoozed = timeRightNow()
@@ -48,10 +42,8 @@ class Task {
     init(task: Task) {
         self._id = UUID().uuidString
         self.name = task.name
-        self.category1 = task.category1
-        self.category2 = task.category2
-        self.category3 = task.category3
-        self.mov_sta = task.mov_sta
+        self.category = task.category
+        self.subcategory = task.subcategory
         self.location = task.location
         self.lastSnoozed = timeRightNow()
     }
@@ -65,10 +57,8 @@ class Task {
         
         myTaskRef.child(_id).setValue([
             "task":name,
-            "category1":category1,
-            "category2":category2,
-            "category3":category3,
-            "mov_sta":mov_sta,
+            "category":category,
+            "subcategory":subcategory,
             "length":length,
             "location":location,
             "completed":completed,
