@@ -15,9 +15,4 @@ class MyCompleteTasksTableCell: UITableViewCell {
     var tableViewController: UITableViewController! = nil
  
     var task: Task! = nil
-    
-    
-    @IBAction func infoTapped(_ sender: UIButton) {
-        task.viewTaskDetailAlert(tableViewController)
-    }
 }

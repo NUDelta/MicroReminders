@@ -8,9 +8,11 @@
 
 import UIKit
 
-class TaskLandingPageCell: UITableViewCell {
+class AddTaskTableCell: UITableViewCell {
 
     @IBOutlet weak var taskName: UILabel!
+    @IBOutlet weak var subcategory: UILabel!
+    
     var task: Task! = nil
     var tableViewController: UITableViewController! = nil
     
@@ -30,10 +32,6 @@ class TaskLandingPageCell: UITableViewCell {
         else {
             self.taskName.font = UIFont.systemFont(ofSize: self.taskName.font.pointSize)
         }
-    }
-    
-    @IBAction func infoTapped(_ sender: UIButton) {
-        task.viewTaskDetailAlert(tableViewController)
     }
     
     @IBAction func addTapped(_ sender: UIButton) {

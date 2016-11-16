@@ -13,11 +13,12 @@
 		D94AE9721DCD623400256567 /* MyIncompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AE9711DCD623400256567 /* MyIncompleteTasksViewController.swift */; };
 		D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */; };
 		D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */; };
-		D972FB041DAEB8040052DBC1 /* TaskLandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */; };
-		D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */; };
+		D951F7CD1DDBB727005AA0CC /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D951F7CC1DDBB727005AA0CC /* CategoryPickerViewController.swift */; };
+		D972FB041DAEB8040052DBC1 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB031DAEB8040052DBC1 /* AddTaskViewController.swift */; };
+		D972FB061DAEBCC10052DBC1 /* AddTaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB051DAEBCC10052DBC1 /* AddTaskTableCell.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
-		D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */; };
+		D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */; };
 		D9DF32E61DBBE61100281264 /* MyCompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */; };
 		D9DF32E81DBBE64C00281264 /* MyIncompleteTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E71DBBE64C00281264 /* MyIncompleteTasksTableViewController.swift */; };
 		D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* Task.swift */; };
@@ -35,11 +36,12 @@
 		D94AE9711DCD623400256567 /* MyIncompleteTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyIncompleteTasksViewController.swift; sourceTree = "<group>"; };
 		D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableViewController.swift; sourceTree = "<group>"; };
 		D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableCell.swift; sourceTree = "<group>"; };
-		D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageViewController.swift; sourceTree = "<group>"; };
-		D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableCell.swift; sourceTree = "<group>"; };
+		D951F7CC1DDBB727005AA0CC /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		D972FB031DAEB8040052DBC1 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		D972FB051DAEBCC10052DBC1 /* AddTaskTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableCell.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
-		D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLandingPageTableViewController.swift; sourceTree = "<group>"; };
+		D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableViewController.swift; sourceTree = "<group>"; };
 		D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksViewController.swift; sourceTree = "<group>"; };
 		D9DF32E71DBBE64C00281264 /* MyIncompleteTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyIncompleteTasksTableViewController.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -134,9 +136,10 @@
 		D972FB021DAEB7990052DBC1 /* TaskLandingPage */ = {
 			isa = PBXGroup;
 			children = (
-				D972FB031DAEB8040052DBC1 /* TaskLandingPageViewController.swift */,
-				D972FB051DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift */,
-				D9CD04321DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift */,
+				D972FB031DAEB8040052DBC1 /* AddTaskViewController.swift */,
+				D972FB051DAEBCC10052DBC1 /* AddTaskTableCell.swift */,
+				D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */,
+				D951F7CC1DDBB727005AA0CC /* CategoryPickerViewController.swift */,
 			);
 			name = TaskLandingPage;
 			sourceTree = "<group>";
@@ -288,19 +291,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D908290E1DD3A7920036FB4C /* IntroPageViewController.swift in Sources */,
-				D9CD04331DB16B1F00EB97D3 /* TaskLandingPageTableViewController.swift in Sources */,
+				D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
+				D951F7CD1DDBB727005AA0CC /* CategoryPickerViewController.swift in Sources */,
 				D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */,
 				D9DF32E61DBBE61100281264 /* MyCompleteTasksViewController.swift in Sources */,
 				D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */,
 				D9DF32EC1DBBE84400281264 /* MyIncompleteTasksTableCell.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
-				D972FB061DAEBCC10052DBC1 /* TaskLandingPageTableCell.swift in Sources */,
+				D972FB061DAEBCC10052DBC1 /* AddTaskTableCell.swift in Sources */,
 				D9DF32E81DBBE64C00281264 /* MyIncompleteTasksTableViewController.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D94AE9721DCD623400256567 /* MyIncompleteTasksViewController.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
-				D972FB041DAEB8040052DBC1 /* TaskLandingPageViewController.swift in Sources */,
+				D972FB041DAEB8040052DBC1 /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

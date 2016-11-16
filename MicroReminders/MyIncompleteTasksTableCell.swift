@@ -26,8 +26,4 @@ class MyIncompleteTasksTableCell: UITableViewCell {
             self.taskName.font = UIFont.systemFont(ofSize: self.taskName.font.pointSize)
         }
     }
-    
-    @IBAction func infoTapped(_ sender: UIButton) {
-        task.viewTaskDetailAlert(tableViewController)
-    }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class TaskLandingPageTableViewController: UITableViewController {
+class AddTaskTableViewController: UITableViewController {
     
     var prepopTaskRef: FIRDatabaseReference!
     var myTaskRef: FIRDatabaseReference!
@@ -20,9 +20,11 @@ class TaskLandingPageTableViewController: UITableViewController {
     
     var tappedCell: Task!
     
+    var taskCategory: String! = nil
+    
     let myLightGrey = UIColor(colorLiteralRed: 217.0/255, green: 217.0/255, blue: 217.0/255, alpha: 1)
     let myDarkGrey = UIColor(colorLiteralRed: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
-
+    
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +45,9 @@ class TaskLandingPageTableViewController: UITableViewController {
                 self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
                 
                 let myTaskIds = self.myTaskList.map({ task in task._id })
-                self.displayTaskList = self.prepopTaskList.filter({ task in !myTaskIds.contains(task._id) })
+                self.displayTaskList = self.prepopTaskList.filter({ task in
+                    !myTaskIds.contains(task._id) && task.category == self.taskCategory!
+                })
                 
                 self.displayTaskList.sort(by: { (task1, task2) in task1.name < task2.name })
                 self.tableView.reloadData()
@@ -83,10 +87,11 @@ class TaskLandingPageTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskLandingPageCell", for: indexPath) as! TaskLandingPageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddTaskTableCell", for: indexPath) as! AddTaskTableCell
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
+        cell.subcategory.text = "[\(task.subcategory)]"
         cell.task = task
         cell.tableViewController = self
         
