@@ -18,7 +18,7 @@
 		D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */; };
 		D9DF32E61DBBE61100281264 /* MyCompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */; };
 		D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* Task.swift */; };
-		D9E128201DEB84FA00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E1281F1DEB84FA00DAC235 /* GoogleService-Info.plist */; };
+		D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,7 +38,7 @@
 		D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableViewController.swift; sourceTree = "<group>"; };
 		D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksViewController.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		D9E1281F1DEB84FA00DAC235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9E588941CC538650084D7E7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9E588951CC538650084D7E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9E588961CC538650084D7E7 /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		D90323841CE811160025FEBB /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				D9E1281F1DEB84FA00DAC235 /* GoogleService-Info.plist */,
+				D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */,
 				D9E588951CC538650084D7E7 /* Info.plist */,
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
 			);
@@ -218,7 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */,
-				D9E128201DEB84FA00DAC235 /* GoogleService-Info.plist in Resources */,
+				D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
