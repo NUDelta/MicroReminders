@@ -52,7 +52,7 @@ class Task {
         return String(Int(Date().timeIntervalSince1970))
     }
     
-    func pushToFirebase() -> Void {
+    func pushToFirebase(handler: (() -> Void)!) -> Void {
         let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
         myTaskRef.child(_id).setValue([
@@ -64,10 +64,14 @@ class Task {
             "completed":completed,
             "lastSnoozed":lastSnoozed,
             "created":created
-            ])
+            ], withCompletionBlock: { (err, ref) in
+                if handler != nil {
+                    handler()
+                }
+        })
     }
     
-    func pickLocationAndPushTask(_ parentViewController: UIViewController) {
+    func pickLocationAndPushTask(_ parentViewController: UIViewController, handler: (() -> Void)!) {
         let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .actionSheet)
         
         let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
@@ -78,7 +82,7 @@ class Task {
             actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { (action) -> Void in
                 self.location = action.title!.lowercased()
                 self.lastSnoozed = self.timeRightNow()
-                self.pushToFirebase()
+                self.pushToFirebase(handler: handler)
                 
                 let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))

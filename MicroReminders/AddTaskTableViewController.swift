@@ -30,6 +30,9 @@ class AddTaskTableViewController: UITableViewController {
         super.viewDidLoad()
         prepopTaskRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
         myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +52,7 @@ class AddTaskTableViewController: UITableViewController {
                     !myTaskIds.contains(task._id) && task.category == self.taskCategory!
                 })
                 
-                self.displayTaskList.sort(by: { (task1, task2) in task1.name < task2.name })
+                self.displayTaskList.sort(by: { (task1, task2) in task1.subcategory > task2.subcategory })
                 self.tableView.reloadData()
             })
         })

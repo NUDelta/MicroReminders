@@ -20,8 +20,6 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if firstTime() { firstTimeAlert() }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,7 +64,7 @@ class AddTaskViewController: UIViewController {
                     for sc in subcategories {
                         sheet.addAction(UIAlertAction(title: sc, style: .default, handler: { alert in
                             subcategory = alert.title!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self)
+                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
                         }))
                     }
                     
@@ -76,7 +74,7 @@ class AddTaskViewController: UIViewController {
                         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                         let continueAction = UIAlertAction(title: "Accept", style: .default, handler: { c_alert in
                             subcategory = categoryAlert.textFields![0].text!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self)
+                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
                         })
                         continueAction.isEnabled = false
                         
@@ -94,7 +92,7 @@ class AddTaskViewController: UIViewController {
                     sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     
                     self.present(sheet, animated: true, completion: {
-                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self)
+                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
                     })
                 })
             })
@@ -130,23 +128,9 @@ class AddTaskViewController: UIViewController {
     
     @IBAction func addTaskFromList(_ sender: UIButton) {
         if let selectedTask = embeddedTableViewController.tappedCell {
-            selectedTask.pickLocationAndPushTask(self)
+            selectedTask.pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
         }
     }
-    
-    fileprivate func firstTime() -> Bool {
-        return !UserDefaults().bool(forKey: "addingFirstTime")
-    }
-    
-    fileprivate func firstTimeAlert() {
-        UserDefaults().set(true, forKey: "addingFirstTime")
-        
-        let message = "Here, you can see suggested tasks you might be interested in."
-        let alert = UIAlertController(title: "View your suggested tasks!", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
 }
 
 

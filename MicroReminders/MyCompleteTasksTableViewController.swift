@@ -14,6 +14,8 @@ class MyCompleteTasksTableViewController: UITableViewController {
     
     var myTaskList = [Task]()
     var displayTaskList = [Task]()
+    var displayTaskDict = [String: [Task]]()
+    var displayTaskDictComplete = [String: [Task]]()
     
     var tappedCell = -1
     
@@ -21,6 +23,9 @@ class MyCompleteTasksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,54 +35,68 @@ class MyCompleteTasksTableViewController: UITableViewController {
     
     // Table display
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return displayTaskDict.keys.count + displayTaskDictComplete.keys.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayTaskList.count
+        return extractSection(section: section).count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCompleteTasksTableCell", for: indexPath) as! MyCompleteTasksTableCell
         
-        let task = displayTaskList[indexPath.row]
-        cell.taskName.text = task.name
+        let task = extractSection(section: indexPath.section)[indexPath.row]
+        
+        if (indexPath.section < displayTaskDict.keys.count) {
+            cell.taskName.text = task.name
+            cell.subcategory.text = "[\(task.subcategory)]"
+            cell.active = true
+            cell.button.setTitle("☐", for: .normal)
+        }
+        else {
+            cell.taskName.attributedText = NSAttributedString(string: task.name, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+            cell.subcategory.attributedText = NSAttributedString(string: "[\(task.subcategory)]", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+            cell.active = false
+            cell.button.setTitle("☑︎", for: .normal)
+        }
         cell.task = task
         cell.tableViewController = self
         
         return cell
     }
     
-    // Table interaction
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskInd = indexPath.row
-        if (tappedCell == indexPath.row) {
-            let task = displayTaskList[tappedCell]
-            let actionSheet = UIAlertController(title: "Reactivate task: \(task.name)?", message: "Would you like to reactivate this task?", preferredStyle: .actionSheet)
-            
-            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
-            actionSheet.addAction(cancelActionButton)
-            
-            let reactivateActionButton = UIAlertAction(title: "Reactivate", style: .default, handler: { (action) in
-                Task(task: task).pushToFirebase()
-            })
-            actionSheet.addAction(reactivateActionButton)
-            
-            let reactivateNewLocActionButton = UIAlertAction(title: "Reactivate with new location", style: .default, handler: { (action) in Task(task: task).pickLocationAndPushTask(self) })
-            actionSheet.addAction(reactivateNewLocActionButton)
-            
-            self.present(actionSheet, animated: true, completion: nil)
-        }
-        
-        tappedCell = taskInd
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return extractSectionKey(section: section)
     }
     
     func updateDisplayTasks() -> Void {
+        func taskDictInsert(dict: inout [String: [Task]], task: Task) {
+            let key = task.category
+            if dict[key] == nil { dict[key] = [Task]() }
+            dict[key]!.append(task)
+        }
+        
+        func taskDictSort(dict: inout [String: [Task]]) {
+            for (category, tasklist) in dict {
+                let sorted = tasklist.sorted(by: { (task1, task2) in task1.subcategory < task2.subcategory })
+                dict[category] = sorted
+            }
+        }
+        
         self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
             self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
-            self.displayTaskList = self.myTaskList.filter({ task in task.completed != "false" })
+            self.displayTaskList = self.myTaskList
+            self.displayTaskDict = [String: [Task]]()
+            self.displayTaskDictComplete = [String: [Task]]()
             
-            self.displayTaskList.sort(by: { (task1, task2) in task1.name < task2.name })
+            for task in self.displayTaskList {
+                if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
+                else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
+            }
+            
+            taskDictSort(dict: &self.displayTaskDict)
+            taskDictSort(dict: &self.displayTaskDictComplete)
+            
             self.tableView.reloadData()
         })
     }
@@ -103,4 +122,43 @@ class MyCompleteTasksTableViewController: UITableViewController {
             }
         }
     }
+    
+    func extractSection(section: Int) -> [Task] {
+        let incompleteCategoryCount = displayTaskDict.keys.count
+        
+        if section < incompleteCategoryCount {
+            let sectionkey = Array(displayTaskDict.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[section]
+            return displayTaskDict[sectionkey]!
+        }
+        else {
+            let mod = section - incompleteCategoryCount
+            let sectionkey = Array(displayTaskDictComplete.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[mod]
+            return displayTaskDictComplete[sectionkey]!
+        }
+    }
+    
+    func extractSectionKey(section: Int) -> String {
+        let incompleteCategoryCount = displayTaskDict.keys.count
+        
+        if section < incompleteCategoryCount {
+            return Array(displayTaskDict.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[section]
+        }
+        else {
+            let mod = section - incompleteCategoryCount
+            return Array(displayTaskDictComplete.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[mod] + " (complete)"
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

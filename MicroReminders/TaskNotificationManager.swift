@@ -10,29 +10,59 @@ import UIKit
 import UserNotifications
 import Firebase
 
-class TaskNotificationManager {
-    fileprivate enum TaskNotificationAction {
-        case thrown
-        case snoozed
-        case done
-        case cleared
+class TaskInteractionManager {
+    fileprivate enum TaskInteractionAction {
+        case notificationThrown
+        case notificationSnoozed
+        case notificationDone
+        case notificationCleared
+        case listDone
     }
     
     fileprivate let myId = UIDevice.current.identifierForVendor!.uuidString
     
+    /** Mark a task as completed from a notification */
+    func markNotificationDone(_ task: Task, handler: (() -> Void)! = nil) {
+        task.completed = String(Int(Date().timeIntervalSince1970))
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .notificationDone)
+    }
+    
+    /** Mark a task completed from the task list */
+    func markListDone(_ task: Task, handler: (() -> Void)! = nil) {
+        task.completed = String(Int(Date().timeIntervalSince1970))
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .listDone)
+    }
+    
+    /** Snooze a task */
+    func notificationSnooze(_ task: Task, handler: (() -> Void)! = nil) {
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .notificationSnoozed)
+    }
+    
+    func notificationClear(_ task: Task, handler: (() -> Void)! = nil) {
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .notificationCleared)
+    }
+    
     /** Get Firebase ref for logging a task notification action happening now */
-    fileprivate func logTaskNotificationAction(_ task: Task, action: TaskNotificationAction) {
+    fileprivate func logTaskNotificationAction(_ task: Task, action: TaskInteractionAction) {
         let ref = FIRDatabase.database().reference().child("Notifications/\(myId)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
         
         switch action {
-        case .thrown:
-            ref.setValue("thrown")
-        case .snoozed:
-            ref.setValue("snoozed")
-        case .done:
-            ref.setValue("done")
-        case .cleared:
-            ref.setValue("clearSnoozed")
+        case .notificationThrown:
+            ref.setValue("notificationThrown")
+        case .notificationSnoozed:
+            ref.setValue("notificationSnoozed")
+        case .notificationDone:
+            ref.setValue("notificationDone")
+        case .notificationCleared:
+            ref.setValue("notificationCleared")
+        case .listDone:
+            ref.setValue("listDone")
         }
     }
     
@@ -43,7 +73,7 @@ class TaskNotificationManager {
 }
 
 /** Send task notifications */
-class TaskNotificationSender: TaskNotificationManager {
+class TaskNotificationSender: TaskInteractionManager {
     fileprivate let scheduler = TaskScheduler()
     
     /** Convert a task to a dictionary for storage in a notification */
@@ -78,7 +108,7 @@ class TaskNotificationSender: TaskNotificationManager {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        logTaskNotificationAction(task, action: .thrown)
+        logTaskNotificationAction(task, action: .notificationThrown)
     }
     
     /** Select and notify for tasks for a given location */
@@ -109,7 +139,7 @@ class TaskNotificationSender: TaskNotificationManager {
 }
 
 /** Respond to a task notification */
-class TaskNotificationResponder: TaskNotificationManager {
+class TaskNotificationResponder: TaskInteractionManager {
     
     /** Extract a a task from a notification */
     func extractTaskFromNotification(_ notification: UNNotification) -> Task {
@@ -129,24 +159,18 @@ class TaskNotificationResponder: TaskNotificationManager {
     /** Mark a task as completed */
     func markDone(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
-        task.completed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase()
-        logTaskNotificationAction(task, action: .done)
+        markNotificationDone(task)
     }
     
     /** Snooze a task */
     func snooze(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase()
-        logTaskNotificationAction(task, action: .snoozed)
+        notificationSnooze(task)
     }
     
     func clearSnooze(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase()
-        logTaskNotificationAction(task, action: .cleared)
+        notificationClear(task)
     }
 }
 

@@ -11,8 +11,54 @@ import UIKit
 class MyCompleteTasksTableCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
-    @IBOutlet weak var timeCompleted: UILabel!
-    var tableViewController: UITableViewController! = nil
+    @IBOutlet weak var subcategory: UILabel!
+    @IBOutlet weak var button: UIButton!
+    
+    var tableViewController: MyCompleteTasksTableViewController! = nil
  
     var task: Task! = nil
+    var active: Bool! = nil
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        if active != nil {
+            if active! {
+                deactivate()
+            }
+            else {
+                reactivate()
+            }
+        }
+    }
+    
+    func reactivate() {
+        let newTask = Task(task: task)
+        
+        let actionSheet = UIAlertController(title: "Reactivate this task!", message: "Same or new location?", preferredStyle: .actionSheet)
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
+        actionSheet.addAction(cancelActionButton)
+        
+        let sameLocationButton = UIAlertAction(title: "Same location", style: .default, handler: { action in
+            newTask.pushToFirebase(handler: { self.tableViewController.updateDisplayTasks() })
+            let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        })
+        
+        let newLocationButton = UIAlertAction(title: "New location", style: .default, handler: { action in
+            newTask.pickLocationAndPushTask(self.tableViewController, handler: { self.tableViewController.updateDisplayTasks() })
+        })
+
+        actionSheet.addAction(sameLocationButton)
+        actionSheet.addAction(newLocationButton)
+        tableViewController.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func deactivate() {
+        let alert = UIAlertController(title: "Mark task done?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { alert in
+            TaskInteractionManager().markListDone(self.task, handler: { self.tableViewController.updateDisplayTasks() })
+        }))
+        self.tableViewController.present(alert, animated: true, completion: nil)
+    }
 }

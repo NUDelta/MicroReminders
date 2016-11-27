@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>347940390144-8ag6vin6hueqga1uus9ketgtcl0mcogi.apps.googleusercontent.com</string>
+	<string>661637740422-n0vtv60i5nd60hj5jnbjjvvusna1u79r.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.347940390144-8ag6vin6hueqga1uus9ketgtcl0mcogi</string>
+	<string>com.googleusercontent.apps.661637740422-n0vtv60i5nd60hj5jnbjjvvusna1u79r</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDfG0Sy_-BTeJW8SSZrnuKY8T63v4ySbE0</string>
+	<string>AIzaSyC7LcEuQAdVxVo9EOGx-JrOgrtvd4Wg_qA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>347940390144</string>
+	<string>661637740422</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>edu.northwestern.delta.M</string>
 	<key>PROJECT_ID</key>
-	<string>microreminders-da76a</string>
+	<string>microreminders-857d0</string>
 	<key>STORAGE_BUCKET</key>
-	<string>microreminders-da76a.appspot.com</string>
+	<string>microreminders-857d0.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:347940390144:ios:966d5088863210a9</string>
+	<string>1:661637740422:ios:966d5088863210a9</string>
 	<key>DATABASE_URL</key>
-	<string>https://microreminders-da76a.firebaseio.com</string>
+	<string>https://microreminders-857d0.firebaseio.com</string>
 </dict>
 </plist>
