@@ -48,7 +48,7 @@ class AddTaskViewController: UIViewController {
         let taskAlert = UIAlertController(title: "Custom task", message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let continueAction = UIAlertAction(title: "Accept", style: .default, handler: { (_) in
+        let continueAction = UIAlertAction(title: "Add", style: .default, handler: { (_) in
             taskName = taskAlert.textFields![0].text! // Get entered task name
             
             // Pick category - pull prepop and my tasks from FB and set union categories

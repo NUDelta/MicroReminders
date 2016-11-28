@@ -24,3 +24,6 @@ DerivedData
 
 # Keys
 GoogleService-Info.plist
+
+# Dependencies
+Pods
