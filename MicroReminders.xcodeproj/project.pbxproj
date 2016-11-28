@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7198B61850D3C76489199D4C /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */; };
 		D908290E1DD3A7920036FB4C /* IntroPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D908290D1DD3A7920036FB4C /* IntroPageViewController.swift */; };
+		D94B9DDD1DEBD6F8007EAC3E /* MockEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B9DDC1DEBD6F8007EAC3E /* MockEnterViewController.swift */; };
 		D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */; };
 		D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */; };
 		D951F7CD1DDBB727005AA0CC /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D951F7CC1DDBB727005AA0CC /* CategoryPickerViewController.swift */; };
@@ -28,6 +30,7 @@
 		CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.debug.xcconfig"; sourceTree = "<group>"; };
 		D908290D1DD3A7920036FB4C /* IntroPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroPageViewController.swift; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D94B9DDC1DEBD6F8007EAC3E /* MockEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEnterViewController.swift; sourceTree = "<group>"; };
 		D94BB50B1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableViewController.swift; sourceTree = "<group>"; };
 		D94BB50D1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksTableCell.swift; sourceTree = "<group>"; };
 		D951F7CC1DDBB727005AA0CC /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		D9E588951CC538650084D7E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9E588961CC538650084D7E7 /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7198B61850D3C76489199D4C /* Pods_MicroReminders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +64,7 @@
 		8A63EA7772D87627F5ABC5F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
 				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
+				D94B9DDC1DEBD6F8007EAC3E /* MockEnterViewController.swift */,
 			);
 			path = MicroReminders;
 			sourceTree = "<group>";
@@ -279,6 +286,7 @@
 			files = (
 				D908290E1DD3A7920036FB4C /* IntroPageViewController.swift in Sources */,
 				D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */,
+				D94B9DDD1DEBD6F8007EAC3E /* MockEnterViewController.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D951F7CD1DDBB727005AA0CC /* CategoryPickerViewController.swift in Sources */,
 				D94BB50E1DC6BBE40050B8DA /* MyCompleteTasksTableCell.swift in Sources */,

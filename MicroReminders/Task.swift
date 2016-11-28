@@ -17,7 +17,7 @@ class Task {
     var location: String = "unassigned"
     var lastSnoozed: String = "-1"
     
-    let created: String = String(Date().timeIntervalSince1970)
+    let created: String = String(Int(Date().timeIntervalSince1970))
     var completed: String = "false"
     
     init(_ _id: String, name: String, category: String, subcategory: String) {

@@ -125,7 +125,7 @@ class TaskNotificationSender: TaskInteractionManager {
                         if (taskData["completed"] != "false" ||
                             taskData["location"] != location)
                         {
-                                candidatesForNotification.removeValue(forKey: _id)
+                            candidatesForNotification.removeValue(forKey: _id)
                         }
                     }
                     
