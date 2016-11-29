@@ -61,7 +61,7 @@ class AddTaskTableViewController: UITableViewController {
             self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
                 self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
                 
-                let myTaskIds = self.myTaskList.map({ task in task._id })
+                let myTaskIds = self.myTaskList.filter({ task in task.completed == "false"}).map({ task in task._id })
                 self.displayTaskList = self.prepopTaskList.filter({ task in
                     !myTaskIds.contains(task._id) && task.category == self.taskCategory!
                 })

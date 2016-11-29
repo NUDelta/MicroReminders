@@ -124,7 +124,6 @@
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
-				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D94B9DDC1DEBD6F8007EAC3E /* MockEnterViewController.swift */,
 			);
 			path = MicroReminders;
@@ -146,6 +145,7 @@
 			children = (
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
+				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";

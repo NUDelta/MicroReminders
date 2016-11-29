@@ -51,6 +51,14 @@ class AddTaskViewController: UIViewController {
         let continueAction = UIAlertAction(title: "Add", style: .default, handler: { (_) in
             taskName = taskAlert.textFields![0].text! // Get entered task name
             
+            subcategory = "Personal"
+            
+            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
+                self.embeddedTableViewController.updateDisplayTasks()
+                self.tabBarController!.selectedIndex = 1
+            })
+            
+            /*
             // Pick category - pull prepop and my tasks from FB and set union categories
             let sheet = UIAlertController(title: "Categorize your task", message: "Pick a subcategory for your task", preferredStyle: .actionSheet)
             
@@ -58,13 +66,26 @@ class AddTaskViewController: UIViewController {
             self.myPrepopRef.observeSingleEvent(of: .value, with: { ppsnapshot in
                 self.fillSubcategories(snapshot: ppsnapshot, category: self.taskCategory!, subcategories: &subcategories)
                 self.myTasksRef.observeSingleEvent(of: .value, with: { mysnapshot in
+                    
+                    
                     self.fillSubcategories(snapshot: mysnapshot, category: self.taskCategory!, subcategories: &subcategories)
+                    
+                    sheet.addAction(UIAlertAction(title: "Other", style: .default, handler: { alert in
+                        subcategory = alert.title!
+                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
+                            self.embeddedTableViewController.updateDisplayTasks()
+                            self.tabBarController!.selectedIndex = 1
+                        })
+                    }))
                     
                     // Add a button for each subcategory
                     for sc in subcategories {
                         sheet.addAction(UIAlertAction(title: sc, style: .default, handler: { alert in
                             subcategory = alert.title!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
+                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
+                                self.embeddedTableViewController.updateDisplayTasks()
+                                self.tabBarController!.selectedIndex = 1
+                            })
                         }))
                     }
                     
@@ -74,13 +95,16 @@ class AddTaskViewController: UIViewController {
                         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                         let continueAction = UIAlertAction(title: "Accept", style: .default, handler: { c_alert in
                             subcategory = categoryAlert.textFields![0].text!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
+                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
+                                self.embeddedTableViewController.updateDisplayTasks()
+                                self.tabBarController!.selectedIndex = 1
+                            })
                         })
                         continueAction.isEnabled = false
                         
                         
                         categoryAlert.addTextField(configurationHandler: { tf in
-                            tf.placeholder = "Add a custom task..."
+                            tf.placeholder = "Add a custom category..."
                             tf.addTarget(self, action: #selector(self.blockAlertDismiss), for: .editingChanged)
                         })
                         
@@ -98,6 +122,7 @@ class AddTaskViewController: UIViewController {
                     })
                 })
             })
+             */
         })
         continueAction.isEnabled = false
         taskAlert.addTextField(configurationHandler: { tf in
