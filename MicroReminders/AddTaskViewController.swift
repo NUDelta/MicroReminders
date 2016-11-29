@@ -92,7 +92,9 @@ class AddTaskViewController: UIViewController {
                     sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     
                     self.present(sheet, animated: true, completion: {
-                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
+                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks()
+                            self.tabBarController!.selectedIndex = 1
+                        })
                     })
                 })
             })
@@ -123,12 +125,6 @@ class AddTaskViewController: UIViewController {
                     subcategories.insert(value["subcategory"]!)
                 }
             }
-        }
-    }
-    
-    @IBAction func addTaskFromList(_ sender: UIButton) {
-        if let selectedTask = embeddedTableViewController.tappedCell {
-            selectedTask.pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks() })
         }
     }
 }

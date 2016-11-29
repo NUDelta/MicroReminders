@@ -17,7 +17,11 @@ class MyCompleteTasksTableViewController: UITableViewController {
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
     
+    var loadingIndicator: UIActivityIndicatorView! = nil
+    
     var tappedCell = -1
+    
+    let myDarkGrey = UIColor(colorLiteralRed: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
     
     // Table loading
     override func viewDidLoad() {
@@ -26,6 +30,18 @@ class MyCompleteTasksTableViewController: UITableViewController {
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        loadingIndicator = activityIndicator()
+        self.view.addSubview(loadingIndicator)
+        loadingIndicator.startAnimating()
+    }
+    
+    func activityIndicator() -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        indicator.hidesWhenStopped = true
+        return indicator
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,16 +64,18 @@ class MyCompleteTasksTableViewController: UITableViewController {
         let task = extractSection(section: indexPath.section)[indexPath.row]
         
         if (indexPath.section < displayTaskDict.keys.count) {
+            cell.backgroundColor = UIColor.white
             cell.taskName.text = task.name
             cell.subcategory.text = "[\(task.subcategory)]"
             cell.active = true
             cell.button.setTitle("☐", for: .normal)
-            cell.time.text = "\(task.length)"
+            cell.time.text = "⏳ \(task.length)"
         }
         else {
-            cell.taskName.attributedText = NSAttributedString(string: task.name, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
-            cell.subcategory.attributedText = NSAttributedString(string: "[\(task.subcategory)]", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
-            cell.time.attributedText = NSAttributedString(string: "\(task.length)", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+            cell.backgroundColor = myDarkGrey
+            cell.taskName.text = task.name
+            cell.subcategory.text = "[\(task.subcategory)]"
+            cell.time.text = "⏳ \(task.length)"
             cell.active = false
             cell.button.setTitle("☑︎", for: .normal)
         }
@@ -99,6 +117,7 @@ class MyCompleteTasksTableViewController: UITableViewController {
             taskDictSort(dict: &self.displayTaskDict)
             taskDictSort(dict: &self.displayTaskDictComplete)
             
+            self.loadingIndicator.stopAnimating()
             self.tableView.reloadData()
         })
     }

@@ -25,6 +25,8 @@ class AddTaskTableViewController: UITableViewController {
     let myLightGrey = UIColor(colorLiteralRed: 217.0/255, green: 217.0/255, blue: 217.0/255, alpha: 1)
     let myDarkGrey = UIColor(colorLiteralRed: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
     
+    var loadingIndicator: UIActivityIndicatorView! = nil
+    
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,18 @@ class AddTaskTableViewController: UITableViewController {
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        loadingIndicator = activityIndicator()
+        self.view.addSubview(loadingIndicator)
+        loadingIndicator.startAnimating()
+    }
+    
+    func activityIndicator() -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        indicator.hidesWhenStopped = true
+        return indicator
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +67,8 @@ class AddTaskTableViewController: UITableViewController {
                 })
                 
                 self.displayTaskList.sort(by: { (task1, task2) in task1.subcategory > task2.subcategory })
+                
+                self.loadingIndicator.stopAnimating()
                 self.tableView.reloadData()
             })
         })
@@ -94,7 +110,7 @@ class AddTaskTableViewController: UITableViewController {
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
-        cell.time.text = "\(task.length)"
+        cell.time.text = "⏳ \(task.length)"
         cell.subcategory.text = "[\(task.subcategory)]"
         cell.task = task
         cell.tableViewController = self

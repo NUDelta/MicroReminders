@@ -20,6 +20,22 @@ class MyCompleteTasksTableCell: UITableViewCell {
     var task: Task! = nil
     var active: Bool! = nil
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.selectionStyle = .none
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if selected {
+            self.taskName.font = UIFont.boldSystemFont(ofSize: self.taskName.font.pointSize)
+        }
+        else {
+            self.taskName.font = UIFont.systemFont(ofSize: self.taskName.font.pointSize)
+        }
+    }
+    
     @IBAction func buttonTapped(_ sender: UIButton) {
         if active != nil {
             if active! {

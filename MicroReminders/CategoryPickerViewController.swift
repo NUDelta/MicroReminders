@@ -12,17 +12,17 @@ class CategoryPickerViewController: UIViewController {
     var selectedCategory: String!
     
     @IBAction func cleaning_and_tidying(_ sender: UIButton) {
-        selectedCategory = "Cleaning and tidying"
+        selectedCategory = "Cleaning"
         self.performSegue(withIdentifier: "AddTask", sender: self)
     }
     
     @IBAction func health_and_wellness(_ sender: UIButton) {
-        selectedCategory = "Health and wellness"
+        selectedCategory = "Wellness"
         self.performSegue(withIdentifier: "AddTask", sender: self)
     }
     
     @IBAction func house_maintenance(_ sender: UIButton) {
-        selectedCategory = "Home maintenance"
+        selectedCategory = "Maintenance"
         self.performSegue(withIdentifier: "AddTask", sender: self)
     }
     

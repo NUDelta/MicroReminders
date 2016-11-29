@@ -36,6 +36,9 @@ class AddTaskTableCell: UITableViewCell {
     }
     
     @IBAction func addTapped(_ sender: UIButton) {
-        task.pickLocationAndPushTask(tableViewController, handler: { self.tableViewController.updateDisplayTasks() })
+        task.pickLocationAndPushTask(tableViewController, handler: {
+            self.tableViewController.updateDisplayTasks()
+            self.tableViewController.tabBarController!.selectedIndex = 1
+        })
     }
 }
