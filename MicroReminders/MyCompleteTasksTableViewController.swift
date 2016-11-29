@@ -52,10 +52,12 @@ class MyCompleteTasksTableViewController: UITableViewController {
             cell.subcategory.text = "[\(task.subcategory)]"
             cell.active = true
             cell.button.setTitle("☐", for: .normal)
+            cell.time.text = "\(task.length)"
         }
         else {
             cell.taskName.attributedText = NSAttributedString(string: task.name, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
             cell.subcategory.attributedText = NSAttributedString(string: "[\(task.subcategory)]", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+            cell.time.attributedText = NSAttributedString(string: "\(task.length)", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
             cell.active = false
             cell.button.setTitle("☑︎", for: .normal)
         }

@@ -94,6 +94,7 @@ class AddTaskTableViewController: UITableViewController {
 
         let task = displayTaskList[indexPath.row]
         cell.taskName.text = task.name
+        cell.time.text = "\(task.length)"
         cell.subcategory.text = "[\(task.subcategory)]"
         cell.task = task
         cell.tableViewController = self

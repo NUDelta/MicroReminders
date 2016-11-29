@@ -13,7 +13,7 @@ class Task {
     let name: String
     let category: String
     let subcategory: String
-    let length: String = "1 min"
+    let length: String = "<1 min"
     var location: String = "unassigned"
     var lastSnoozed: String = "-1"
     
