@@ -177,34 +177,22 @@
                                             <rect key="frame" x="8" y="8" width="359" height="59"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Task" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="59"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="204" id="6on-1e-FpO"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="59"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subcategory" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrK-IY-gwv">
-                                                    <rect key="frame" x="204" y="0.0" width="115" height="59"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="115" id="JEU-Iq-2te"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RvM-4M-t7K">
                                                     <rect key="frame" x="319" y="0.0" width="40" height="59"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="Ba2-WS-u04"/>
+                                                    </constraints>
                                                     <state key="normal" title="Box"/>
                                                     <connections>
                                                         <action selector="buttonTapped:" destination="Ymb-tl-0CY" eventType="touchUpInside" id="cgD-j3-RZU"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="RvM-4M-t7K" firstAttribute="leading" secondItem="jrK-IY-gwv" secondAttribute="trailing" id="vEL-XT-gBV"/>
-                                            </constraints>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knR-hK-ONo">
                                             <rect key="frame" x="8" y="75" width="32" height="17"/>
@@ -224,7 +212,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="button" destination="RvM-4M-t7K" id="HNI-Z7-74g"/>
-                                    <outlet property="subcategory" destination="jrK-IY-gwv" id="GCN-ks-VVR"/>
                                     <outlet property="taskName" destination="Qgb-ln-6m6" id="BRE-t5-OFq"/>
                                     <outlet property="time" destination="knR-hK-ONo" id="aO6-My-uhO"/>
                                 </connections>
@@ -455,21 +442,9 @@ Other</string>
                                             <rect key="frame" x="8" y="8" width="359" height="45.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLJ-UP-BuI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="45.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="204" id="8z5-dq-ocT"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="45.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subcategory" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiw-1h-fdn">
-                                                    <rect key="frame" x="204" y="0.0" width="115" height="45.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="115" id="J2J-qv-82U"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="03r-o4-10T">
@@ -482,9 +457,6 @@ Other</string>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="03r-o4-10T" firstAttribute="leading" secondItem="uiw-1h-fdn" secondAttribute="trailing" id="4AS-FW-LVO"/>
-                                            </constraints>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUA-Bz-lgt">
                                             <rect key="frame" x="8" y="61.5" width="32" height="17"/>
@@ -503,7 +475,6 @@ Other</string>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="subcategory" destination="uiw-1h-fdn" id="xzb-7F-Y8X"/>
                                     <outlet property="taskName" destination="FLJ-UP-BuI" id="UTr-cC-P8F"/>
                                     <outlet property="time" destination="qUA-Bz-lgt" id="m4a-ha-kSa"/>
                                 </connections>

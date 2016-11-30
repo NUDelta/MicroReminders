@@ -11,7 +11,6 @@ import UIKit
 class AddTaskTableCell: UITableViewCell {
 
     @IBOutlet weak var taskName: UILabel!
-    @IBOutlet weak var subcategory: UILabel!
     @IBOutlet weak var time: UILabel!
     
     var task: Task! = nil

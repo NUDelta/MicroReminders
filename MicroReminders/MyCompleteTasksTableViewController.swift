@@ -66,7 +66,6 @@ class MyCompleteTasksTableViewController: UITableViewController {
         if (indexPath.section < displayTaskDict.keys.count) {
             cell.backgroundColor = UIColor.white
             cell.taskName.text = task.name
-            cell.subcategory.text = "[\(task.subcategory)]"
             cell.active = true
             cell.button.setTitle("☐", for: .normal)
             cell.time.text = "⏳ \(task.length)"
@@ -74,7 +73,6 @@ class MyCompleteTasksTableViewController: UITableViewController {
         else {
             cell.backgroundColor = myDarkGrey
             cell.taskName.text = task.name
-            cell.subcategory.text = "[\(task.subcategory)]"
             cell.time.text = "⏳ \(task.length)"
             cell.active = false
             cell.button.setTitle("☑︎", for: .normal)
