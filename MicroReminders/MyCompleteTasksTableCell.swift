@@ -13,6 +13,7 @@ class MyCompleteTasksTableCell: UITableViewCell {
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var location: UILabel!
     
     var tableViewController: MyCompleteTasksTableViewController! = nil
  

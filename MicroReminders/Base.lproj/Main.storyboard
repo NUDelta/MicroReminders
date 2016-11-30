@@ -177,9 +177,18 @@
                                             <rect key="frame" x="8" y="8" width="359" height="59"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Task" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="59"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="219" height="59"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N40-Hc-Zba">
+                                                    <rect key="frame" x="219" y="0.0" width="100" height="59"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="b5J-3p-fix"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RvM-4M-t7K">
@@ -212,6 +221,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="button" destination="RvM-4M-t7K" id="HNI-Z7-74g"/>
+                                    <outlet property="location" destination="N40-Hc-Zba" id="B4f-qT-UFQ"/>
                                     <outlet property="taskName" destination="Qgb-ln-6m6" id="BRE-t5-OFq"/>
                                     <outlet property="time" destination="knR-hK-ONo" id="aO6-My-uhO"/>
                                 </connections>

@@ -58,6 +58,12 @@ class MyCompleteTasksTableViewController: UITableViewController {
         return extractSection(section: section).count
     }
     
+    func capitalizeFirstLetter(_ string: String) -> String {
+        let first = String(string.characters.prefix(1)).capitalized
+        let other = String(string.characters.dropFirst())
+        return first + other
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCompleteTasksTableCell", for: indexPath) as! MyCompleteTasksTableCell
         
@@ -68,17 +74,17 @@ class MyCompleteTasksTableViewController: UITableViewController {
             cell.taskName.text = task.name
             cell.active = true
             cell.button.setTitle("☐", for: .normal)
-            cell.time.text = "⏳ \(task.length)"
         }
         else {
             cell.backgroundColor = myDarkGrey
             cell.taskName.text = task.name
-            cell.time.text = "⏳ \(task.length)"
             cell.active = false
             cell.button.setTitle("☑︎", for: .normal)
         }
         cell.task = task
         cell.tableViewController = self
+        cell.time.text = "⏳ \(task.length)"
+        cell.location.text = "[\(capitalizeFirstLetter(task.location))]"
         
         return cell
     }

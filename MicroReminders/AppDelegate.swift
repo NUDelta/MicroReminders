@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /* Create alertController to handle notification in-app */
     func handleInApp(_ notification: UNNotification) {
-        let title = "\(notification.request.content.userInfo["t_name"])"
+        let title = "\(notification.request.content.userInfo["t_name"]!)"
         let alert = UIAlertController(title: title, message: "Would you like to snooze this microtask or is it done?", preferredStyle: .alert)
         let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action: UIAlertAction) in
             self.handleSnooze(notification)
@@ -123,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier)")
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        let threshold: Double = 20 // Minimum number of minutes outside region before notification
+        let threshold: Double = 1 // Minimum number of minutes outside region before notification
         let then = beaconExitTimes[regionInt]!
         
         /* 
