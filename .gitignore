@@ -27,3 +27,9 @@ GoogleService-Info.plist
 
 # Dependencies
 Pods
+
+# Study data
+*.json
+
+# Pycharm files
+.idea

@@ -439,8 +439,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Northwestern University";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 823S57WQK3;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W4E2C6X642;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -450,8 +450,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a435b2eb-a751-4070-bcd9-629f1f1829cf";
-				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab M";
+				PROVISIONING_PROFILE = "de8fe3cc-0fdc-45fc-a57c-6e0ba1cad6e5";
+				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";
