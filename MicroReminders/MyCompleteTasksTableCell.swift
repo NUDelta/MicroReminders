@@ -50,23 +50,31 @@ class MyCompleteTasksTableCell: UITableViewCell {
     func reactivate() {
         let newTask = Task(task: task)
         
-        let actionSheet = UIAlertController(title: "Reactivate this task!", message: "Same or new location?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Reactivate this task!", message: "Same or new constraints?", preferredStyle: .actionSheet)
         
         let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
         actionSheet.addAction(cancelActionButton)
         
-        let sameLocationButton = UIAlertAction(title: "Same location", style: .default, handler: { action in
+        let sameConstraintsButton = UIAlertAction(title: "Same constraints", style: .default, handler: { action in
             newTask.pushToFirebase(handler: { self.tableViewController.updateDisplayTasks() })
             let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         })
         
-        let newLocationButton = UIAlertAction(title: "New location", style: .default, handler: { action in
-            newTask.pickLocationAndPushTask(self.tableViewController, handler: { self.tableViewController.updateDisplayTasks() })
+        let newConstraintsButton = UIAlertAction(title: "New constraints", style: .default, handler: { action in
+            let grandparent = self.tableViewController.parent as! MyCompleteTasksViewController
+            
+            grandparent.selectedTask = newTask
+            grandparent.taskPushHandler = {
+                let _ = grandparent.navigationController?.popViewController(animated: true)
+                self.tableViewController.updateDisplayTasks()
+            }
+            
+            grandparent.performSegue(withIdentifier: "constrainTask", sender: self)
         })
 
-        actionSheet.addAction(sameLocationButton)
-        actionSheet.addAction(newLocationButton)
+        actionSheet.addAction(sameConstraintsButton)
+        actionSheet.addAction(newConstraintsButton)
         tableViewController.present(actionSheet, animated: true, completion: nil)
     }
     

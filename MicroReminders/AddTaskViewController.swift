@@ -16,6 +16,7 @@ class AddTaskViewController: UIViewController {
     let myPrepopRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
     
     private var embeddedTableViewController: AddTaskTableViewController!
+    var selectedTask: Task!
     var taskCategory: String!
     
     override func viewDidLoad() {
@@ -23,16 +24,23 @@ class AddTaskViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? AddTaskTableViewController, segue.identifier == "AddTaskEmbed" {
-            vc.taskCategory = taskCategory
-            self.embeddedTableViewController = vc
+        if let adtvc = segue.destination as? AddTaskTableViewController, segue.identifier == "AddTaskEmbed" {
+            adtvc.taskCategory = taskCategory
+            self.embeddedTableViewController = adtvc
+        }
+        else if let tcvc = segue.destination as? TaskConstraintViewController, segue.identifier == "constrainTask" {
+            tcvc.task = selectedTask
+            tcvc.pushHandler = {
+                let _ = self.navigationController?.popViewController(animated: true)
+                self.embeddedTableViewController.updateDisplayTasks()
+//                self.tabBarController!.selectedIndex = 1
+            }
         }
     }
     
     @IBAction func addCustomTask(_ sender: UIBarButtonItem) {
         var taskName = ""
         let category = taskCategory!
-        var subcategory = ""
         
         struct textFieldAndAction {
             var tf: UITextField
@@ -51,78 +59,9 @@ class AddTaskViewController: UIViewController {
         let continueAction = UIAlertAction(title: "Add", style: .default, handler: { (_) in
             taskName = taskAlert.textFields![0].text! // Get entered task name
             
-            subcategory = "Personal"
+            self.selectedTask = Task(UUID().uuidString, name: taskName, category: category, subcategory: "Personal")
+            self.performSegue(withIdentifier: "constrainTask", sender: self)
             
-            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
-                self.embeddedTableViewController.updateDisplayTasks()
-                self.tabBarController!.selectedIndex = 1
-            })
-            
-            /*
-            // Pick category - pull prepop and my tasks from FB and set union categories
-            let sheet = UIAlertController(title: "Categorize your task", message: "Pick a subcategory for your task", preferredStyle: .actionSheet)
-            
-            var subcategories = Set<String>()
-            self.myPrepopRef.observeSingleEvent(of: .value, with: { ppsnapshot in
-                self.fillSubcategories(snapshot: ppsnapshot, category: self.taskCategory!, subcategories: &subcategories)
-                self.myTasksRef.observeSingleEvent(of: .value, with: { mysnapshot in
-                    
-                    
-                    self.fillSubcategories(snapshot: mysnapshot, category: self.taskCategory!, subcategories: &subcategories)
-                    
-                    sheet.addAction(UIAlertAction(title: "Other", style: .default, handler: { alert in
-                        subcategory = alert.title!
-                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
-                            self.embeddedTableViewController.updateDisplayTasks()
-                            self.tabBarController!.selectedIndex = 1
-                        })
-                    }))
-                    
-                    // Add a button for each subcategory
-                    for sc in subcategories {
-                        sheet.addAction(UIAlertAction(title: sc, style: .default, handler: { alert in
-                            subcategory = alert.title!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
-                                self.embeddedTableViewController.updateDisplayTasks()
-                                self.tabBarController!.selectedIndex = 1
-                            })
-                        }))
-                    }
-                    
-                    // Add a button to enter a custom subcategory
-                    sheet.addAction(UIAlertAction(title: "Custom...", style: .default, handler: { action in
-                        let categoryAlert = UIAlertController(title: "Custom subcategory", message: "Create a new subcategory", preferredStyle: .alert)
-                        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                        let continueAction = UIAlertAction(title: "Accept", style: .default, handler: { c_alert in
-                            subcategory = categoryAlert.textFields![0].text!
-                            Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: {
-                                self.embeddedTableViewController.updateDisplayTasks()
-                                self.tabBarController!.selectedIndex = 1
-                            })
-                        })
-                        continueAction.isEnabled = false
-                        
-                        
-                        categoryAlert.addTextField(configurationHandler: { tf in
-                            tf.placeholder = "Add a custom category..."
-                            tf.addTarget(self, action: #selector(self.blockAlertDismiss), for: .editingChanged)
-                        })
-                        
-                        categoryAlert.addAction(continueAction)
-                        categoryAlert.addAction(cancelAction)
-                        
-                        self.present(categoryAlert, animated: true, completion: nil)
-                    }))
-                    sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                    
-                    self.present(sheet, animated: true, completion: {
-                        Task(UUID().uuidString, name: taskName, category: category, subcategory: subcategory).pickLocationAndPushTask(self, handler: { self.embeddedTableViewController.updateDisplayTasks()
-                            self.tabBarController!.selectedIndex = 1
-                        })
-                    })
-                })
-            })
-             */
         })
         continueAction.isEnabled = false
         taskAlert.addTextField(configurationHandler: { tf in
@@ -140,17 +79,6 @@ class AddTaskViewController: UIViewController {
         while !(resp is UIAlertController) { resp = resp.next }
         let alert = resp as! UIAlertController
         alert.actions[0].isEnabled = !sender.text!.isEmpty
-    }
-    
-    fileprivate func fillSubcategories(snapshot: FIRDataSnapshot, category: String, subcategories: inout Set<String>) {
-        let json = snapshot.value as? [String: [String: String]]
-        if json != nil {
-            for (_, value) in json! {
-                if (value["category"]! == category) {
-                    subcategories.insert(value["subcategory"]!)
-                }
-            }
-        }
     }
 }
 

@@ -34,10 +34,10 @@ class AddTaskTableCell: UITableViewCell {
         }
     }
     
-    @IBAction func addTapped(_ sender: UIButton) {
-        task.pickLocationAndPushTask(tableViewController, handler: {
-            self.tableViewController.updateDisplayTasks()
-            self.tableViewController.tabBarController!.selectedIndex = 1
-        })
+    @IBAction func addTappedNew(_ sender: UIButton) {
+        let grandparent = tableViewController.parent as! AddTaskViewController
+        
+        grandparent.selectedTask = task
+        grandparent.performSegue(withIdentifier: "constrainTask", sender: self)
     }
 }

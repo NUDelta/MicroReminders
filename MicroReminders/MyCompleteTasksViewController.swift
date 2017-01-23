@@ -11,8 +11,18 @@ import UIKit
 
 class MyCompleteTasksViewController: UIViewController {
     
+    var selectedTask: Task!
+    var taskPushHandler: (() -> Void)!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? TaskConstraintViewController, segue.identifier == "constrainTask" {
+            vc.task = selectedTask
+            vc.pushHandler = taskPushHandler
+        }
     }
     
 }

@@ -85,9 +85,11 @@ class TaskNotificationSender: TaskInteractionManager {
             "t_subcategory":task.subcategory,
             "t_completed":task.completed,
             "t_length":task.length,
-            "t_location":task.location,
             "t_lastSnoozed":task.lastSnoozed,
-            "t_created":task.created
+            "t_created":task.created,
+            "t_location":task.location,
+            "t_beforeTime":task.beforeTime,
+            "t_afterTime":task.afterTime
         ]
     }
     
@@ -143,16 +145,18 @@ class TaskNotificationResponder: TaskInteractionManager {
     
     /** Extract a a task from a notification */
     func extractTaskFromNotification(_ notification: UNNotification) -> Task {
-        let userInfo = notification.request.content.userInfo
+        let userInfo = notification.request.content.userInfo as! [String:String]
         
         return Task(
-            userInfo["t_id"] as! String,
-            name: userInfo["t_name"] as! String,
-            category: userInfo["t_category"] as! String,
-            subcategory: userInfo["t_subcategory"] as! String,
-            location: userInfo["t_location"] as! String,
-            completed: userInfo["t_completed"] as! String,
-            lastSnoozed: userInfo["t_lastSnoozed"] as! String
+            userInfo["t_id"]!,
+            name: userInfo["t_name"]!,
+            category: userInfo["t_category"]!,
+            subcategory: userInfo["t_subcategory"]!,
+            location: userInfo["t_location"]!,
+            beforeTime: userInfo["t_beforeTime"]!,
+            afterTime: userInfo["t_afterTime"]!,
+            completed: userInfo["t_completed"]!,
+            lastSnoozed: userInfo["t_lastSnoozed"]!
         )
     }
     
@@ -186,6 +190,8 @@ fileprivate class TaskScheduler {
             category: taskJSON["category"]!,
             subcategory: taskJSON["subcategory"]!,
             location: taskJSON["location"]!,
+            beforeTime: taskJSON["beforeTime"]!,
+            afterTime: taskJSON["afterTime"]!,
             completed: taskJSON["completed"]!,
             lastSnoozed: taskJSON["lastSnoozed"]!
         )

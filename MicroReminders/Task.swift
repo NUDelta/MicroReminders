@@ -15,6 +15,8 @@ class Task {
     let subcategory: String
     let length: String = "<1 min"
     var location: String = "unassigned"
+    var afterTime: String = "unassigned"
+    var beforeTime: String = "unassigned"
     var lastSnoozed: String = "-1"
     
     let created: String = String(Int(Date().timeIntervalSince1970))
@@ -28,14 +30,17 @@ class Task {
         self.lastSnoozed = timeRightNow()
     }
     
-    init(_ _id: String, name: String, category: String, subcategory: String, location: String, completed: String, lastSnoozed: String) {
+    init(_ _id: String, name: String, category: String, subcategory: String, location: String, beforeTime: String, afterTime: String, completed: String, lastSnoozed: String) {
         self._id = _id
         self.name = name
         self.category = category
         self.subcategory = subcategory
-        self.location = location
         self.completed = completed
         self.lastSnoozed = timeRightNow()
+        
+        self.location = location
+        self.beforeTime = beforeTime
+        self.afterTime = afterTime
     }
     
     /** Create a copy of a task - completed and created are reset */
@@ -63,35 +68,14 @@ class Task {
             "location":location,
             "completed":completed,
             "lastSnoozed":lastSnoozed,
-            "created":created
+            "created":created,
+            "afterTime":afterTime,
+            "beforeTime":beforeTime
             ], withCompletionBlock: { (err, ref) in
                 if handler != nil {
                     handler()
                 }
         })
-    }
-    
-    func pickLocationAndPushTask(_ parentViewController: UIViewController, handler: (() -> Void)!) {
-        let actionSheet = UIAlertController(title: "Please pick a room!", message: "Select a room", preferredStyle: .actionSheet)
-        
-        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
-        actionSheet.addAction(cancelActionButton)
-        
-        var actionButton: UIAlertAction
-        for name in Beacons.sharedInstance.beacons.values {
-            actionButton = UIAlertAction(title: name.capitalized, style: .default, handler: { (action) -> Void in
-                self.location = action.title!.lowercased()
-                self.lastSnoozed = self.timeRightNow()
-                self.pushToFirebase(handler: handler)
-                
-                let alert = UIAlertController(title: "Task added!", message: nil, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-                parentViewController.present(alert, animated: true, completion: nil)
-            })
-            actionSheet.addAction(actionButton)
-        }
-        
-        parentViewController.present(actionSheet, animated: true, completion: nil)
     }
 }
 

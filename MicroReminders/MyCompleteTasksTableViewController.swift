@@ -139,6 +139,8 @@ class MyCompleteTasksTableViewController: UITableViewController {
                     category: taskData["category"]!,
                     subcategory: taskData["subcategory"]!,
                     location: taskData["location"]!,
+                    beforeTime: taskData["beforeTime"]!,
+                    afterTime: taskData["afterTime"]!,
                     completed: taskData["completed"]!,
                     lastSnoozed: taskData["lastSnoozed"]!
                 )
