@@ -18,6 +18,7 @@
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */; };
+		D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */; };
 		D9DF32E61DBBE61100281264 /* MyCompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */; };
 		D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* Task.swift */; };
 		D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */; };
@@ -39,6 +40,7 @@
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableViewController.swift; sourceTree = "<group>"; };
+		D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskConstraintViewController.swift; sourceTree = "<group>"; };
 		D9DF32E51DBBE61100281264 /* MyCompleteTasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCompleteTasksViewController.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		D90323841CE811160025FEBB /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */,
 				D9E588951CC538650084D7E7 /* Info.plist */,
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
@@ -117,10 +120,10 @@
 		D93CB79A1CC5372D00F8C73B /* MicroReminders */ = {
 			isa = PBXGroup;
 			children = (
+				D9D6E5CA1E3289C400B0CA53 /* Tasks */,
 				D908290C1DD3A7800036FB4C /* IntroPage */,
 				D9DF32E41DBBE5F200281264 /* MyTasksPage */,
 				D972FB021DAEB7990052DBC1 /* TaskLandingPage */,
-				D98D4C881CF3BDC100DC995B /* Models */,
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
@@ -140,14 +143,14 @@
 			name = TaskLandingPage;
 			sourceTree = "<group>";
 		};
-		D98D4C881CF3BDC100DC995B /* Models */ = {
+		D9D6E5CA1E3289C400B0CA53 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
-				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
+				D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */,
 			);
-			name = Models;
+			name = Tasks;
 			sourceTree = "<group>";
 		};
 		D9DF32E41DBBE5F200281264 /* MyTasksPage */ = {
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */,
 				D908290E1DD3A7920036FB4C /* IntroPageViewController.swift in Sources */,
 				D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */,
 				D94B9DDD1DEBD6F8007EAC3E /* MockEnterViewController.swift in Sources */,

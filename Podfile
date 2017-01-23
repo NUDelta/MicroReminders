@@ -6,4 +6,5 @@ use_frameworks!
 target 'MicroReminders' do
     pod 'Firebase/Database'
     pod 'EstimoteSDK'
+		pod 'TTRangeSlider'
 end
