@@ -487,6 +487,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add tasks" id="Fta-1b-xR9"/>
                     <connections>
+                        <outlet property="cleaningButton" destination="sg9-ov-K7p" id="2HX-df-8Te"/>
+                        <outlet property="maintenanceButton" destination="tnz-w5-d69" id="lsH-21-7zh"/>
+                        <outlet property="otherButton" destination="jGj-BJ-kVJ" id="vRf-YN-jhW"/>
+                        <outlet property="wellnessButton" destination="smd-Cz-zOl" id="jke-IT-ONP"/>
                         <segue destination="P4f-KT-cuW" kind="show" identifier="AddTask" id="bev-YN-8ny"/>
                     </connections>
                 </viewController>

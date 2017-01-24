@@ -11,6 +11,18 @@ import UIKit
 class CategoryPickerViewController: UIViewController {
     var selectedCategory: String!
     
+    @IBOutlet weak var cleaningButton: UIButton!
+    @IBOutlet weak var wellnessButton: UIButton!
+    @IBOutlet weak var maintenanceButton: UIButton!
+    @IBOutlet weak var otherButton: UIButton!
+    
+    override func viewDidLoad() {
+        cleaningButton.layer.cornerRadius = 5
+        wellnessButton.layer.cornerRadius = 5
+        maintenanceButton.layer.cornerRadius = 5
+        otherButton.layer.cornerRadius = 5
+    }
+    
     @IBAction func cleaning_and_tidying(_ sender: UIButton) {
         selectedCategory = "Cleaning"
         self.performSegue(withIdentifier: "AddTask", sender: self)
