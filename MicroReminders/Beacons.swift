@@ -13,8 +13,8 @@ class Beacons {
     
     // Testing
     // 59582: "romeo", 39192: "whiskey", 49825: "quebec"
-    // let beacons: [UInt16: String] = [59582: "bedroom", 39192: "kitchen", 49825: "living room"]
-    // var beaconExitTimes: [UInt16: Date] = [59582: Date(timeIntervalSince1970: 0), 39192: Date(timeIntervalSince1970: 0), 49825: Date(timeIntervalSince1970: 0)]
+    let beacons: [UInt16: String] = [59582: "bedroom", 39192: "kitchen", 49825: "living room"]
+    var beaconExitTimes: [UInt16: Date] = [59582: Date(timeIntervalSince1970: 0), 39192: Date(timeIntervalSince1970: 0), 49825: Date(timeIntervalSince1970: 0)]
     
     // Katie
     // 7152: "zeus", 35710: "delta", 41424: "hotel"
@@ -28,8 +28,8 @@ class Beacons {
     
     // Helen
     // 27990: "golf", 47788: "zach", 58574: "alpha"
-    let beacons: [UInt16: String] = [27990: "adel's room", 47788: "my bedroom", 58574: "car"]
-    var beaconExitTimes: [UInt16: Date] = [27990: Date(timeIntervalSince1970: 0), 47788: Date(timeIntervalSince1970: 0), 58574: Date(timeIntervalSince1970: 0)]
+    // let beacons: [UInt16: String] = [27990: "adel's room", 47788: "my bedroom", 58574: "car"]
+    // var beaconExitTimes: [UInt16: Date] = [27990: Date(timeIntervalSince1970: 0), 47788: Date(timeIntervalSince1970: 0), 58574: Date(timeIntervalSince1970: 0)]
     
     // Noah
     // 1471: "xray", 32706: "papa", 44363: "victor"

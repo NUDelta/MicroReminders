@@ -87,7 +87,6 @@
 		D90323841CE811160025FEBB /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */,
 				D9E588951CC538650084D7E7 /* Info.plist */,
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
@@ -130,6 +129,7 @@
 				D972FB021DAEB7990052DBC1 /* TaskLandingPage */,
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
+				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
 				D94B9DDC1DEBD6F8007EAC3E /* MockEnterViewController.swift */,
 			);

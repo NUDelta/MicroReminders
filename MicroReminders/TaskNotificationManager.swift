@@ -113,7 +113,28 @@ class TaskNotificationSender: TaskInteractionManager {
         logTaskNotificationAction(task, action: .notificationThrown)
     }
     
-    /** Select and notify for tasks for a given location */
+    private func secondsIntoDay() -> Float {
+        let cal = Calendar.current
+        
+        // Add 6 hours because all times are in UTC
+        let sixHours = DateComponents(hour: 6)
+        let adjustedNow = cal.date(byAdding: sixHours, to: Date())
+        
+        return Float(adjustedNow!.timeIntervalSince(cal.startOfDay(for: Date())))
+    }
+    
+    /** Determines if the task represented by taskData can be notified for now. Checks location and time constraints. */
+    private func canNotifyNow(taskData: [String: String], location: String) -> Bool {
+        let seconds = secondsIntoDay()
+        
+        return { taskData["completed"]! == "false" &&
+            taskData["location"]!.caseInsensitiveCompare(location) == .orderedSame &&
+            Float(taskData["beforeTime"]!)! > seconds &&
+            Float(taskData["afterTime"]!)! < seconds
+            }()
+    }
+    
+    /** Select and notify for tasks for a given location, at the current time */
     func notify(_ location: String) {
         let myTasksRef = firebaseRefForMyTasks()
         
@@ -124,8 +145,7 @@ class TaskNotificationSender: TaskInteractionManager {
                 if (tasksJSON != nil) {
                     var candidatesForNotification = tasksJSON!
                     for (_id, taskData) in candidatesForNotification {
-                        if (taskData["completed"] != "false" ||
-                            taskData["location"] != location)
+                        if (!self.canNotifyNow(taskData: taskData, location: location))
                         {
                             candidatesForNotification.removeValue(forKey: _id)
                         }

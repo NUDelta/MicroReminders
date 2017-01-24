@@ -31,17 +31,27 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func initTimeSlider() {
         timeSlider.numberFormatterOverride = NumberTimeFormatter() as NumberFormatter
-        let sixAM = Float(12*60*60) // seconds to 6am, Jan. 1, 1970 **This is a weird number, but it works. Investigate more.
-        let twoAM = Float(32*60*60) // seconds to 2am, Jan. 2, 1970 **See note above.
-        let fifteenMinutes = Float(15*60) // fifteen minutes in seconds
-        let oneHour = Float(60*60) // one hour in seconds
-        timeSlider.minValue = sixAM
-        timeSlider.maxValue = twoAM
-        timeSlider.selectedMinimum = sixAM
-        timeSlider.selectedMaximum = twoAM
+        
+        let cal = Calendar.current
+        let epoch = Date(timeIntervalSince1970: 0)
+        
+        let startOfDay = cal.startOfDay(for: Date())
+        let sixHours = DateComponents(hour: 12) // Add 6 hours because UTC is 6hr ahead, dates are in UTC
+        let twentySixHours = DateComponents(hour: 32)
+        let sixAM = cal.date(byAdding: sixHours, to: startOfDay)
+        let twoAM = cal.date(byAdding: twentySixHours, to: startOfDay)
+        
+        let fifteenMinutes = DateComponents(minute: 15)
+        let oneHour = DateComponents(hour: 1)
+        
+        timeSlider.minValue = Float(sixAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
+        timeSlider.maxValue = Float(twoAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
+        
+        timeSlider.selectedMinimum = timeSlider.minValue
+        timeSlider.selectedMaximum = timeSlider.maxValue
         timeSlider.enableStep = true
-        timeSlider.step = fifteenMinutes
-        timeSlider.minDistance = oneHour
+        timeSlider.step = Float(cal.date(byAdding: fifteenMinutes, to: epoch)!.timeIntervalSince1970)
+        timeSlider.minDistance = Float(cal.date(byAdding: oneHour, to: epoch)!.timeIntervalSince1970)
         
         timeSlider.tintColor = UIColor.darkGray
         timeSlider.tintColorBetweenHandles = UIColor.blue
