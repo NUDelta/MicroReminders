@@ -16,7 +16,7 @@ class MockEnterViewController: UIViewController {
     @IBAction func mockEnterKitchen(_ sender: UIButton) {
         let regionInt: UInt16 = 59582
         
-        let threshold: Double = 10
+        let threshold: Double = 3
         let then = beaconExitTimes[regionInt]!
         
         beaconExitTimes[regionInt] = Date(timeIntervalSinceNow: Double(Int.max))

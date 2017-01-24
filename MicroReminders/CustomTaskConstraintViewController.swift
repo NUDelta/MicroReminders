@@ -34,22 +34,22 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
         let epoch = Date(timeIntervalSince1970: 0)
         
         let startOfDay = cal.startOfDay(for: Date())
-        let sixHours = DateComponents(hour: 6)
-        let twentySixHours = DateComponents(hour: 26)
+        let sixHours = DateComponents(hour: 12) // Add 6 hours because UTC is 6hr ahead, dates are in UTC
+        let twentySixHours = DateComponents(hour: 32)
         let sixAM = cal.date(byAdding: sixHours, to: startOfDay)
         let twoAM = cal.date(byAdding: twentySixHours, to: startOfDay)
         
         let fifteenMinutes = DateComponents(minute: 15)
         let oneHour = DateComponents(hour: 1)
-
+        
         timeSlider.minValue = Float(sixAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
         timeSlider.maxValue = Float(twoAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
         
         timeSlider.selectedMinimum = timeSlider.minValue
         timeSlider.selectedMaximum = timeSlider.maxValue
         timeSlider.enableStep = true
-        timeSlider.step = Float(epoch.timeIntervalSince(cal.date(byAdding: fifteenMinutes, to: epoch)!))
-        timeSlider.minDistance = Float(epoch.timeIntervalSince(cal.date(byAdding: oneHour, to: epoch)!))
+        timeSlider.step = Float(cal.date(byAdding: fifteenMinutes, to: epoch)!.timeIntervalSince1970)
+        timeSlider.minDistance = Float(cal.date(byAdding: oneHour, to: epoch)!.timeIntervalSince1970)
         
         timeSlider.tintColor = UIColor.darkGray
         timeSlider.tintColorBetweenHandles = UIColor.blue
