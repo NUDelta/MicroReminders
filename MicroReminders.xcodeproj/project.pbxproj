@@ -16,6 +16,8 @@
 		D972FB041DAEB8040052DBC1 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB031DAEB8040052DBC1 /* AddTaskViewController.swift */; };
 		D972FB061DAEBCC10052DBC1 /* AddTaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D972FB051DAEBCC10052DBC1 /* AddTaskTableCell.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
+		D9BF34991E36CCA800650041 /* CustomTaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */; };
+		D9BF349B1E36CCCC00650041 /* TimeNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* TimeNumberFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */; };
 		D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */; };
@@ -38,6 +40,8 @@
 		D972FB031DAEB8040052DBC1 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		D972FB051DAEBCC10052DBC1 /* AddTaskTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableCell.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
+		D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTaskConstraintViewController.swift; sourceTree = "<group>"; };
+		D9BF349A1E36CCCC00650041 /* TimeNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeNumberFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9CD04321DB16B1F00EB97D3 /* AddTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableViewController.swift; sourceTree = "<group>"; };
 		D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskConstraintViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 				D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */,
+				D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */,
+				D9BF349A1E36CCCC00650041 /* TimeNumberFormatter.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9BF349B1E36CCCC00650041 /* TimeNumberFormatter.swift in Sources */,
 				D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */,
 				D908290E1DD3A7920036FB4C /* IntroPageViewController.swift in Sources */,
 				D9CD04331DB16B1F00EB97D3 /* AddTaskTableViewController.swift in Sources */,
@@ -297,6 +304,7 @@
 				D9DF32E61DBBE61100281264 /* MyCompleteTasksViewController.swift in Sources */,
 				D94BB50C1DC6BA350050B8DA /* MyCompleteTasksTableViewController.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
+				D9BF34991E36CCA800650041 /* CustomTaskConstraintViewController.swift in Sources */,
 				D972FB061DAEBCC10052DBC1 /* AddTaskTableCell.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,

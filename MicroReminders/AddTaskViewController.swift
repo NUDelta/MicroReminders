@@ -33,45 +33,20 @@ class AddTaskViewController: UIViewController {
             tcvc.pushHandler = {
                 let _ = self.navigationController?.popViewController(animated: true)
                 self.embeddedTableViewController.updateDisplayTasks()
-//                self.tabBarController!.selectedIndex = 1
+            }
+        }
+        else if let ctcvc = segue.destination as? CustomTaskConstraintViewController, segue.identifier == "constrainCustomTask" {
+            ctcvc.taskCategory = taskCategory
+            ctcvc.pushHandler = {
+                let _ = self.navigationController?.popViewController(animated: true)
+                self.embeddedTableViewController.updateDisplayTasks()
             }
         }
     }
     
     @IBAction func addCustomTask(_ sender: UIBarButtonItem) {
-        var taskName = ""
-        let category = taskCategory!
+        self.performSegue(withIdentifier: "constrainCustomTask", sender: self)
         
-        struct textFieldAndAction {
-            var tf: UITextField
-            var action: UIAlertAction
-            
-            init(tf: UITextField, action: UIAlertAction) {
-                self.tf = tf
-                self.action = action
-            }
-        }
-        
-        // Write a task
-        let taskAlert = UIAlertController(title: "Custom task", message: nil, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let continueAction = UIAlertAction(title: "Add", style: .default, handler: { (_) in
-            taskName = taskAlert.textFields![0].text! // Get entered task name
-            
-            self.selectedTask = Task(UUID().uuidString, name: taskName, category: category, subcategory: "Personal")
-            self.performSegue(withIdentifier: "constrainTask", sender: self)
-            
-        })
-        continueAction.isEnabled = false
-        taskAlert.addTextField(configurationHandler: { tf in
-            tf.placeholder = "Add a custom task..."
-            tf.addTarget(self, action: #selector(self.blockAlertDismiss), for: .editingChanged)
-        })
-        taskAlert.addAction(continueAction)
-        taskAlert.addAction(cancelAction)
-        
-        self.present(taskAlert, animated: true, completion: nil)
     }
     
     func blockAlertDismiss(_ sender: UITextField) {

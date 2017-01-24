@@ -1,32 +1,30 @@
 //
-//  TaskConstraintViewController.swift
+//  CustomTaskConstraintViewController.swift
 //  MicroReminders
 //
-//  Created by Sasha Weiss on 1/20/17.
+//  Created by Sasha Weiss on 1/23/17.
 //  Copyright © 2017 Sasha Weiss. All rights reserved.
 //
 
 import UIKit
 import TTRangeSlider
 
-class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var locations: [String] = Beacons.sharedInstance.beacons.values.map({ (location) in
         location.capitalized
     })
     
-    var task: Task!
+    var taskCategory: String!
     var pushHandler: (() -> Void)!
     
-    @IBOutlet weak var taskDescription: UILabel!
+    @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var timeSlider: TTRangeSlider!
     
     override func viewDidLoad() {
         initLocationPicker()
         initTimeSlider()
-        
-        taskDescription.text = task.name
     }
     
     func initTimeSlider() {
@@ -57,15 +55,26 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @IBAction func addTaskClicked(_ sender: UIButton) {
-        let location = locations[locationPicker.selectedRow(inComponent: 0)]
-        let beforeTime = String(timeSlider.selectedMaximum)
-        let afterTime = String(timeSlider.selectedMinimum)
-        
-        task.location = location
-        task.beforeTime = beforeTime
-        task.afterTime = afterTime
-        
-        task.pushToFirebase(handler: pushHandler)
+        let name = taskDescription.text!
+        if name != "" {
+            let location = locations[locationPicker.selectedRow(inComponent: 0)]
+            let beforeTime = String(timeSlider.selectedMaximum)
+            let afterTime = String(timeSlider.selectedMinimum)
+            
+            let task = Task(UUID().uuidString, name: name, category: taskCategory, subcategory: "Personal")
+            
+            task.location = location
+            task.beforeTime = beforeTime
+            task.afterTime = afterTime
+            
+            task.pushToFirebase(handler: pushHandler)
+        }
+        else {
+            let alert = UIAlertController(title: "Please enter a task!", message: nil, preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {

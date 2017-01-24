@@ -10,10 +10,10 @@ import Firebase
 
 class Task {
     let _id: String
-    let name: String
-    let category: String
-    let subcategory: String
-    let length: String = "<1 min"
+    var name: String
+    var category: String
+    var subcategory: String
+    var length: String = "<1 min"
     var location: String = "unassigned"
     var afterTime: String = "unassigned"
     var beforeTime: String = "unassigned"
