@@ -247,7 +247,7 @@
         <!--My tasks-->
         <scene sceneID="oT4-L3-uX0">
             <objects>
-                <viewController title="My tasks" automaticallyAdjustsScrollViewInsets="NO" id="MSP-pv-wQH" customClass="MyCompleteTasksViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="My tasks" automaticallyAdjustsScrollViewInsets="NO" id="MSP-pv-wQH" customClass="MyTasksViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sQM-vg-BHk"/>
                         <viewControllerLayoutGuide type="bottom" id="vgH-92-2lz"/>
@@ -298,16 +298,16 @@
             </objects>
             <point key="canvasLocation" x="305" y="-1039"/>
         </scene>
-        <!--My Complete Tasks Table View Controller-->
+        <!--My Tasks Table View Controller-->
         <scene sceneID="dhC-Qk-52x">
             <objects>
-                <tableViewController id="P99-aD-v3M" customClass="MyCompleteTasksTableViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="P99-aD-v3M" customClass="MyTasksTableViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="D0z-BO-G7Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyCompleteTasksTableCell" rowHeight="100" id="Ymb-tl-0CY" customClass="MyCompleteTasksTableCell" customModule="MicroReminders" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyTasksTableCell" rowHeight="100" id="Ymb-tl-0CY" customClass="MyTasksTableCell" customModule="MicroReminders" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ymb-tl-0CY" id="QQl-Ik-4ON">

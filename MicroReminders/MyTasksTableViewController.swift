@@ -1,5 +1,5 @@
 //
-//  MyCompleteTasksTableViewController.swift
+//  MyTasksTableViewController.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 10/30/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MyCompleteTasksTableViewController: UITableViewController {
+class MyTasksTableViewController: UITableViewController {
     var myTaskRef: FIRDatabaseReference!
     
     var myTaskList = [Task]()
@@ -65,7 +65,7 @@ class MyCompleteTasksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCompleteTasksTableCell", for: indexPath) as! MyCompleteTasksTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTasksTableCell", for: indexPath) as! MyTasksTableCell
         
         let task = extractSection(section: indexPath.section)[indexPath.row]
         

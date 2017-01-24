@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyCompleteTasksViewController: UIViewController {
+class MyTasksViewController: UIViewController {
     
     var selectedTask: Task!
     var taskPushHandler: (() -> Void)!

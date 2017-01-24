@@ -1,5 +1,5 @@
 //
-//  MyCompleteTasksTableCell.swift
+//  MyTasksTableCell.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 10/30/16.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class MyCompleteTasksTableCell: UITableViewCell {
+class MyTasksTableCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var location: UILabel!
     
-    var tableViewController: MyCompleteTasksTableViewController! = nil
+    var tableViewController: MyTasksTableViewController! = nil
  
     var task: Task! = nil
     var active: Bool! = nil
@@ -62,7 +62,7 @@ class MyCompleteTasksTableCell: UITableViewCell {
         })
         
         let newConstraintsButton = UIAlertAction(title: "New constraints", style: .default, handler: { action in
-            let grandparent = self.tableViewController.parent as! MyCompleteTasksViewController
+            let grandparent = self.tableViewController.parent as! MyTasksViewController
             
             grandparent.selectedTask = newTask
             grandparent.taskPushHandler = {
