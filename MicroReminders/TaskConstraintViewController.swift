@@ -36,8 +36,8 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
         let epoch = Date(timeIntervalSince1970: 0)
         
         let startOfDay = cal.startOfDay(for: Date())
-        let sixHours = DateComponents(hour: 12) // Add 6 hours because UTC is 6hr ahead, dates are in UTC
-        let twentySixHours = DateComponents(hour: 32)
+        let sixHours = DateComponents(hour: 6) // Add 6 hours because UTC is 6hr ahead, dates are in UTC
+        let twentySixHours = DateComponents(hour: 26)
         let sixAM = cal.date(byAdding: sixHours, to: startOfDay)
         let twoAM = cal.date(byAdding: twentySixHours, to: startOfDay)
         

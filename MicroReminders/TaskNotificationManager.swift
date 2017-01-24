@@ -116,11 +116,7 @@ class TaskNotificationSender: TaskInteractionManager {
     private func secondsIntoDay() -> Float {
         let cal = Calendar.current
         
-        // Add 6 hours because all times are in UTC
-        let sixHours = DateComponents(hour: 6)
-        let adjustedNow = cal.date(byAdding: sixHours, to: Date())
-        
-        return Float(adjustedNow!.timeIntervalSince(cal.startOfDay(for: Date())))
+        return Float(Date().timeIntervalSince(cal.startOfDay(for: Date())))
     }
     
     /** Determines if the task represented by taskData can be notified for now. Checks location and time constraints. */

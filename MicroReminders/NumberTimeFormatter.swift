@@ -15,11 +15,16 @@ class NumberTimeFormatter: NumberFormatter {
             return nil
         }
         
+        let cal = Calendar.current
+        
         let dateTime = Date(timeIntervalSince1970: (obj as! NSNumber).doubleValue)
+        let sixHours = DateComponents(hour: 6)
+        
+        let adjustedTime = cal.date(byAdding: sixHours, to: dateTime)
         
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         
-        return formatter.string(from: dateTime)
+        return formatter.string(from: adjustedTime!)
     }
 }
