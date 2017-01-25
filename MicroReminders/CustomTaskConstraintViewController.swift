@@ -9,7 +9,7 @@
 import UIKit
 import TTRangeSlider
 
-class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var locations: [String] = Beacons.sharedInstance.beacons.values.map({ (location) in
         location.capitalized
@@ -25,6 +25,17 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     override func viewDidLoad() {
         initLocationPicker()
         initTimeSlider()
+        
+        initDismissKeyboard()
+    }
+    
+    func initDismissKeyboard() {
+        // Return key dismisses
+        taskDescription.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
     }
     
     func initTimeSlider() {
