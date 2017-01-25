@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /* Send notifications when we enter a region */
     func beaconManager(_ manager: Any, didEnter region: CLBeaconRegion) {
-        print("entered \(region.identifier)")
+        print("entered \(region.identifier) , \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
         let threshold: Double = 0.5 // Minimum number of minutes outside region before notification
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /** Keep track of when we exited a region */
     func beaconManager(_ manager: Any, didExitRegion region: CLBeaconRegion) {
-        print("exited \(region.identifier)")
+        print("exited \(region.identifier), \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
         /*
@@ -151,6 +151,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         if (beaconExitTimes[regionInt]!.timeIntervalSinceNow > Double(Int.max/2)) {
             beaconExitTimes[regionInt] = Date()
         }
+    }
+    
+    /** Monitoring failing */
+    func beaconManager(_ manager: Any, monitoringDidFailFor region: CLBeaconRegion?, withError error: Error) {
+        print("Monitoring failed for: \(region?.identifier) with error \(error.localizedDescription) at \(Date())")
+    }
+    
+    /** Beacon manager failing */
+    func beaconManager(_ manager: Any, didFailWithError error: Error) {
+        print("Beacon manager failed with error: \(error.localizedDescription), \(Date())")
+    }
+    
+    /** Region state determined */
+    func beaconManager(_ manager: Any, didDetermineState state: CLRegionState, for region: CLBeaconRegion) {
+        let stateString: String = {
+            switch state.rawValue {
+            case 0:
+                return "unknown"
+            case 1:
+                return "inside"
+            case 2:
+                return "outside"
+            default:
+                return "AHHHHH"
+            }
+        }()
+        
+        print("determined state for region: \(region.identifier) to be *\(stateString)*, \(Date())")
     }
 }
 
