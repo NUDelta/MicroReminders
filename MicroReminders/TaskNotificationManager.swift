@@ -120,7 +120,7 @@ class TaskNotificationSender: TaskInteractionManager {
     }
     
     /** Determines if the task represented by taskData can be notified for now. Checks location and time constraints. */
-    private func canNotifyNow(taskData: [String: String], location: String) -> Bool {
+    private func canNotifyForTask(_ taskData: [String: String], location: String) -> Bool {
         let seconds = secondsIntoDay()
         
         return { taskData["completed"]! == "false" &&
@@ -132,6 +132,8 @@ class TaskNotificationSender: TaskInteractionManager {
     
     /** Select and notify for tasks for a given location, at the current time */
     func notify(_ location: String) {
+        
+        
         let myTasksRef = firebaseRefForMyTasks()
         
         myTasksRef
@@ -141,7 +143,7 @@ class TaskNotificationSender: TaskInteractionManager {
                 if (tasksJSON != nil) {
                     var candidatesForNotification = tasksJSON!
                     for (_id, taskData) in candidatesForNotification {
-                        if (!self.canNotifyNow(taskData: taskData, location: location))
+                        if (!self.canNotifyForTask(taskData, location: location))
                         {
                             candidatesForNotification.removeValue(forKey: _id)
                         }
