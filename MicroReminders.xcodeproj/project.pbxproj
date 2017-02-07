@@ -26,6 +26,7 @@
 		D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
+		D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9EBC7151E4A850800E3438C /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		D9E588951CC538650084D7E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9E588961CC538650084D7E7 /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D9EBC7151E4A850800E3438C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 		D90323841CE811160025FEBB /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				D9EBC7151E4A850800E3438C /* Media.xcassets */,
 				D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */,
 				D9E588951CC538650084D7E7 /* Info.plist */,
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
@@ -204,7 +207,7 @@
 				TargetAttributes = {
 					D93CB7971CC5372D00F8C73B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = W4E2C6X642;
+						DevelopmentTeam = 823S57WQK3;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Manual;
 					};
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */,
+				D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */,
 				D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,10 +426,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = W4E2C6X642;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 823S57WQK3;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -434,8 +440,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "de8fe3cc-0fdc-45fc-a57c-6e0ba1cad6e5";
-				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab";
+				PROVISIONING_PROFILE = "a435b2eb-a751-4070-bcd9-629f1f1829cf";
+				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab M";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -448,11 +454,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Northwestern University";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = W4E2C6X642;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 823S57WQK3;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -462,8 +470,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "de8fe3cc-0fdc-45fc-a57c-6e0ba1cad6e5";
-				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab";
+				PROVISIONING_PROFILE = "a435b2eb-a751-4070-bcd9-629f1f1829cf";
+				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab M";
 				SWIFT_OBJC_BRIDGING_HEADER = MicroReminders/ObjCBridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";
