@@ -12,7 +12,6 @@ import Firebase
 class MyTasksTableViewController: UITableViewController {
     var myTaskRef: FIRDatabaseReference!
     
-    var myTaskList = [Task]()
     var displayTaskList = [Task]()
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
@@ -107,47 +106,20 @@ class MyTasksTableViewController: UITableViewController {
             }
         }
         
-        self.myTaskRef.observeSingleEvent(of: .value, with: { myTaskSnapshot in
-            self.fillTaskList(myTaskSnapshot, taskList: &self.myTaskList)
-            self.displayTaskList = self.myTaskList
-            self.displayTaskDict = [String: [Task]]()
-            self.displayTaskDictComplete = [String: [Task]]()
-            
-            for task in self.displayTaskList {
-                if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
-                else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
-            }
-            
-            taskDictSort(dict: &self.displayTaskDict)
-            taskDictSort(dict: &self.displayTaskDictComplete)
-            
-            self.loadingIndicator.stopAnimating()
-            self.tableView.reloadData()
-        })
-    }
-    
-    func fillTaskList(_ snapshot: FIRDataSnapshot, taskList: inout [Task]) -> Void {
-        taskList = [Task]()
+        self.displayTaskList = Tasks.sharedInstance.tasks
+        self.displayTaskDict = [String: [Task]]()
+        self.displayTaskDictComplete = [String: [Task]]()
         
-        let taskJSON = snapshot.value as? [String: [String: String]]
-        
-        if taskJSON != nil {
-            for (_id, taskData) in taskJSON! {
-                let task = Task(
-                    _id,
-                    name: taskData["task"]!,
-                    category: taskData["category"]!,
-                    subcategory: taskData["subcategory"]!,
-                    location: taskData["location"]!,
-                    beforeTime: taskData["beforeTime"]!,
-                    afterTime: taskData["afterTime"]!,
-                    completed: taskData["completed"]!,
-                    lastSnoozed: taskData["lastSnoozed"]!
-                )
-                
-                taskList.append(task)
-            }
+        for task in self.displayTaskList {
+            if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
+            else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
         }
+        
+        taskDictSort(dict: &self.displayTaskDict)
+        taskDictSort(dict: &self.displayTaskDictComplete)
+        
+        self.loadingIndicator.stopAnimating()
+        self.tableView.reloadData()
     }
     
     func extractSection(section: Int) -> [Task] {

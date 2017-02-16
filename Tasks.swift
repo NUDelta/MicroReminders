@@ -15,7 +15,7 @@ class Tasks {
     
     var tasks = [Task]()
     
-    fileprivate init() {
+    private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
         tasksRef.observe(.value, with: {snapshot in
@@ -23,7 +23,7 @@ class Tasks {
         })
     }
     
-    fileprivate func fillTaskList(_ snapshot: FIRDataSnapshot) -> [Task] {
+    private func fillTaskList(_ snapshot: FIRDataSnapshot) -> [Task] {
         var taskList = [Task]()
         let taskJSON = snapshot.value as? [String: [String: String]]
         
