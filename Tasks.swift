@@ -11,15 +11,22 @@ import Firebase
 
 class Tasks {
     static let sharedInstance = Tasks()
-    fileprivate let tasksRef: FIRDatabaseReference!
+    private let tasksRef: FIRDatabaseReference!
+    private let prepopRef: FIRDatabaseReference!
     
     var tasks = [Task]()
+    var prepopulated = [Task]()
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
+        prepopRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
         
         tasksRef.observe(.value, with: {snapshot in
             self.tasks = self.fillTaskList(snapshot)
+        })
+        
+        prepopRef.observeSingleEvent(of: .value, with: {snapshot in
+            self.prepopulated = self.fillTaskList(snapshot)
         })
     }
     

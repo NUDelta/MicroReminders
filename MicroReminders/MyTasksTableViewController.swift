@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 
 class MyTasksTableViewController: UITableViewController {
-    var myTaskRef: FIRDatabaseReference!
     
     var displayTaskList = [Task]()
     var displayTaskDict = [String: [Task]]()
@@ -25,7 +24,6 @@ class MyTasksTableViewController: UITableViewController {
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
