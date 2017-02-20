@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8oD-rM-cWZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="74d-wx-wNJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -59,7 +59,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rYU-on-zoZ">
-                                <rect key="frame" x="16" y="100.5" width="343" height="1"/>
+                                <rect key="frame" x="16" y="101" width="343" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="XiF-NT-ShP"/>
@@ -72,66 +72,66 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-w7-YwX">
-                                <rect key="frame" x="32" y="138.5" width="311" height="21"/>
+                                <rect key="frame" x="32" y="139" width="311" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyp-cV-CUE">
-                                <rect key="frame" x="16" y="109.5" width="20" height="21"/>
+                                <rect key="frame" x="16" y="110" width="20" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="when I enter my:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImK-8u-U1m">
-                                <rect key="frame" x="16" y="192.5" width="127" height="21"/>
+                                <rect key="frame" x="16" y="193" width="127" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yR-Rv-pr6">
-                                <rect key="frame" x="40" y="221.5" width="295" height="82"/>
+                                <rect key="frame" x="40" y="222" width="295" height="82"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="82" id="apb-Yd-vb8"/>
                                 </constraints>
                             </pickerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHg-s6-0tZ">
-                                <rect key="frame" x="16" y="183.5" width="343" height="1"/>
+                                <rect key="frame" x="16" y="184" width="343" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="9e4-1o-GZI"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyo-jo-iCy">
-                                <rect key="frame" x="16" y="327.5" width="343" height="1"/>
+                                <rect key="frame" x="16" y="328" width="343" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="a8K-rr-eHD"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ld7-U7-V0K">
-                                <rect key="frame" x="16" y="454" width="343" height="1"/>
+                                <rect key="frame" x="16" y="455" width="343" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="F0j-6t-1dB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-US-ImQ" customClass="TTRangeSlider">
-                                <rect key="frame" x="24" y="365" width="327" height="65"/>
+                                <rect key="frame" x="24" y="366" width="327" height="65"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="enableStep" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xy-aj-JXc">
-                                <rect key="frame" x="16" y="463" width="343" height="30"/>
+                                <rect key="frame" x="16" y="464" width="343" height="30"/>
                                 <state key="normal" title="Save task"/>
                                 <connections>
                                     <action selector="addTaskClicked:" destination="BMt-bX-Dy9" eventType="touchUpInside" id="4L2-T4-ouh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="between the times of:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjU-EQ-LU1">
-                                <rect key="frame" x="16" y="336.5" width="166" height="21"/>
+                                <rect key="frame" x="16" y="337" width="166" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -183,6 +183,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f9-cI-M8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2077.5999999999999" y="-816.34182908545733"/>
+        </scene>
+        <!--Goal Card Collection View Controller-->
+        <scene sceneID="Gwm-06-hbs">
+            <objects>
+                <collectionViewController id="qH7-hU-WG4" customClass="GoalCardCollectionViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ss5-ix-GpB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="y7d-qC-hld">
+                            <size key="itemSize" width="313" height="132"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GoalCard" id="0B3-c5-MDh" customClass="GoalCard" customModule="MicroReminders" customModuleProvider="target">
+                                <rect key="frame" x="31" y="0.0" width="313" height="132"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="313" height="132"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TH9-GY-24y">
+                                            <rect key="frame" x="101.5" y="52.5" width="110" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerY" secondItem="0B3-c5-MDh" secondAttribute="centerY" id="BPL-Cb-3Vc"/>
+                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerX" secondItem="0B3-c5-MDh" secondAttribute="centerX" id="o4M-bk-1B5"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="goalName" destination="TH9-GY-24y" id="aJY-ym-W10"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="qH7-hU-WG4" id="Kd3-uA-qwS"/>
+                            <outlet property="delegate" destination="qH7-hU-WG4" id="lN2-wW-PuN"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="UCR-Tc-aht"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6g8-k8-MmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4973.6000000000004" y="-860.41979010494754"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="O1b-J4-xJF">
@@ -774,6 +824,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDW-5i-8HK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1049" y="419"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fB7-72-Mmd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="74d-wx-wNJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JKX-US-MB7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qH7-hU-WG4" kind="relationship" relationship="rootViewController" id="2jT-RG-6cL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hy2-u5-fxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4034.4000000000001" y="-860.41979010494754"/>
         </scene>
     </scenes>
     <resources>
