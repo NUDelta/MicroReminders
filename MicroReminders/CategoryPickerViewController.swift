@@ -24,7 +24,7 @@ class CategoryPickerViewController: UIViewController {
     }
     
     @IBAction func cleaning_and_tidying(_ sender: UIButton) {
-        selectedCategory = "Cleaning"
+        selectedCategory = "Communication"
         self.performSegue(withIdentifier: "AddTask", sender: self)
     }
     

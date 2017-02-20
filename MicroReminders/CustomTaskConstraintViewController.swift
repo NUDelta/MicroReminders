@@ -82,7 +82,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
             let beforeTime = String(timeSlider.selectedMaximum)
             let afterTime = String(timeSlider.selectedMinimum)
             
-            let task = Task(UUID().uuidString, name: name, category: taskCategory, subcategory: "Personal")
+            let task = Task(UUID().uuidString, name: name, goal: taskCategory, order: "-1")
             
             task.location = location
             task.beforeTime = beforeTime

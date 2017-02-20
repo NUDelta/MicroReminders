@@ -92,14 +92,14 @@ class MyTasksTableViewController: UITableViewController {
     
     func updateDisplayTasks() -> Void {
         func taskDictInsert(dict: inout [String: [Task]], task: Task) {
-            let key = task.category
+            let key = task.goal
             if dict[key] == nil { dict[key] = [Task]() }
             dict[key]!.append(task)
         }
         
         func taskDictSort(dict: inout [String: [Task]]) {
             for (category, tasklist) in dict {
-                let sorted = tasklist.sorted(by: { (task1, task2) in task1.subcategory < task2.subcategory })
+                let sorted = tasklist.sorted(by: { (task1, task2) in task1.order < task2.order })
                 dict[category] = sorted
             }
         }

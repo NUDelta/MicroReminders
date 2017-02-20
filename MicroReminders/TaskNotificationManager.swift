@@ -81,8 +81,8 @@ class TaskNotificationSender: TaskInteractionManager {
         return [
             "t_id":task._id,
             "t_name":task.name,
-            "t_category":task.category,
-            "t_subcategory":task.subcategory,
+            "t_goal":task.goal,
+            "t_order":task.order,
             "t_completed":task.completed,
             "t_length":task.length,
             "t_lastSnoozed":task.lastSnoozed,
@@ -168,8 +168,8 @@ class TaskNotificationResponder: TaskInteractionManager {
         return Task(
             userInfo["t_id"]!,
             name: userInfo["t_name"]!,
-            category: userInfo["t_category"]!,
-            subcategory: userInfo["t_subcategory"]!,
+            goal: userInfo["t_goal"]!,
+            order: userInfo["t_order"]!,
             location: userInfo["t_location"]!,
             beforeTime: userInfo["t_beforeTime"]!,
             afterTime: userInfo["t_afterTime"]!,
@@ -205,8 +205,8 @@ fileprivate class TaskScheduler {
         return Task(
             _id,
             name: taskJSON["task"]!,
-            category: taskJSON["category"]!,
-            subcategory: taskJSON["subcategory"]!,
+            goal: taskJSON["goal"]!,
+            order: taskJSON["order"]!,
             location: taskJSON["location"]!,
             beforeTime: taskJSON["beforeTime"]!,
             afterTime: taskJSON["afterTime"]!,

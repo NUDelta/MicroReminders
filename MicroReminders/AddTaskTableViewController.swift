@@ -54,10 +54,10 @@ class AddTaskTableViewController: UITableViewController {
         
         let myTaskIds = self.myTaskList.filter({ task in task.completed == "false"}).map({ task in task._id })
         self.displayTaskList = self.prepopTaskList.filter({ task in
-            !myTaskIds.contains(task._id) && task.category == self.taskCategory!
+            !myTaskIds.contains(task._id) && task.goal == self.taskCategory!
         })
         
-        self.displayTaskList.sort(by: { (task1, task2) in task1.subcategory > task2.subcategory })
+        self.displayTaskList.sort(by: { (task1, task2) in task1.order > task2.order })
         
         self.loadingIndicator.stopAnimating()
         self.tableView.reloadData()

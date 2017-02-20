@@ -19,7 +19,7 @@ class Tasks {
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
-        prepopRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
+        prepopRef = FIRDatabase.database().reference().child("Tasks/Prepopulated_Goals")
         
         tasksRef.observe(.value, with: {snapshot in
             self.tasks = self.fillTaskList(snapshot)
@@ -39,8 +39,8 @@ class Tasks {
                 let task = Task(
                     _id,
                     name: taskData["task"]!,
-                    category: taskData["category"]!,
-                    subcategory: taskData["subcategory"]!,
+                    goal: taskData["goal"]!,
+                    order: taskData["order"]!,
                     location: taskData["location"]!,
                     beforeTime: taskData["beforeTime"]!,
                     afterTime: taskData["afterTime"]!,
