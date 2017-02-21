@@ -14,7 +14,13 @@ class Tasks {
     private let tasksRef: FIRDatabaseReference!
     private let prepopRef: FIRDatabaseReference!
     
-    var tasks = [Task]()
+    var taskListeners = [(() -> Void)]()
+    
+    var tasks = [Task]() {
+        didSet {
+            taskListeners.forEach({ $0() })
+        }
+    }
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
@@ -27,7 +33,9 @@ class Tasks {
                 self.prepopRef.observeSingleEvent(of: .value, with:{ snapshot in
                     let prepopulated = self.fillTaskList(snapshot)
                     
-                    self.tasks = prepopulated
+                    prepopulated.forEach({ task in
+                        task.pushToFirebase(handler: nil)
+                    })
                 })
             }
         })

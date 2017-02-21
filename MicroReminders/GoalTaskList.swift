@@ -9,17 +9,11 @@
 import UIKit
 import Firebase
 
-class MyTasksTableViewController: UITableViewController {
+class GoalTaskList: UITableViewController {
     
-    var displayTaskList = [Task]()
+    var goal: Goal!
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
-    
-    var loadingIndicator: UIActivityIndicatorView! = nil
-    
-    var tappedCell = -1
-    
-    let myDarkGrey = UIColor(colorLiteralRed: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
     
     // Table loading
     override func viewDidLoad() {
@@ -27,18 +21,6 @@ class MyTasksTableViewController: UITableViewController {
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        loadingIndicator = activityIndicator()
-        self.view.addSubview(loadingIndicator)
-        loadingIndicator.startAnimating()
-    }
-    
-    func activityIndicator() -> UIActivityIndicatorView {
-        let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        indicator.center = self.view.center
-        indicator.hidesWhenStopped = true
-        return indicator
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +44,7 @@ class MyTasksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTasksTableCell", for: indexPath) as! MyTasksTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTask", for: indexPath) as! GoalTask
         
         let task = extractSection(section: indexPath.section)[indexPath.row]
         
@@ -73,7 +55,7 @@ class MyTasksTableViewController: UITableViewController {
             cell.button.setTitle("☐", for: .normal)
         }
         else {
-            cell.backgroundColor = myDarkGrey
+            cell.backgroundColor = UIColor.lightGray
             cell.taskName.text = task.name
             cell.active = false
             cell.button.setTitle("☑︎", for: .normal)
@@ -104,11 +86,10 @@ class MyTasksTableViewController: UITableViewController {
             }
         }
         
-        self.displayTaskList = Tasks.sharedInstance.tasks
         self.displayTaskDict = [String: [Task]]()
         self.displayTaskDictComplete = [String: [Task]]()
         
-        for task in self.displayTaskList {
+        for task in goal.1 {
             if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
             else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
         }
@@ -116,7 +97,6 @@ class MyTasksTableViewController: UITableViewController {
         taskDictSort(dict: &self.displayTaskDict)
         taskDictSort(dict: &self.displayTaskDictComplete)
         
-        self.loadingIndicator.stopAnimating()
         self.tableView.reloadData()
     }
     
@@ -138,11 +118,10 @@ class MyTasksTableViewController: UITableViewController {
         let incompleteCategoryCount = displayTaskDict.keys.count
         
         if section < incompleteCategoryCount {
-            return Array(displayTaskDict.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[section]
+            return "Pending"
         }
         else {
-            let mod = section - incompleteCategoryCount
-            return Array(displayTaskDictComplete.keys).sorted(by: { (cat1, cat2) in cat1 < cat2 })[mod] + " (complete)"
+            return "Completed"
         }
     }
 }
