@@ -212,7 +212,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ubr-LK-GQK"/>
                     </navigationItem>
                     <connections>
-                        <segue destination="pSO-Nf-qym" kind="show" id="EuK-27-Dtq"/>
                         <segue destination="P99-aD-v3M" kind="show" identifier="tasksForGoal" id="zJ2-Zm-JGd"/>
                     </connections>
                 </collectionViewController>
@@ -300,12 +299,13 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="3nv-ph-Re1"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="4hH-Mc-mxa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QoG-gQ-iti"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QoG-gQ-iti">
+                            <connections>
+                                <segue destination="pSO-Nf-qym" kind="show" identifier="addTaskToGoal" id="lVO-co-Cum"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="pSO-Nf-qym" kind="show" id="5nQ-56-lg4"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-xJ-O1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -451,7 +451,4 @@
             <point key="canvasLocation" x="1350" y="-450"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="EuK-27-Dtq"/>
-    </inferredMetricsTieBreakers>
 </document>

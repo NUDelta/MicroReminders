@@ -18,7 +18,6 @@
 		D9BF34991E36CCA800650041 /* CustomTaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */; };
 		D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
-		D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */; };
 		D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* Task.swift */; };
 		D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
@@ -40,7 +39,6 @@
 		D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTaskConstraintViewController.swift; sourceTree = "<group>"; };
 		D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTimeFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
-		D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskConstraintViewController.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9E588941CC538650084D7E7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 				D9853D9F1E56169F00AC5FBE /* Tasks.swift */,
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
-				D9D6E5CB1E3289E300B0CA53 /* TaskConstraintViewController.swift */,
 				D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */,
 				D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */,
 			);
@@ -273,7 +270,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
-				D9D6E5CC1E3289E300B0CA53 /* TaskConstraintViewController.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D94BB50E1DC6BBE40050B8DA /* GoalTask.swift in Sources */,
 				D94BB50C1DC6BA350050B8DA /* GoalTaskList.swift in Sources */,

@@ -26,8 +26,8 @@ class GoalCardCollectionViewController: UICollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? GoalTaskList, segue.identifier == "tasksForGoal" {
-            vc.goal = selectedGoal
+        if let gtl = segue.destination as? GoalTaskList, segue.identifier == "tasksForGoal" {
+            gtl.goal = selectedGoal
         }
     }
 }

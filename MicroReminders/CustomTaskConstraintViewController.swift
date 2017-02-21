@@ -11,11 +11,9 @@ import TTRangeSlider
 
 class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    var locations: [String] = Beacons.sharedInstance.beacons.values.map({ (location) in
-        location.capitalized
-    })
+    var locations: [String] = Beacons.sharedInstance.beacons.values.map({ $0.capitalized })
     
-    var taskCategory: String!
+    var goal: Goal!
     var pushHandler: (() -> Void)!
     
     @IBOutlet weak var taskDescription: UITextField!
@@ -82,7 +80,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
             let beforeTime = String(timeSlider.selectedMaximum)
             let afterTime = String(timeSlider.selectedMinimum)
             
-            let task = Task(UUID().uuidString, name: name, goal: taskCategory, order: "-1")
+            let task = Task(UUID().uuidString, name: name, goal: goal!.0, order: "-1")
             
             task.location = location
             task.beforeTime = beforeTime

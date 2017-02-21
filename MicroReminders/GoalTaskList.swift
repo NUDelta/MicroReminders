@@ -126,6 +126,15 @@ class GoalTaskList: UITableViewController {
             return "Completed"
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let ctcvc = segue.destination as? CustomTaskConstraintViewController, segue.identifier == "addTaskToGoal" {
+            ctcvc.goal = goal
+            ctcvc.pushHandler = {
+                self.navigationController!.popViewController(animated: true)
+            }
+        }
+    }
 }
 
 
