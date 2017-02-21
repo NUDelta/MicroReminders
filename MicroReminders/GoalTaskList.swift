@@ -21,6 +21,8 @@ class GoalTaskList: UITableViewController {
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        navigationItem.title = goal!.0
     }
     
     override func viewWillAppear(_ animated: Bool) {

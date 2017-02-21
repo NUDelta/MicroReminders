@@ -80,8 +80,12 @@ extension GoalCardCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 // Utility stuff
 extension GoalCardCollectionViewController {
+    private func otherGoal() -> Goal {
+        return ("Other", [Task]())
+    }
+    
     fileprivate func goalsFromTasks(tasks: [Task]) -> [Goal] {
-        return tasks
+        let goals = tasks
             .map({ (task) -> (String, Task) in return (task.goal, task) })
             .reduce([String: [Task]]()) { acc, t in
                 var tmp = acc
@@ -92,7 +96,10 @@ extension GoalCardCollectionViewController {
                     tmp[t.0] = [t.1]
                 }
                 return tmp
-            }.map({ (goal, taskList) in (goal, taskList) })
+            }
+            .map({ (goal, taskList) in (goal, taskList) })
+        
+        return goals + [otherGoal()]
     }
 }
 

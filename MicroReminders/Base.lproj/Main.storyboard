@@ -168,7 +168,7 @@
         <scene sceneID="Gwm-06-hbs">
             <objects>
                 <collectionViewController title="Goal Card Feed" id="qH7-hU-WG4" customClass="GoalCardCollectionViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ss5-ix-GpB">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ss5-ix-GpB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -208,7 +208,9 @@
                             <outlet property="delegate" destination="qH7-hU-WG4" id="lN2-wW-PuN"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Goals" id="UCR-Tc-aht"/>
+                    <navigationItem key="navigationItem" title="Goals" id="UCR-Tc-aht">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ubr-LK-GQK"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="pSO-Nf-qym" kind="show" id="EuK-27-Dtq"/>
                         <segue destination="P99-aD-v3M" kind="show" identifier="tasksForGoal" id="zJ2-Zm-JGd"/>
@@ -238,15 +240,15 @@
                                             <rect key="frame" x="8" y="8" width="359" height="58"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Task" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="219" height="58"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="199" height="58"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N40-Hc-Zba">
-                                                    <rect key="frame" x="219" y="0.0" width="100" height="58"/>
+                                                    <rect key="frame" x="199" y="0.0" width="120" height="58"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="b5J-3p-fix"/>
+                                                        <constraint firstAttribute="width" constant="120" id="b5J-3p-fix"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -257,6 +259,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Ba2-WS-u04"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Box"/>
                                                     <connections>
                                                         <action selector="buttonTapped:" destination="Ymb-tl-0CY" eventType="touchUpInside" id="cgD-j3-RZU"/>
@@ -293,15 +296,18 @@
                             <outlet property="delegate" destination="P99-aD-v3M" id="hmc-Ie-Jpy"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="3nv-ph-Re1"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="4hH-Mc-mxa">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QoG-gQ-iti"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="pSO-Nf-qym" kind="show" id="5nQ-56-lg4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-xJ-O1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Nq0-KK-soi">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
             </objects>
             <point key="canvasLocation" x="1350" y="-1238"/>
         </scene>
