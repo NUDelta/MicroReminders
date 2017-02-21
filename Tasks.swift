@@ -14,13 +14,17 @@ class Tasks {
     private let tasksRef: FIRDatabaseReference!
     private let prepopRef: FIRDatabaseReference!
     
-    var taskListeners = [(() -> Void)]()
+    var taskListeners = [String: (() -> Void)]()
     
     var tasks = [Task]() {
         didSet {
-            taskListeners.forEach({ $0() })
+            goals = goalsFromTasks(tasks: tasks) + [otherGoal]
+            taskListeners.forEach({ $1() })
         }
     }
+    
+    let otherGoal: Goal = ("Other", [Task]())
+    var goals: [Goal] = [Goal]()
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
@@ -64,6 +68,28 @@ class Tasks {
         }
         
         return taskList
+    }
+    
+    fileprivate func goalsFromTasks(tasks: [Task]) -> [Goal] {
+        let goals = tasks
+            .map({ (task) -> (String, Task) in return (task.goal, task) })
+            .reduce([String: [Task]]()) { acc, t in
+                var tmp = acc
+                if (acc[t.0] != nil) {
+                    tmp[t.0]!.append(t.1)
+                }
+                else {
+                    tmp[t.0] = [t.1]
+                }
+                return tmp
+            }
+            .map({ (goal, taskList) in (goal, taskList) })
+        
+        return goals
+    }
+    
+    func goalForTitle(title: String) -> Goal {
+        return goals.filter({ $0.0 == title }).first!
     }
 }
 

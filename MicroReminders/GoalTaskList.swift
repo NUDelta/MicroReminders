@@ -27,10 +27,34 @@ class GoalTaskList: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateDisplayTasks()
+        
+        Tasks.sharedInstance.taskListeners
+            .updateValue(initGoal, forKey: "updateGoalFor\(goal!.0)")
+        
+        initGoal()
     }
     
-    // Table display
+    func initGoal() {
+        self.goal = Tasks.sharedInstance.goalForTitle(title: self.goal!.0)
+        self.updateDisplayTasks()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Tasks.sharedInstance.taskListeners.removeValue(forKey: "updateTasksFor\(goal!.0)")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let ctcvc = segue.destination as? CustomTaskConstraintViewController, segue.identifier == "addTaskToGoal" {
+            ctcvc.goal = goal
+            ctcvc.pushHandler = {
+                self.navigationController!.popViewController(animated: true)
+            }
+        }
+    }
+}
+
+// TableView data source and delegate
+extension GoalTaskList {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return displayTaskDict.keys.count + displayTaskDictComplete.keys.count
     }
@@ -124,15 +148,6 @@ class GoalTaskList: UITableViewController {
         }
         else {
             return "Completed"
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let ctcvc = segue.destination as? CustomTaskConstraintViewController, segue.identifier == "addTaskToGoal" {
-            ctcvc.goal = goal
-            ctcvc.pushHandler = {
-                self.navigationController!.popViewController(animated: true)
-            }
         }
     }
 }

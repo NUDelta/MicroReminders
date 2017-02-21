@@ -18,11 +18,20 @@ class GoalCardCollectionViewController: UICollectionViewController {
     fileprivate var selectedGoal: Goal!
     
     override func viewWillAppear(_ animated: Bool) {
-        Tasks.sharedInstance.taskListeners.append({
-            self.tasks = Tasks.sharedInstance.tasks
-            self.goals = self.goalsFromTasks(tasks: self.tasks)
-            self.collectionView!.reloadData()
-        })
+        Tasks.sharedInstance.taskListeners
+            .updateValue(initTasksAndGoals, forKey: "collectGoals")
+        
+        initTasksAndGoals()
+    }
+    
+    func initTasksAndGoals() {
+        self.tasks = Tasks.sharedInstance.tasks
+        self.goals = self.goalsFromTasks(tasks: self.tasks)
+        self.collectionView!.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Tasks.sharedInstance.taskListeners.removeValue(forKey: "collectGoals")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
