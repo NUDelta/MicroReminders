@@ -48,14 +48,22 @@ class GoalTask: UITableViewCell {
     }
     
     func assignLocation() {
-        self.tableViewController.existingTaskToConstrain = task
-        self.tableViewController.performSegue(withIdentifier: "constrainExistingTask", sender: self)
+        let alert = UIAlertController(title: "Assign location?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Assign", style: .default, handler: { _ in self.constrainExistingTask() }))
+        self.tableViewController.present(alert, animated: true, completion: nil)
+        
     }
     
     func reactivate() {
         let alert = UIAlertController(title: "Repeat task?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in self.assignLocation() }))
+        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in self.constrainExistingTask() }))
         self.tableViewController.present(alert, animated: true, completion: nil)
+    }
+    
+    func constrainExistingTask() {
+        self.tableViewController.existingTaskToConstrain = task
+        self.tableViewController.performSegue(withIdentifier: "constrainExistingTask", sender: self)
     }
 }
