@@ -15,7 +15,7 @@ class GoalTaskList: UITableViewController {
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
     
-    var unassignedTaskToConstrain: Task!
+    var existingTaskToConstrain: Task!
     
     // Table loading
     override func viewDidLoad() {
@@ -52,8 +52,8 @@ class GoalTaskList: UITableViewController {
                 self.navigationController!.popViewController(animated: true)
             }
             
-            if segue.identifier == "constrainUnassignedTask" {
-                ctcvc.existingTask = unassignedTaskToConstrain
+            if segue.identifier == "constrainExistingTask" {
+                ctcvc.existingTask = existingTaskToConstrain
             }
         }
     }
@@ -100,7 +100,7 @@ extension GoalTaskList {
         }
         cell.task = task
         cell.tableViewController = self
-        cell.time.text = "⏳ \(task.length)"
+        cell.time.text = "⏳ ~1min"
         cell.location.text = "\(capitalizeFirstLetter(task.location))"
         
         return cell

@@ -33,14 +33,9 @@ class GoalTask: UITableViewCell {
             case .unassigned:
                 assignLocation()
             case .done:
-                break
+                reactivate()
             }
         }
-    }
-    
-    func assignLocation() {
-        self.tableViewController.unassignedTaskToConstrain = task
-        self.tableViewController.performSegue(withIdentifier: "constrainUnassignedTask", sender: self)
     }
     
     func deactivate() {
@@ -49,6 +44,18 @@ class GoalTask: UITableViewCell {
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { alert in
             TaskInteractionManager().markListDone(self.task, handler: { self.tableViewController.updateDisplayTasks() })
         }))
+        self.tableViewController.present(alert, animated: true, completion: nil)
+    }
+    
+    func assignLocation() {
+        self.tableViewController.existingTaskToConstrain = task
+        self.tableViewController.performSegue(withIdentifier: "constrainExistingTask", sender: self)
+    }
+    
+    func reactivate() {
+        let alert = UIAlertController(title: "Repeat task?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in self.assignLocation() }))
         self.tableViewController.present(alert, animated: true, completion: nil)
     }
 }

@@ -277,7 +277,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejm-5s-udq">
                                 <rect key="frame" x="16" y="221" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Now, add a task!"/>
+                                <state key="normal" title="Now, add the first step:"/>
                                 <connections>
                                     <action selector="addTaskTapped:" destination="9if-cM-A9L" eventType="touchUpInside" id="bYC-wN-wuO"/>
                                 </connections>
@@ -395,7 +395,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="pSO-Nf-qym" kind="show" identifier="constrainUnassignedTask" id="vZt-HT-pWs"/>
+                        <segue destination="pSO-Nf-qym" kind="show" identifier="constrainExistingTask" id="vZt-HT-pWs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-xJ-O1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -421,7 +421,7 @@
                                     <constraint firstAttribute="height" constant="1" id="cHC-yc-7j3"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I want to be reminded" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-rg-6i3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A one-minute step towards my goal is" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-rg-6i3">
                                 <rect key="frame" x="16" y="72" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

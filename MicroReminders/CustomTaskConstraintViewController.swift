@@ -14,9 +14,10 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     var locations: [String] = Beacons.sharedInstance.beacons.values.map({ $0.capitalized })
     
     var goal: Goal!
-    var existingTask: Task!
-    var newTaskId: String!
     var pushHandler: (() -> Void)!
+    
+    var existingTask: Task! // Are we modifying an existing task? e.g. reactivating, assigning prepopulated
+    var newTaskId: String!
     
     @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var locationPicker: UIPickerView!
