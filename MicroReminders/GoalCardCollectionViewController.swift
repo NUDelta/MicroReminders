@@ -10,7 +10,7 @@ import Foundation
 
 class GoalCardCollectionViewController: UICollectionViewController {
     fileprivate let reuseID = "GoalCard"
-    fileprivate let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 50.0, right: 20.0)
     
     fileprivate var tasks = [Task]()
     fileprivate var goals = [Goal]()
@@ -44,11 +44,12 @@ class GoalCardCollectionViewController: UICollectionViewController {
 // Conform to UICollectionViewDataSource
 extension GoalCardCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return goals.count
+        if section == 0 { return goals.count - 1 }
+        return goals.isEmpty ? 0 : 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,7 +58,15 @@ extension GoalCardCollectionViewController {
         cell.backgroundColor = GoalBoxSettings.sharedInstance.color
         cell.layer.cornerRadius = GoalBoxSettings.sharedInstance.cornerRadius
         cell.frame.size.height = GoalBoxSettings.sharedInstance.height
-        let goal = goals[indexPath.row]
+        
+        var goal: Goal
+        if indexPath.section == 0 {
+            goal = goals[indexPath.row]
+        }
+        else {
+            goal = goals.last! // Other goal
+        }
+        
         cell.goalName.text = goal.0
         cell.numPendingTasks.text = "\(goal.1.filter({ $0.completed == "false" }).count) pending tasks"
         
