@@ -7,3 +7,9 @@
 //
 
 typealias Goal = (String, [Task])
+
+enum GoalTaskState {
+    case active
+    case done
+    case unassigned
+}

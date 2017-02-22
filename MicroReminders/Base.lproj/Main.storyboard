@@ -208,8 +208,12 @@
                             <outlet property="delegate" destination="qH7-hU-WG4" id="lN2-wW-PuN"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Goals" id="UCR-Tc-aht">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ubr-LK-GQK"/>
+                    <navigationItem key="navigationItem" title="My Goals" id="UCR-Tc-aht">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ubr-LK-GQK">
+                            <connections>
+                                <segue destination="9if-cM-A9L" kind="show" id="S7Q-fG-fKL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="P99-aD-v3M" kind="show" identifier="tasksForGoal" id="zJ2-Zm-JGd"/>
@@ -218,6 +222,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6g8-k8-MmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="246" y="-816"/>
+        </scene>
+        <!--Add a goal:-->
+        <scene sceneID="P3d-vs-l5d">
+            <objects>
+                <viewController id="9if-cM-A9L" customClass="NewGoalViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Fa-93-Iso"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yic-Im-f5y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CEb-wr-s32">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hkj-we-FlM">
+                                <rect key="frame" x="16" y="88" width="343" height="100"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What's the goal?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rnc-rl-Vhy">
+                                        <rect key="frame" x="8" y="35" width="327" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2885763026" green="0.90964768650000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="centerX" secondItem="Hkj-we-FlM" secondAttribute="centerX" id="Bku-qU-unA"/>
+                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="centerY" secondItem="Hkj-we-FlM" secondAttribute="centerY" id="FrV-AC-qaQ"/>
+                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="leading" secondItem="Hkj-we-FlM" secondAttribute="leading" constant="8" id="NOj-mf-Fvj"/>
+                                    <constraint firstAttribute="trailing" secondItem="rnc-rl-Vhy" secondAttribute="trailing" constant="8" id="WPA-XZ-qL9"/>
+                                    <constraint firstAttribute="height" constant="100" id="iPU-r3-M4c"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e6o-OC-hL1">
+                                <rect key="frame" x="16" y="212" width="343" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="F2W-t6-BWN"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejm-5s-udq">
+                                <rect key="frame" x="16" y="221" width="343" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Now, add a task!"/>
+                                <connections>
+                                    <action selector="addTaskTapped:" destination="9if-cM-A9L" eventType="touchUpInside" id="bYC-wN-wuO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="ejm-5s-udq" secondAttribute="leading" id="KOr-xc-mHB"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Hkj-we-FlM" secondAttribute="leading" id="VxT-1G-mTN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hkj-we-FlM" secondAttribute="trailing" id="XO0-d4-kAf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ejm-5s-udq" secondAttribute="trailing" id="a98-Kb-abv"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="e6o-OC-hL1" secondAttribute="leading" id="bKV-4Q-iNp"/>
+                            <constraint firstItem="e6o-OC-hL1" firstAttribute="top" secondItem="Hkj-we-FlM" secondAttribute="bottom" constant="24" id="h3H-MG-LEu"/>
+                            <constraint firstItem="ejm-5s-udq" firstAttribute="top" secondItem="e6o-OC-hL1" secondAttribute="bottom" constant="8" id="npO-25-qxL"/>
+                            <constraint firstItem="Hkj-we-FlM" firstAttribute="top" secondItem="3Fa-93-Iso" secondAttribute="bottom" constant="24" id="wrR-L5-Drq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="e6o-OC-hL1" secondAttribute="trailing" id="xZF-u0-K4J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add a goal:" id="wUc-FL-a4M"/>
+                    <connections>
+                        <outlet property="coloredBox" destination="Hkj-we-FlM" id="gNR-R7-yhn"/>
+                        <outlet property="whatsTheGoal" destination="rnc-rl-Vhy" id="rVr-Qu-bUk"/>
+                        <segue destination="pSO-Nf-qym" kind="show" identifier="taskForNewGoal" id="0Yg-HX-3H0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xSI-cl-8Wu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="245.59999999999999" y="-66.11694152923539"/>
         </scene>
         <!--Goal Task List-->
         <scene sceneID="dhC-Qk-52x">
@@ -306,6 +381,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="pSO-Nf-qym" kind="show" identifier="constrainUnassignedTask" id="vZt-HT-pWs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-xJ-O1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -389,7 +467,8 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CD8-q7-Jr2">
-                                <rect key="frame" x="16" y="472.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="472.5" width="343" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Save task"/>
                                 <connections>
                                     <action selector="addTaskClicked:" destination="pSO-Nf-qym" eventType="touchUpInside" id="0pG-hv-yoM"/>
@@ -451,4 +530,7 @@
             <point key="canvasLocation" x="1350" y="-450"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0Yg-HX-3H0"/>
+    </inferredMetricsTieBreakers>
 </document>

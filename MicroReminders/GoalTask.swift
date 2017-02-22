@@ -18,7 +18,7 @@ class GoalTask: UITableViewCell {
     var tableViewController: GoalTaskList! = nil
  
     var task: Task! = nil
-    var active: Bool! = nil
+    var active: GoalTaskState!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,10 +27,20 @@ class GoalTask: UITableViewCell {
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         if active != nil {
-            if active! {
+            switch active! {
+            case .active:
                 deactivate()
+            case .unassigned:
+                assignLocation()
+            case .done:
+                break
             }
         }
+    }
+    
+    func assignLocation() {
+        self.tableViewController.unassignedTaskToConstrain = task
+        self.tableViewController.performSegue(withIdentifier: "constrainUnassignedTask", sender: self)
     }
     
     func deactivate() {

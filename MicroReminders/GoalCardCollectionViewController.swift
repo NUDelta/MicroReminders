@@ -15,7 +15,7 @@ class GoalCardCollectionViewController: UICollectionViewController {
     fileprivate var tasks = [Task]()
     fileprivate var goals = [Goal]()
     
-    fileprivate var selectedGoal: Goal!
+    var selectedGoal: Goal!
     
     override func viewWillAppear(_ animated: Bool) {
         Tasks.sharedInstance.taskListeners
@@ -54,9 +54,10 @@ extension GoalCardCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! GoalCard
         
-        cell.backgroundColor = UIColor.cyan
+        cell.backgroundColor = GoalBoxSettings.sharedInstance.color
+        cell.layer.cornerRadius = GoalBoxSettings.sharedInstance.cornerRadius
+        cell.frame.size.height = GoalBoxSettings.sharedInstance.height
         cell.goalName.text = goals[indexPath.row].0
-        cell.layer.cornerRadius = 5
         
         return cell
     }

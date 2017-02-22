@@ -14,6 +14,8 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     var locations: [String] = Beacons.sharedInstance.beacons.values.map({ $0.capitalized })
     
     var goal: Goal!
+    var existingTask: Task!
+    var newTaskId: String!
     var pushHandler: (() -> Void)!
     
     @IBOutlet weak var taskDescription: UITextField!
@@ -23,12 +25,23 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     override func viewDidLoad() {
         initLocationPicker()
         initTimeSlider()
-        
-        initDismissKeyboard()
+        initTextField()
+        initBasedOnExistingTask()
     }
     
-    func initDismissKeyboard() {
-        // Return key dismisses
+    func initBasedOnExistingTask() {
+        if (existingTask != nil) {
+            self.newTaskId = existingTask!._id
+            
+            taskDescription.isEnabled = false
+            taskDescription.text = existingTask!.name
+        }
+        else {
+            self.newTaskId = UUID().uuidString
+        }
+    }
+    
+    func initTextField() {
         taskDescription.delegate = self
     }
     
@@ -80,7 +93,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
             let beforeTime = String(timeSlider.selectedMaximum)
             let afterTime = String(timeSlider.selectedMinimum)
             
-            let task = Task(UUID().uuidString, name: name, goal: goal!.0, order: "-1")
+            let task = Task(newTaskId!, name: name, goal: goal!.0, order: "-1")
             
             task.location = location
             task.beforeTime = beforeTime

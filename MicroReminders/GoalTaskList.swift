@@ -15,6 +15,8 @@ class GoalTaskList: UITableViewController {
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
     
+    var unassignedTaskToConstrain: Task!
+    
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +46,14 @@ class GoalTaskList: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let ctcvc = segue.destination as? CustomTaskConstraintViewController, segue.identifier == "addTaskToGoal" {
+        if let ctcvc = segue.destination as? CustomTaskConstraintViewController {
             ctcvc.goal = goal
             ctcvc.pushHandler = {
                 self.navigationController!.popViewController(animated: true)
+            }
+            
+            if segue.identifier == "constrainUnassignedTask" {
+                ctcvc.existingTask = unassignedTaskToConstrain
             }
         }
     }
@@ -74,22 +80,28 @@ extension GoalTaskList {
         
         let task = extractSection(section: indexPath.section)[indexPath.row]
         
-        if (indexPath.section < displayTaskDict.keys.count) {
+        if (task.location == "no location") {
             cell.backgroundColor = UIColor.white
             cell.taskName.text = task.name
-            cell.active = true
+            cell.active = .unassigned
+            cell.button.setTitle("＋", for: .normal)
+        }
+        else if (indexPath.section < displayTaskDict.keys.count) {
+            cell.backgroundColor = UIColor.white
+            cell.taskName.text = task.name
+            cell.active = .active
             cell.button.setTitle("☐", for: .normal)
         }
         else {
             cell.backgroundColor = UIColor.lightGray
             cell.taskName.text = task.name
-            cell.active = false
+            cell.active = .done
             cell.button.setTitle("☑︎", for: .normal)
         }
         cell.task = task
         cell.tableViewController = self
         cell.time.text = "⏳ \(task.length)"
-        cell.location.text = "[\(capitalizeFirstLetter(task.location))]"
+        cell.location.text = "\(capitalizeFirstLetter(task.location))"
         
         return cell
     }
