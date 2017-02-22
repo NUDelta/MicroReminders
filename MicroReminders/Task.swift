@@ -14,7 +14,7 @@ class Task {
     var goal: String
     var order: String
     var length: String = "<1 min"
-    var location: String = "no location"
+    var location: String = "unassigned"
     var afterTime: String = "unassigned"
     var beforeTime: String = "unassigned"
     var lastSnoozed: String = "-1"
