@@ -34,7 +34,6 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
         if (existingTask != nil) {
             self.newTaskId = existingTask!._id
             
-            taskDescription.isEnabled = false
             taskDescription.text = existingTask!.name
         }
         else {
