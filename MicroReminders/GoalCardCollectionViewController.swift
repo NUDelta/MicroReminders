@@ -26,7 +26,7 @@ class GoalCardCollectionViewController: UICollectionViewController {
     
     func initTasksAndGoals() {
         self.tasks = Tasks.sharedInstance.tasks
-        self.goals = self.goalsFromTasks(tasks: self.tasks)
+        self.goals = Tasks.sharedInstance.goals
         self.collectionView!.reloadData()
     }
     
@@ -57,7 +57,9 @@ extension GoalCardCollectionViewController {
         cell.backgroundColor = GoalBoxSettings.sharedInstance.color
         cell.layer.cornerRadius = GoalBoxSettings.sharedInstance.cornerRadius
         cell.frame.size.height = GoalBoxSettings.sharedInstance.height
-        cell.goalName.text = goals[indexPath.row].0
+        let goal = goals[indexPath.row]
+        cell.goalName.text = goal.0
+        cell.numPendingTasks.text = "\(goal.1.filter({ $0.completed == "false" }).count) pending tasks"
         
         return cell
     }

@@ -40,7 +40,7 @@ class NewGoalViewController: UIViewController, UITextFieldDelegate {
             ctcvc.goal = goal
             ctcvc.pushHandler = {
                 let root = self.navigationController?.viewControllers[0] as! GoalCardCollectionViewController
-                _ = self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popToRootViewController(animated: false)
                 
                 root.selectedGoal = Tasks.sharedInstance.goalForTitle(title: goal.0)
                 root.performSegue(withIdentifier: "tasksForGoal", sender: root)

@@ -187,19 +187,32 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TH9-GY-24y">
-                                            <rect key="frame" x="113.5" y="28.5" width="86.5" height="21.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <rect key="frame" x="8" y="18" width="297" height="26.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# pending tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvi-yd-Xrx">
+                                            <rect key="frame" x="8" y="44.5" width="297" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerY" secondItem="0B3-c5-MDh" secondAttribute="centerY" id="BPL-Cb-3Vc"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="TH9-GY-24y" secondAttribute="leading" id="AhN-Bi-aLh"/>
+                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerY" secondItem="0B3-c5-MDh" secondAttribute="centerY" constant="-8" id="BPL-Cb-3Vc"/>
+                                    <constraint firstItem="fvi-yd-Xrx" firstAttribute="top" secondItem="TH9-GY-24y" secondAttribute="bottom" id="Hbd-Vd-9c7"/>
+                                    <constraint firstItem="fvi-yd-Xrx" firstAttribute="centerX" secondItem="0B3-c5-MDh" secondAttribute="centerX" id="UUC-td-RTk"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="fvi-yd-Xrx" secondAttribute="leading" id="Zdi-VW-DS1"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="fvi-yd-Xrx" secondAttribute="trailing" id="hlu-hs-ggt"/>
                                     <constraint firstItem="TH9-GY-24y" firstAttribute="centerX" secondItem="0B3-c5-MDh" secondAttribute="centerX" id="o4M-bk-1B5"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="TH9-GY-24y" secondAttribute="trailing" id="oee-S0-Hex"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="goalName" destination="TH9-GY-24y" id="aJY-ym-W10"/>
+                                    <outlet property="numPendingTasks" destination="fvi-yd-Xrx" id="bsc-zO-7Av"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -209,7 +222,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="My Goals" id="UCR-Tc-aht">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ubr-LK-GQK">
+                        <barButtonItem key="rightBarButtonItem" title="Add goal" id="ubr-LK-GQK">
                             <connections>
                                 <segue destination="9if-cM-A9L" kind="show" id="S7Q-fG-fKL"/>
                             </connections>
@@ -221,7 +234,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6g8-k8-MmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="246" y="-816"/>
+            <point key="canvasLocation" x="245.59999999999999" y="-816.34182908545733"/>
         </scene>
         <!--Add a goal:-->
         <scene sceneID="P3d-vs-l5d">
@@ -374,7 +387,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="3nv-ph-Re1"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="4hH-Mc-mxa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QoG-gQ-iti">
+                        <barButtonItem key="rightBarButtonItem" title="Add task" id="QoG-gQ-iti">
                             <connections>
                                 <segue destination="pSO-Nf-qym" kind="show" identifier="addTaskToGoal" id="lVO-co-Cum"/>
                             </connections>
@@ -531,6 +544,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Yg-HX-3H0"/>
+        <segue reference="vZt-HT-pWs"/>
     </inferredMetricsTieBreakers>
 </document>

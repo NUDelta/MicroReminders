@@ -18,13 +18,21 @@ class Tasks {
     
     var tasks = [Task]() {
         didSet {
-            goals = goalsFromTasks(tasks: tasks) + [otherGoal]
+            goals = goalsFromTasks(tasks: tasks)
             taskListeners.forEach({ $1() })
         }
     }
     
     let otherGoal: Goal = ("Other", [Task]())
-    var goals: [Goal] = [Goal]()
+    var goals: [Goal] = [Goal]() {
+        didSet {
+            goals = goals.sorted(by: { goal1, goal2 in
+                let pending1 = pendingTasksForGoal(goal: goal1)
+                let pending2 = pendingTasksForGoal(goal: goal2)
+                return pending1 < pending2
+            }) + [otherGoal]
+        }
+    }
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
@@ -90,6 +98,10 @@ class Tasks {
     
     func goalForTitle(title: String) -> Goal {
         return goals.filter({ $0.0 == title }).first!
+    }
+    
+    func pendingTasksForGoal(goal: Goal) -> Int {
+        return goal.1.filter({ $0.completed == "false" }).count
     }
 }
 

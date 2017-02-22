@@ -10,4 +10,5 @@ import Foundation
 
 class GoalCard: UICollectionViewCell {
     @IBOutlet weak var goalName: UILabel!
+    @IBOutlet weak var numPendingTasks: UILabel!
 }
