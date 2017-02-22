@@ -117,7 +117,7 @@ extension GoalTaskList {
             
             let alert = UIAlertController(title: "Edit task?", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in cell.assignLocation() }))
+            alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in cell.constrainExistingTask() }))
             self.present(alert, animated: true, completion: nil)
         }
     }
