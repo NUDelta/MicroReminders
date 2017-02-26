@@ -29,7 +29,7 @@ class NewGoalViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addTaskTapped(_ sender: UIButton) {
-        if (whatsTheGoal.text != nil) {
+        if (whatsTheGoal.text != "") {
             performSegue(withIdentifier: "taskForNewGoal", sender: self)
         }
     }

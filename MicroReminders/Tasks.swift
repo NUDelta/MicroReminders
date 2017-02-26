@@ -26,11 +26,14 @@ class Tasks {
     let otherGoal: Goal = ("Other", [Task]())
     var goals: [Goal] = [Goal]() {
         didSet {
-            goals = goals.sorted(by: { goal1, goal2 in
+            let zeroGoals = goals.filter({ pendingTasksForGoal(goal: $0) == 0 })
+            let nonZeroGoals = goals.filter({ pendingTasksForGoal(goal: $0) != 0 })
+            
+            goals = nonZeroGoals.sorted(by: { goal1, goal2 in
                 let pending1 = pendingTasksForGoal(goal: goal1)
                 let pending2 = pendingTasksForGoal(goal: goal2)
                 return pending1 < pending2
-            }) + [otherGoal]
+            }) + zeroGoals + [otherGoal]
         }
     }
     

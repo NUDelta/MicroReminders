@@ -19,6 +19,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     var existingTask: Task! // Are we modifying an existing task? e.g. reactivating, assigning prepopulated
     var newTaskId: String!
     
+    @IBOutlet weak var intro: UILabel!
     @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var timeSlider: TTRangeSlider!
@@ -27,7 +28,12 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
         initLocationPicker()
         initTimeSlider()
         initTextField()
+        initIntroText()
         initBasedOnExistingTask()
+    }
+    
+    func initIntroText() {
+        intro.text = "A one-minute step towards \"\(goal!.0)\" is"
     }
     
     func initBasedOnExistingTask() {
