@@ -17,6 +17,7 @@ class TaskInteractionManager {
         case notificationDone
         case notificationCleared
         case listDone
+        case listReactivated
     }
     
     fileprivate let myId = UIDevice.current.identifierForVendor!.uuidString
@@ -33,6 +34,13 @@ class TaskInteractionManager {
         task.completed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase(handler: handler)
         logTaskNotificationAction(task, action: .listDone)
+    }
+    
+    /** Mark a task reactivated from the task list */
+    func markListReactivated(_ task: Task, handler: (() -> Void)! = nil) {
+        task.completed = "false"
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .listReactivated)
     }
     
     /** Snooze a task */
@@ -63,6 +71,8 @@ class TaskInteractionManager {
             ref.setValue("notificationCleared")
         case .listDone:
             ref.setValue("listDone")
+        case .listReactivated:
+            ref.setValue("listReactivated")
         }
     }
     

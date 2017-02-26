@@ -41,7 +41,7 @@ class GoalTask: UITableViewCell {
     func deactivate() {
         let alert = UIAlertController(title: "Mark task done?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             TaskInteractionManager().markListDone(self.task, handler: { self.tableViewController.updateDisplayTasks() })
         }))
         self.tableViewController.present(alert, animated: true, completion: nil)
@@ -58,7 +58,10 @@ class GoalTask: UITableViewCell {
     func reactivate() {
         let alert = UIAlertController(title: "Repeat task?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in self.constrainExistingTask() }))
+        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in
+            TaskInteractionManager().markListReactivated(self.task!)
+            self.constrainExistingTask()
+        }))
         self.tableViewController.present(alert, animated: true, completion: nil)
     }
     
