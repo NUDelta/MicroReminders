@@ -30,6 +30,8 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
         initTextField()
         initIntroText()
         initBasedOnExistingTask()
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     func initIntroText() {

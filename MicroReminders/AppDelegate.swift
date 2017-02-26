@@ -10,8 +10,19 @@ import UIKit
 import UserNotifications
 import Firebase
 
-@UIApplicationMain
+// http://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
 
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?

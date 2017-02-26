@@ -22,6 +22,8 @@ class NewGoalViewController: UIViewController, UITextFieldDelegate {
         coloredBox.frame.size.height = GoalBoxSettings.sharedInstance.height
         coloredBox.layer.cornerRadius = GoalBoxSettings.sharedInstance.cornerRadius
         coloredBox.backgroundColor = GoalBoxSettings.sharedInstance.color
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
