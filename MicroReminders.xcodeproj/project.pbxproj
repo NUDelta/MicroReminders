@@ -25,6 +25,7 @@
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 		D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9EBC7151E4A850800E3438C /* Media.xcassets */; };
 		D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0C1E62968B00A45CAB /* Tasks.swift */; };
+		D9FE7B0F1E62A6D900A45CAB /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EBC7151E4A850800E3438C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		D9FE7B0C1E62968B00A45CAB /* Tasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockViewController.swift; path = ../MockViewController.swift; sourceTree = "<group>"; };
 		EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				D9D6E5CA1E3289C400B0CA53 /* Tasks */,
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
+				D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */,
 				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
 			);
@@ -283,6 +286,7 @@
 				D908FF8B1E5C181800C6698F /* Types.swift in Sources */,
 				D908FF8F1E5D054800C6698F /* GoalBoxSettings.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
+				D9FE7B0F1E62A6D900A45CAB /* MockViewController.swift in Sources */,
 				D9BF34991E36CCA800650041 /* CustomTaskConstraintViewController.swift in Sources */,
 				D908FF871E5B784E00C6698F /* GoalCard.swift in Sources */,
 				D908FF8D1E5D03FB00C6698F /* NewGoalViewController.swift in Sources */,

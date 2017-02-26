@@ -98,15 +98,17 @@ class TaskNotificationSender: TaskInteractionManager {
         ]
     }
     
-    fileprivate func sendNotification(_ task: Task, title: String? = nil, subtitle: String? = nil, delay: Double? = nil) {
+    fileprivate func sendNotification(_ task: Task, subtitle: String? = nil, message: String? = nil, delay: Double? = nil) {
         print("Notifying \(task.name)")
+        
         let content = UNMutableNotificationContent()
-        content.title = title != nil ? title! : "Reminder!"
+        content.title = task.name
         if subtitle != nil { content.subtitle = subtitle! }
-        content.body = "\(task.name)"
+        content.body = message == nil ? "Reminder to \(task.name.lowercased())!" : message!
+        if message != nil { content.body = message! }
+        
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "respond_to_task"
-        
         content.userInfo = userInfoFromTask(task)
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay != nil ? delay! : 0.1, repeats: false)
@@ -167,9 +169,8 @@ class TaskNotificationSender: TaskInteractionManager {
         
         if (!candidatesForNotification.isEmpty) {
             let taskToChainNotify = scheduler.pickTaskToChainNotify(tasks: candidatesForNotification)
-            let notificationTitle = "While you're at it..."
-            let notificationSubtitle = "Maybe do the next step towards \"\(goalName)\""
-            sendNotification(taskToChainNotify, title: notificationTitle, subtitle: notificationSubtitle, delay: 1.25)
+            let notificationMessage = "While you're at it, \(taskToChainNotify.name.lowercased()) as well?"
+            sendNotification(taskToChainNotify, message: notificationMessage, delay: 1)
         }
     }
 }
