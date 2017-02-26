@@ -162,10 +162,13 @@ class TaskNotificationSender: TaskInteractionManager {
         }
     }
     
-    fileprivate func chainedNotify(at location: String, for goalName: String) {
+    fileprivate func chainedNotify(at location: String, for goalName: String, following prevTask: Task) {
         let goal = Tasks.sharedInstance.goalForTitle(title: goalName)
         
-        let candidatesForNotification = goal.1.filter({ canChainNotify(for: $0, location: location) })
+        let candidatesForNotification = goal.1.filter({
+            $0._id != prevTask._id &&
+            canChainNotify(for: $0, location: location)
+        })
         
         if (!candidatesForNotification.isEmpty) {
             let taskToChainNotify = scheduler.pickTaskToChainNotify(tasks: candidatesForNotification)
@@ -199,7 +202,8 @@ class TaskNotificationResponder: TaskInteractionManager {
     func markDone(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         markNotificationDone(task)
-        TaskNotificationSender().chainedNotify(at: task.location, for: task.goal)
+        
+        TaskNotificationSender().chainedNotify(at: task.location, for: task.goal, following: task)
     }
     
     /** Snooze a task */
