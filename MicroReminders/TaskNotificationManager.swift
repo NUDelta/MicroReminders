@@ -75,11 +75,6 @@ class TaskInteractionManager {
             ref.setValue("listReactivated")
         }
     }
-    
-    /** Get Firebase ref for my tasks */
-    fileprivate func firebaseRefForMyTasks() -> FIRDatabaseReference {
-        return FIRDatabase.database().reference().child("Tasks/\(myId)")
-    }
 }
 
 /** Send task notifications */
@@ -130,41 +125,33 @@ class TaskNotificationSender: TaskInteractionManager {
     }
     
     /** Determines if the task represented by taskData can be notified for now. Checks location and time constraints. */
-    private func canNotifyForTask(_ taskData: [String: String], location: String) -> Bool {
+    private func canNotifyForTask(_ task: Task, location: String) -> Bool {
         let seconds = secondsIntoDay()
         
-        return { taskData["completed"]! == "false" &&
-            taskData["location"]!.caseInsensitiveCompare(location) == .orderedSame &&
-            Float(taskData["beforeTime"]!)! > seconds &&
-            Float(taskData["afterTime"]!)! < seconds
+        return {
+            task.completed == "false" &&
+            task.location.caseInsensitiveCompare(location) == .orderedSame &&
+            Float(task.beforeTime)! > seconds &&
+            Float(task.afterTime)! < seconds
             }()
     }
     
     /** Select and notify for tasks for a given location, at the current time */
     func notify(_ location: String) {
         
+        let tasks = Tasks.sharedInstance.tasks
         
-        let myTasksRef = firebaseRefForMyTasks()
+        var candidatesForNotification = [Task]()
+        for task in candidatesForNotification {
+            if (canNotifyForTask(task, location: location)) {
+                candidatesForNotification.append(task)
+            }
+        }
         
-        myTasksRef
-            .observeSingleEvent(of: .value, with: { snapshot in
-                let tasksJSON = snapshot.value as? [String: [String: String]]
-                
-                if (tasksJSON != nil) {
-                    var candidatesForNotification = tasksJSON!
-                    for (_id, taskData) in candidatesForNotification {
-                        if (!self.canNotifyForTask(taskData, location: location))
-                        {
-                            candidatesForNotification.removeValue(forKey: _id)
-                        }
-                    }
-                    
-                    if (!candidatesForNotification.isEmpty) {
-                        let taskToNotify = self.scheduler.pickTaskToNotify(tasksJSON: candidatesForNotification)
-                        self.sendNotification(taskToNotify)
-                    }
-                }
-            })
+        if (!candidatesForNotification.isEmpty) {
+            let taskToNotify = self.scheduler.pickTaskToNotify(tasks: candidatesForNotification)
+            self.sendNotification(taskToNotify)
+        }
     }
 }
 
@@ -210,41 +197,15 @@ class TaskNotificationResponder: TaskInteractionManager {
 /** Pick the next task to notify */
 fileprivate class TaskScheduler {
     
-    /** Build a task from a dictionary entry from Firebase */
-    func dictToTask(_id: String, taskJSON: [String: String]) -> Task {
-        return Task(
-            _id,
-            name: taskJSON["task"]!,
-            goal: taskJSON["goal"]!,
-            order: taskJSON["order"]!,
-            location: taskJSON["location"]!,
-            beforeTime: taskJSON["beforeTime"]!,
-            afterTime: taskJSON["afterTime"]!,
-            completed: taskJSON["completed"]!,
-            lastSnoozed: taskJSON["lastSnoozed"]!
-        )
-    }
-    
-    /** Pick the oldest (last snoozed/created) task to notify (FIFO) */
-    func pickLastSnoozed(tasksJSON: [String: [String: String]]) -> Task {
-        let sortedByAge = tasksJSON.sorted(by: { (task1: (_id: String, data: [String: String]), task2: (_id: String, data: [String: String])) in
-            Int(task1.data["lastSnoozed"]!)! < Int(task2.data["lastSnoozed"]!)!
-        })
-        let oldest = sortedByAge.first!
-        return dictToTask(_id: oldest.key, taskJSON: oldest.value)
-    }
-    
     /** Pick a random task */
-    func pickRandom(tasksJSON: [String: [String: String]]) -> Task {
-        let randomInd = Int(arc4random()) % tasksJSON.keys.count
-        let randomKey = Array(tasksJSON.keys)[randomInd]
-        return dictToTask(_id: randomKey, taskJSON: tasksJSON[randomKey]!)
+    func pickRandom(tasks: [Task]) -> Task {
+        let randomInd = Int(arc4random()) % tasks.count
+        return tasks[randomInd]
     }
     
     /** Pick a scheduling policy, and notify for that task */
-    func pickTaskToNotify(tasksJSON: [String: [String: String]]) -> Task {
-        return pickRandom(tasksJSON: tasksJSON)
-        // return pickLastSnoozed(tasksJSON: tasksJSON)
+    func pickTaskToNotify(tasks: [Task]) -> Task {
+        return pickRandom(tasks: tasks)
     }
 }
 
