@@ -10,144 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Task Constraint View Controller-->
-        <scene sceneID="dsi-wP-Yqa">
-            <objects>
-                <viewController id="BMt-bX-Dy9" customClass="TaskConstraintViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kVK-t8-v9j"/>
-                        <viewControllerLayoutGuide type="bottom" id="4iv-Q3-t2r"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xxp-2o-4Rp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rYU-on-zoZ">
-                                <rect key="frame" x="16" y="57" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="XiF-NT-ShP"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I want to be reminded" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdx-uX-PQP">
-                                <rect key="frame" x="16" y="28" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-w7-YwX">
-                                <rect key="frame" x="32" y="95" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyp-cV-CUE">
-                                <rect key="frame" x="16" y="66" width="20" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="when I enter my:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImK-8u-U1m">
-                                <rect key="frame" x="16" y="149" width="127" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yR-Rv-pr6">
-                                <rect key="frame" x="40" y="178" width="295" height="82"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="82" id="apb-Yd-vb8"/>
-                                </constraints>
-                            </pickerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHg-s6-0tZ">
-                                <rect key="frame" x="16" y="140" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="9e4-1o-GZI"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyo-jo-iCy">
-                                <rect key="frame" x="16" y="284" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="a8K-rr-eHD"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ld7-U7-V0K">
-                                <rect key="frame" x="16" y="411" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="F0j-6t-1dB"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-US-ImQ" customClass="TTRangeSlider">
-                                <rect key="frame" x="24" y="322" width="327" height="65"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="enableStep" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xy-aj-JXc">
-                                <rect key="frame" x="16" y="420" width="343" height="30"/>
-                                <state key="normal" title="Save task"/>
-                                <connections>
-                                    <action selector="addTaskClicked:" destination="BMt-bX-Dy9" eventType="touchUpInside" id="4L2-T4-ouh"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="between the times of:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjU-EQ-LU1">
-                                <rect key="frame" x="16" y="293" width="166" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ld7-U7-V0K" secondAttribute="trailing" id="0Zh-d3-7hW"/>
-                            <constraint firstItem="eyo-jo-iCy" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" id="2sv-mf-8me"/>
-                            <constraint firstItem="sjU-EQ-LU1" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" id="5zy-XP-8uh"/>
-                            <constraint firstItem="2Xy-aj-JXc" firstAttribute="top" secondItem="Ld7-U7-V0K" secondAttribute="bottom" constant="8" id="8Ar-Tr-6Wp"/>
-                            <constraint firstItem="wMK-US-ImQ" firstAttribute="top" secondItem="sjU-EQ-LU1" secondAttribute="bottom" constant="8" id="AAF-hq-b5C"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2Xy-aj-JXc" secondAttribute="trailing" id="BUo-fZ-MEq"/>
-                            <constraint firstItem="Ld7-U7-V0K" firstAttribute="top" secondItem="wMK-US-ImQ" secondAttribute="bottom" constant="24" id="FnD-jp-cfg"/>
-                            <constraint firstItem="7yR-Rv-pr6" firstAttribute="top" secondItem="ImK-8u-U1m" secondAttribute="bottom" constant="8" id="GhI-pp-N7P"/>
-                            <constraint firstItem="yyp-cV-CUE" firstAttribute="top" secondItem="rYU-on-zoZ" secondAttribute="bottom" constant="8" id="HCf-4X-H4x"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="yyp-cV-CUE" secondAttribute="leading" id="HUD-0F-MlO"/>
-                            <constraint firstItem="rYU-on-zoZ" firstAttribute="top" secondItem="rdx-uX-PQP" secondAttribute="bottom" constant="8" id="LUP-ST-PFL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wMK-US-ImQ" secondAttribute="trailing" constant="8" id="O67-fj-Mr8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rdx-uX-PQP" secondAttribute="trailing" id="VT4-Ok-R5m"/>
-                            <constraint firstItem="Ld7-U7-V0K" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" id="WhU-Fh-eb0"/>
-                            <constraint firstItem="sjU-EQ-LU1" firstAttribute="top" secondItem="eyo-jo-iCy" secondAttribute="bottom" constant="8" id="Wml-LX-14f"/>
-                            <constraint firstItem="7yR-Rv-pr6" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" constant="24" id="Wqh-1f-tdz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rYU-on-zoZ" secondAttribute="trailing" id="XRb-oH-FVK"/>
-                            <constraint firstItem="wMK-US-ImQ" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" constant="8" id="XVf-2T-Vcb"/>
-                            <constraint firstItem="ImK-8u-U1m" firstAttribute="top" secondItem="oHg-s6-0tZ" secondAttribute="bottom" constant="8" id="bKs-5Z-jyF"/>
-                            <constraint firstItem="oHg-s6-0tZ" firstAttribute="top" secondItem="grZ-w7-YwX" secondAttribute="bottom" constant="24" id="bd3-so-ADO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="oHg-s6-0tZ" secondAttribute="trailing" id="emg-6r-wiO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="eyo-jo-iCy" secondAttribute="trailing" id="fP3-48-rUE"/>
-                            <constraint firstItem="oHg-s6-0tZ" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" id="fWB-je-6rL"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="2Xy-aj-JXc" secondAttribute="leading" id="hZw-Nd-Vni"/>
-                            <constraint firstItem="ImK-8u-U1m" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" id="iua-KB-v1o"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="7yR-Rv-pr6" secondAttribute="trailing" constant="24" id="jZG-SF-y34"/>
-                            <constraint firstItem="eyo-jo-iCy" firstAttribute="top" secondItem="7yR-Rv-pr6" secondAttribute="bottom" constant="24" id="jsy-rT-ZbB"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="grZ-w7-YwX" secondAttribute="trailing" constant="16" id="pK2-Ra-VcL"/>
-                            <constraint firstItem="rdx-uX-PQP" firstAttribute="top" secondItem="kVK-t8-v9j" secondAttribute="bottom" constant="8" id="r7Y-Wj-ZqZ"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="rYU-on-zoZ" secondAttribute="leading" id="u3K-2j-gpk"/>
-                            <constraint firstItem="grZ-w7-YwX" firstAttribute="top" secondItem="yyp-cV-CUE" secondAttribute="bottom" constant="8" id="wJ0-Zg-KJx"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="rdx-uX-PQP" secondAttribute="leading" id="y8e-od-qmP"/>
-                            <constraint firstItem="grZ-w7-YwX" firstAttribute="leading" secondItem="xxp-2o-4Rp" secondAttribute="leadingMargin" constant="16" id="zjx-ti-4pF"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="locationPicker" destination="7yR-Rv-pr6" id="66b-eu-3R4"/>
-                        <outlet property="taskDescription" destination="grZ-w7-YwX" id="D6I-1Y-SFT"/>
-                        <outlet property="timeSlider" destination="wMK-US-ImQ" id="jjm-PC-T3C"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9f9-cI-M8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-898" y="-1585"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hoy-Ws-TBz">
             <objects>
@@ -329,7 +191,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ymb-tl-0CY" id="QQl-Ik-4ON">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e31-y2-RKJ">
@@ -494,7 +356,6 @@
                                 <state key="normal" title="Save task"/>
                                 <connections>
                                     <action selector="addTaskClicked:" destination="pSO-Nf-qym" eventType="touchUpInside" id="0pG-hv-yoM"/>
-                                    <action selector="addTaskClicked:" destination="BMt-bX-Dy9" eventType="touchUpInside" id="sAc-ZB-iUz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="between the times of:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1c-De-IoT">

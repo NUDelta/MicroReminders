@@ -16,7 +16,6 @@
 		D94BB50C1DC6BA350050B8DA /* GoalTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50B1DC6BA350050B8DA /* GoalTaskList.swift */; };
 		D94BB50E1DC6BBE40050B8DA /* GoalTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50D1DC6BBE40050B8DA /* GoalTask.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
-		D9853DA01E56169F00AC5FBE /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9853D9F1E56169F00AC5FBE /* Tasks.swift */; };
 		D9BF34991E36CCA800650041 /* CustomTaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */; };
 		D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
@@ -25,6 +24,7 @@
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 		D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9EBC7151E4A850800E3438C /* Media.xcassets */; };
+		D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0C1E62968B00A45CAB /* Tasks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,6 @@
 		D94BB50B1DC6BA350050B8DA /* GoalTaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GoalTaskList.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D94BB50D1DC6BBE40050B8DA /* GoalTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTask.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
-		D9853D9F1E56169F00AC5FBE /* Tasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tasks.swift; path = ../Tasks.swift; sourceTree = "<group>"; };
 		D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTaskConstraintViewController.swift; sourceTree = "<group>"; };
 		D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTimeFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
@@ -50,6 +49,7 @@
 		D9E588961CC538650084D7E7 /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EBC7151E4A850800E3438C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
+		D9FE7B0C1E62968B00A45CAB /* Tasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -141,7 +141,7 @@
 		D9D6E5CA1E3289C400B0CA53 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				D9853D9F1E56169F00AC5FBE /* Tasks.swift */,
+				D9FE7B0C1E62968B00A45CAB /* Tasks.swift */,
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 				D9BF34981E36CCA800650041 /* CustomTaskConstraintViewController.swift */,
@@ -275,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */,
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D94BB50E1DC6BBE40050B8DA /* GoalTask.swift in Sources */,
@@ -286,7 +287,6 @@
 				D908FF871E5B784E00C6698F /* GoalCard.swift in Sources */,
 				D908FF8D1E5D03FB00C6698F /* NewGoalViewController.swift in Sources */,
 				D908FF851E5B713800C6698F /* GoalCardCollectionViewController.swift in Sources */,
-				D9853DA01E56169F00AC5FBE /* Tasks.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
 			);
