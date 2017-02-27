@@ -244,7 +244,7 @@
         <scene sceneID="Wv1-9w-dFb">
             <objects>
                 <navigationController id="Qne-7X-5hT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Tasks" id="Zaq-Bz-W3d"/>
+                    <tabBarItem key="tabBarItem" title="My Tasks" image="pushpin-7" id="Zaq-Bz-W3d"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uU1-Ia-XLt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -653,7 +653,7 @@
         <scene sceneID="LY6-72-CVa">
             <objects>
                 <navigationController id="l8k-KU-CZ5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Add tasks" id="cWq-J2-tOY"/>
+                    <tabBarItem key="tabBarItem" title="Add tasks" image="list-simple-7" id="cWq-J2-tOY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aV7-CO-IF1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -844,6 +844,8 @@ Cg
     </scenes>
     <resources>
         <image name=" " width="16" height="16"/>
+        <image name="list-simple-7" width="30" height="30"/>
+        <image name="pushpin-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="x0V-tV-TUz"/>

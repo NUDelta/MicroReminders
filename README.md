@@ -25,3 +25,8 @@ To run MicroReminders:
 2) Open MicroReminders.xcworkspace in Xcode.
 3) Update the Beacons singleton to represent the identifiers and minors of your beacons. At present, all beacons are assumed to have same UUID and major.
 4) Build to a physical device.
+
+#### Credits
+App icon design: Noah Goldstein
+Tab bar icons: http://www.iconbeast.com
+
