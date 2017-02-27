@@ -30,7 +30,7 @@ class AddTaskTableViewController: UITableViewController {
     // Table loading
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepopTaskRef = FIRDatabase.database().reference().child("Tasks/Prepopulated")
+        prepopTaskRef = FIRDatabase.database().reference().child("Tasks/Prepopulated_Tasks")
         myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
         
         tableView.estimatedRowHeight = tableView.rowHeight
