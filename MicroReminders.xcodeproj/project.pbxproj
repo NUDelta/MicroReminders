@@ -13,6 +13,7 @@
 		D908FF8B1E5C181800C6698F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D908FF8A1E5C181800C6698F /* Types.swift */; };
 		D908FF8D1E5D03FB00C6698F /* NewGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D908FF8C1E5D03FB00C6698F /* NewGoalViewController.swift */; };
 		D908FF8F1E5D054800C6698F /* GoalBoxSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D908FF8E1E5D054800C6698F /* GoalBoxSettings.swift */; };
+		D90973AE1E6387FC00CB86AB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90973AD1E6387FC00CB86AB /* IntroViewController.swift */; };
 		D94BB50C1DC6BA350050B8DA /* GoalTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50B1DC6BA350050B8DA /* GoalTaskList.swift */; };
 		D94BB50E1DC6BBE40050B8DA /* GoalTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BB50D1DC6BBE40050B8DA /* GoalTask.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
@@ -36,6 +37,7 @@
 		D908FF8A1E5C181800C6698F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Types.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D908FF8C1E5D03FB00C6698F /* NewGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGoalViewController.swift; sourceTree = "<group>"; };
 		D908FF8E1E5D054800C6698F /* GoalBoxSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBoxSettings.swift; sourceTree = "<group>"; };
+		D90973AD1E6387FC00CB86AB /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94BB50B1DC6BA350050B8DA /* GoalTaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GoalTaskList.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D94BB50D1DC6BBE40050B8DA /* GoalTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTask.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */,
 				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
 				D9E588941CC538650084D7E7 /* AppDelegate.swift */,
+				D90973AD1E6387FC00CB86AB /* IntroViewController.swift */,
 			);
 			path = MicroReminders;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				D908FF851E5B713800C6698F /* GoalCardCollectionViewController.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
+				D90973AE1E6387FC00CB86AB /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

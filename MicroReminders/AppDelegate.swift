@@ -54,6 +54,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             self.beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
         }
         
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if !launchedBefore {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let introVC = storyboard.instantiateViewController(withIdentifier: "intro")
+            
+            self.window?.rootViewController = introVC
+            self.window?.makeKeyAndVisible()
+            
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
+        else {
+            
+        }
+        
         return true
     }
 
