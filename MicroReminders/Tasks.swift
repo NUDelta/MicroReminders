@@ -24,18 +24,14 @@ class Tasks {
     }
     
     let otherGoal: Goal = ("Other", [Task]())
-    var goals: [Goal] = [Goal]() {
+    private var goals: [Goal] = [Goal]() {
         didSet {
-            let zeroGoals = goals.filter({ pendingTasksForGoal(goal: $0) == 0 })
-            let nonZeroGoals = goals.filter({ pendingTasksForGoal(goal: $0) != 0 })
-            
-            goals = nonZeroGoals.sorted(by: { goal1, goal2 in
-                let pending1 = pendingTasksForGoal(goal: goal1)
-                let pending2 = pendingTasksForGoal(goal: goal2)
-                return pending1 < pending2
-            }) + zeroGoals + [otherGoal]
+            nonEmptyGoals = goals.filter({ pendingTasksForGoal(goal: $0) != 0 })
+            emptyGoals = [otherGoal] + goals.filter({ pendingTasksForGoal(goal: $0) == 0 })
         }
     }
+    var nonEmptyGoals: [Goal] = [Goal]()
+    var emptyGoals: [Goal] = [Goal]()
     
     private init() {
         tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")

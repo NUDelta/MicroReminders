@@ -1,9 +1,6 @@
-prepopGoals = [{"task":"Pack snacks","goal":"Prepare for my trip","order":"-1"},
-{"task":"Fill a water bottle","goal":"Prepare for my trip","order":"-1"},
-{"task":"Gather toiletries","goal":"Prepare for my trip","order":"-1"},
-{"task":"Take out the trash","goal":"Clean the kitchen","order":"-1"},
-{"task":"Wipe the counter","goal":"Clean the kitchen","order":"-1"},
-{"task":"Clean the stovetop","goal":"Clean the kitchen","order":"-1"},
-{"task":"Email my advisor","goal":"Communication","order":"-1"},
-{"task":"Call my family","goal":"Communication","order":"-1"},
-{"task":"Talk to my roommate","goal":"Communication","order":"-1"}]
+prepopGoals = [{"task":"Take out the trash","goal":"e.g. Clean the kitchen","order":"-1"},
+{"task":"Wipe the counter","goal":"e.g. Clean the kitchen","order":"-1"},
+{"task":"Clean the stovetop","goal":"e.g. Clean the kitchen","order":"-1"},
+{"task":"Put charger in my backpack","goal":"e.g. Prepare for class","order":"-1"},
+{"task":"Gather notebooks","goal":"e.g. Prepare for class","order":"-1"},
+{"task":"Fill a water bottle","goal":"e.g. Prepare for class","order":"-1"}]

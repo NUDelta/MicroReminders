@@ -10,10 +10,11 @@ import Foundation
 
 class GoalCardCollectionViewController: UICollectionViewController {
     fileprivate let reuseID = "GoalCard"
-    fileprivate let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 50.0, right: 20.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
     fileprivate var tasks = [Task]()
-    fileprivate var goals = [Goal]()
+    fileprivate var nonEmptyGoals = [Goal]()
+    fileprivate var emptyGoals = [Goal]()
     
     var selectedGoal: Goal!
     
@@ -26,7 +27,8 @@ class GoalCardCollectionViewController: UICollectionViewController {
     
     func initTasksAndGoals() {
         self.tasks = Tasks.sharedInstance.tasks
-        self.goals = Tasks.sharedInstance.goals
+        self.nonEmptyGoals = Tasks.sharedInstance.nonEmptyGoals
+        self.emptyGoals = Tasks.sharedInstance.emptyGoals
         self.collectionView!.reloadData()
     }
     
@@ -48,8 +50,8 @@ extension GoalCardCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return goals.count - 1 }
-        return goals.isEmpty ? 0 : 1
+        if section == 0 { return nonEmptyGoals.count }
+        return emptyGoals.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,10 +63,10 @@ extension GoalCardCollectionViewController {
         
         var goal: Goal
         if indexPath.section == 0 {
-            goal = goals[indexPath.row]
+            goal = nonEmptyGoals[indexPath.row]
         }
         else {
-            goal = goals.last! // Other goal
+            goal = emptyGoals[indexPath.row] // Empty goals
         }
         
         cell.goalName.text = goal.0
@@ -77,7 +79,8 @@ extension GoalCardCollectionViewController {
 // Conform to UICollectionViewDelegate
 extension GoalCardCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedGoal = goals[indexPath.row]
+        if indexPath.section == 0 { selectedGoal = nonEmptyGoals[indexPath.row] }
+        else { selectedGoal = emptyGoals[indexPath.row] }
         
         self.performSegue(withIdentifier: "tasksForGoal", sender: self)
     }
