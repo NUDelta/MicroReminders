@@ -53,9 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             self.window?.makeKeyAndVisible()
             
             UserDefaults.standard.set(true, forKey: "launchedBefore")
+            UserDefaults.standard.synchronize()
         }
         else {
-            
+            Beacons.sharedInstance.beaconsFromCodeword()
         }
 
         
