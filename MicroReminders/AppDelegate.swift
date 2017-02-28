@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        let threshold: Double = 0.5 // Minimum number of minutes outside region before notification
+        let threshold: Double = 20 // Minimum number of minutes outside region before notification
         let then = beaconExitTimes[regionInt]!
         
         /* 
