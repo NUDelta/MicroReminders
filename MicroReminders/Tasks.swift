@@ -96,7 +96,7 @@ class Tasks {
     }
     
     func goalForTitle(title: String) -> Goal {
-        return goals.filter({ $0.0 == title }).first!
+        return (nonEmptyGoals + emptyGoals).filter({ $0.0 == title }).first!
     }
     
     func pendingTasksForGoal(goal: Goal) -> Int {
