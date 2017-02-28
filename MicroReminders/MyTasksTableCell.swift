@@ -28,12 +28,12 @@ class MyTasksTableCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        if selected {
-            self.taskName.font = UIFont.boldSystemFont(ofSize: self.taskName.font.pointSize)
-        }
-        else {
-            self.taskName.font = UIFont.systemFont(ofSize: self.taskName.font.pointSize)
-        }
+//        if selected {
+//            self.taskName.font = UIFont.boldSystemFont(ofSize: self.taskName.font.pointSize)
+//        }
+//        else {
+//            self.taskName.font = UIFont.systemFont(ofSize: self.taskName.font.pointSize)
+//        }
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
