@@ -103,6 +103,10 @@ extension GoalTaskList {
         cell.time.text = "⏳ ~1min"
         cell.taskName.text = task.name
         
+        // Hotfix for tasks staying bolded
+        cell.taskName.font = UIFont.systemFont(ofSize: cell.taskName.font.pointSize)
+        cell.location.font = UIFont.systemFont(ofSize: cell.location.font.pointSize)
+        
         return cell
     }
     
