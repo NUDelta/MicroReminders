@@ -12,10 +12,21 @@ import Firebase
 class Beacons {
     static let sharedInstance = Beacons()
     
-    var beacons = [UInt16: String]()
+    var beacons = [UInt16: String]() {
+        didSet {
+            self.beaconExitTimes = self.beacons.keys.reduce([UInt16: Date](), { (acc, e) in
+                var copy = acc
+                copy[e] = Date(timeIntervalSince1970: 0)
+                return copy
+            })
+            
+            beaconListeners.forEach({ $1() })
+        }
+    }
     var beaconExitTimes = [UInt16: Date]()
+    var beaconListeners = [String: (() -> Void)]()
     
-    func beaconsFromCodeword() {
+    func beaconsFromCodeword(handler: (() -> Void)! = nil) {
         if let codeword = UserDefaults.standard.object(forKey: "beaconCodeword") as? String {
             let beaconRef = FIRDatabase.database().reference().child("Beacons/\(codeword)")
             
@@ -27,11 +38,9 @@ class Beacons {
                     return copy
                 })
                 
-                self.beaconExitTimes = self.beacons.keys.reduce([UInt16: Date](), { (acc, e) in
-                    var copy = acc
-                    copy[e] = Date(timeIntervalSince1970: 0)
-                    return copy
-                })
+                if handler != nil {
+                    handler()
+                }
             })
         }
     }

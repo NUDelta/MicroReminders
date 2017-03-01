@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     var window: UIWindow?
 
-    let beacons = Beacons.sharedInstance.beacons
-    var beaconExitTimes = Beacons.sharedInstance.beaconExitTimes
+    var beacons: [UInt16: String]!
+    var beaconExitTimes: [UInt16: Date]!
     let beaconManager = ESTBeaconManager()
     
     override init() {
@@ -49,11 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
-        /* register our beacons */
-        for minor in beacons.keys {
-            self.beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
-        }
-        
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore {
             self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -69,8 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         else {
             Beacons.sharedInstance.beaconsFromCodeword()
         }
+        Beacons.sharedInstance.beaconListeners["beaconInit"] = beaconInit
         
         return true
+    }
+    
+    func beaconInit() {
+        self.beacons = Beacons.sharedInstance.beacons
+        self.beaconExitTimes = Beacons.sharedInstance.beaconExitTimes
+        
+        /* register our beacons */
+        for minor in beacons.keys {
+            self.beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
+        }
+        
+        Beacons.sharedInstance.beaconListeners.removeValue(forKey: "beaconInit")
     }
 
     /* Handle notification in app (received while in app) */
@@ -150,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        let threshold: Double = 20 // Minimum number of minutes outside region before notification
+        let threshold: Double = 0.1 // Minimum number of minutes outside region before notification
         let then = beaconExitTimes[regionInt]!
         
         /* 
