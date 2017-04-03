@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     var window: UIWindow?
 
-    var beacons: [UInt16: String]!
-    var beaconExitTimes: [UInt16: Date]!
     let beaconManager = ESTBeaconManager()
     
     override init() {
@@ -49,8 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if !launchedBefore {
+        if Beacons.loadBeacons() == nil { // The first time we open the app
             self.window = UIWindow(frame: UIScreen.main.bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let introVC = storyboard.instantiateViewController(withIdentifier: "intro")
@@ -58,27 +55,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             self.window?.rootViewController = introVC
             self.window?.makeKeyAndVisible()
             
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
-            UserDefaults.standard.synchronize()
+//            Beacons.sharedInstance.beaconListeners["beaconInit"] = {
+//                self.beacons = Beacons.sharedInstance.beacons
+//                self.beaconExitTimes = Beacons.sharedInstance.beaconExitTimes
+//                
+//                Beacons.sharedInstance.beaconListeners.removeValue(forKey: "beaconInit")
+//            }
         }
-        else {
-            Beacons.sharedInstance.beaconsFromCodeword()
-        }
-        Beacons.sharedInstance.beaconListeners["beaconInit"] = beaconInit
         
         return true
-    }
-    
-    func beaconInit() {
-        self.beacons = Beacons.sharedInstance.beacons
-        self.beaconExitTimes = Beacons.sharedInstance.beaconExitTimes
-        
-        /* register our beacons */
-        for minor in beacons.keys {
-            self.beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
-        }
-        
-        Beacons.sharedInstance.beaconListeners.removeValue(forKey: "beaconInit")
     }
 
     /* Handle notification in app (received while in app) */
@@ -158,8 +143,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
+        let shared = Beacons.loadBeacons()!
+        
         let threshold: Double = 20 // Minimum number of minutes outside region before notification
-        let then = beaconExitTimes[regionInt]!
+        let then = shared.beaconExitTimes[regionInt]!
         
         /* 
          This should never be relevant - we should only ever enter after exiting. What that means
@@ -167,10 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
          before we check it next. However, since the beacons are buggy, and I'm concerned about
          sequential "didEnterRegion" events, I'm leaving this in here.
          */
-        beaconExitTimes[regionInt] = Date(timeIntervalSinceNow: Double(Int.max))
+        Beacons.setExitTime(forKey: regionInt, to: Date(timeIntervalSinceNow: Double(Int.max)))
         
         if (Date().timeIntervalSince(then) > 60.0*threshold) {
-            TaskNotificationSender().notify(beacons[regionInt]!)
+            TaskNotificationSender().notify(shared.beacons[regionInt]!)
         }
     }
     
@@ -179,12 +166,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("exited \(region.identifier), \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
+        let shared = Beacons.loadBeacons()!
+        
         /*
          This is to ensure that we only reset the exit time if the previous region event was an
          entrance, protecting against sequential exit events.
          */
-        if (beaconExitTimes[regionInt]!.timeIntervalSinceNow > Double(Int.max/2)) {
-            beaconExitTimes[regionInt] = Date()
+        if (shared.beaconExitTimes[regionInt]!.timeIntervalSinceNow > Double(Int.max/2)) {
+            Beacons.setExitTime(forKey: regionInt, to: Date())
         }
     }
     

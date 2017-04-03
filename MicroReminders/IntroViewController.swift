@@ -21,10 +21,8 @@ class IntroViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "submitCodeword" {
             let word = codeword.text!
-            UserDefaults.standard.set(word, forKey: "beaconCodeword")
-            UserDefaults.standard.synchronize()
             
-            Beacons.sharedInstance.beaconsFromCodeword()
+            Beacons.beaconsFromCodeword(codeword: word)
         }
     }
 }
