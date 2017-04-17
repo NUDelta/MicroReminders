@@ -10,113 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Intro View Controller-->
-        <scene sceneID="Gag-5q-4tf">
-            <objects>
-                <viewController storyboardIdentifier="intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2zR-tK-d2k" customClass="IntroViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ENy-7u-2dV"/>
-                        <viewControllerLayoutGuide type="bottom" id="VG3-v8-cfs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mBH-bl-hQF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to MicroReminders!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7B-Kq-h4m">
-                                <rect key="frame" x="16" y="28" width="343" height="28"/>
-                                <fontDescription key="fontDescription" name=".SFNSDisplay-Regular" family=".SF NS Display" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="fuck_trump" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UGB-ZU-BpT">
-                                <rect key="frame" x="16" y="171" width="343" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oyd-tK-aCU">
-                                <rect key="frame" x="16" y="64" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="f4C-kJ-BR6"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bK-Hf-ZQr">
-                                <rect key="frame" x="16" y="209" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="iKO-bw-pIS"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA7-9Y-and">
-                                <rect key="frame" x="16" y="81" width="343" height="74"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">Please enter your beacon codeword below:
-</string>
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="17"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="17"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="Note: this cannot be changed - please make sure to enter it correctly!">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tc1-ds-2Cj">
-                                <rect key="frame" x="16" y="218" width="343" height="30"/>
-                                <state key="normal" title="Let's go!"/>
-                                <connections>
-                                    <action selector="submitTapped:" destination="2zR-tK-d2k" eventType="touchUpInside" id="6SR-Ww-lxf"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="2bK-Hf-ZQr" firstAttribute="top" secondItem="UGB-ZU-BpT" secondAttribute="bottom" constant="8" id="0cz-uv-T25"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="fA7-9Y-and" secondAttribute="leading" id="1OC-WY-LeU"/>
-                            <constraint firstItem="Oyd-tK-aCU" firstAttribute="top" secondItem="s7B-Kq-h4m" secondAttribute="bottom" constant="8" id="2eS-fI-ZmJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UGB-ZU-BpT" secondAttribute="trailing" id="5xx-K6-3Y1"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="UGB-ZU-BpT" secondAttribute="leading" id="6Yw-Ls-gVC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tc1-ds-2Cj" secondAttribute="trailing" id="7ab-j6-oMg"/>
-                            <constraint firstItem="UGB-ZU-BpT" firstAttribute="top" secondItem="fA7-9Y-and" secondAttribute="bottom" constant="16" id="8sf-nt-0jD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="s7B-Kq-h4m" secondAttribute="trailing" id="HE7-s0-mtc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2bK-Hf-ZQr" secondAttribute="trailing" id="ZEu-vt-gLN"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="s7B-Kq-h4m" secondAttribute="leading" id="bOe-EM-gDz"/>
-                            <constraint firstItem="tc1-ds-2Cj" firstAttribute="top" secondItem="2bK-Hf-ZQr" secondAttribute="bottom" constant="8" id="dib-z2-Hr3"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Oyd-tK-aCU" secondAttribute="leading" id="e43-V4-3Ik"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fA7-9Y-and" secondAttribute="trailing" id="ggT-qp-BLW"/>
-                            <constraint firstItem="fA7-9Y-and" firstAttribute="top" secondItem="Oyd-tK-aCU" secondAttribute="bottom" constant="16" id="lZM-pQ-Vkd"/>
-                            <constraint firstItem="s7B-Kq-h4m" firstAttribute="top" secondItem="ENy-7u-2dV" secondAttribute="bottom" constant="8" id="pRl-L4-D5V"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="2bK-Hf-ZQr" secondAttribute="leading" id="r1M-V6-ZpJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Oyd-tK-aCU" secondAttribute="trailing" id="rcI-U8-ozy"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="tc1-ds-2Cj" secondAttribute="leading" id="zsX-gF-7b5"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="codeword" destination="UGB-ZU-BpT" id="t8E-CI-beD"/>
-                        <outlet property="submit" destination="tc1-ds-2Cj" id="scW-hu-83l"/>
-                        <segue destination="8uR-8V-84Y" kind="show" identifier="submitCodeword" id="1tQ-A2-DT4"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="H31-mU-KrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1602.4000000000001" y="-816.34182908545733"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hoy-Ws-TBz">
             <objects>
@@ -126,7 +19,7 @@ Cg
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="qH7-hU-WG4" kind="relationship" relationship="rootViewController" id="V2e-x3-eDr"/>
+                        <segue destination="P99-aD-v3M" kind="relationship" relationship="rootViewController" id="SCL-Oi-gVC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QtA-Re-K7j" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,168 +54,16 @@ Cg
             </objects>
             <point key="canvasLocation" x="-650" y="-1580"/>
         </scene>
-        <!--Goal Card Feed-->
-        <scene sceneID="Gwm-06-hbs">
-            <objects>
-                <collectionViewController title="Goal Card Feed" id="qH7-hU-WG4" customClass="GoalCardCollectionViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ss5-ix-GpB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="y7d-qC-hld">
-                            <size key="itemSize" width="313" height="78"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GoalCard" id="0B3-c5-MDh" customClass="GoalCard" customModule="MicroReminders" customModuleProvider="target">
-                                <rect key="frame" x="31" y="0.0" width="313" height="78"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="313" height="78"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TH9-GY-24y">
-                                            <rect key="frame" x="8" y="18" width="297" height="26.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# pending tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvi-yd-Xrx">
-                                            <rect key="frame" x="8" y="44.5" width="297" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="leadingMargin" secondItem="TH9-GY-24y" secondAttribute="leading" id="AhN-Bi-aLh"/>
-                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerY" secondItem="0B3-c5-MDh" secondAttribute="centerY" constant="-8" id="BPL-Cb-3Vc"/>
-                                    <constraint firstItem="fvi-yd-Xrx" firstAttribute="top" secondItem="TH9-GY-24y" secondAttribute="bottom" id="Hbd-Vd-9c7"/>
-                                    <constraint firstItem="fvi-yd-Xrx" firstAttribute="centerX" secondItem="0B3-c5-MDh" secondAttribute="centerX" id="UUC-td-RTk"/>
-                                    <constraint firstAttribute="leadingMargin" secondItem="fvi-yd-Xrx" secondAttribute="leading" id="Zdi-VW-DS1"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="fvi-yd-Xrx" secondAttribute="trailing" id="hlu-hs-ggt"/>
-                                    <constraint firstItem="TH9-GY-24y" firstAttribute="centerX" secondItem="0B3-c5-MDh" secondAttribute="centerX" id="o4M-bk-1B5"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="TH9-GY-24y" secondAttribute="trailing" id="oee-S0-Hex"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="goalName" destination="TH9-GY-24y" id="aJY-ym-W10"/>
-                                    <outlet property="numPendingTasks" destination="fvi-yd-Xrx" id="bsc-zO-7Av"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="qH7-hU-WG4" id="Kd3-uA-qwS"/>
-                            <outlet property="delegate" destination="qH7-hU-WG4" id="lN2-wW-PuN"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="My Goals" id="UCR-Tc-aht">
-                        <barButtonItem key="rightBarButtonItem" title="Add goal" id="ubr-LK-GQK">
-                            <connections>
-                                <segue destination="9if-cM-A9L" kind="show" id="S7Q-fG-fKL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="P99-aD-v3M" kind="show" identifier="tasksForGoal" id="zJ2-Zm-JGd"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6g8-k8-MmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="245.59999999999999" y="-816.34182908545733"/>
-        </scene>
-        <!--Add a goal:-->
-        <scene sceneID="P3d-vs-l5d">
-            <objects>
-                <viewController id="9if-cM-A9L" customClass="NewGoalViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3Fa-93-Iso"/>
-                        <viewControllerLayoutGuide type="bottom" id="Yic-Im-f5y"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CEb-wr-s32">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hkj-we-FlM">
-                                <rect key="frame" x="16" y="123" width="343" height="100"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write it here." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rnc-rl-Vhy">
-                                        <rect key="frame" x="8" y="35" width="327" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" red="0.2885763026" green="0.90964768650000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="centerX" secondItem="Hkj-we-FlM" secondAttribute="centerX" id="Bku-qU-unA"/>
-                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="centerY" secondItem="Hkj-we-FlM" secondAttribute="centerY" id="FrV-AC-qaQ"/>
-                                    <constraint firstItem="rnc-rl-Vhy" firstAttribute="leading" secondItem="Hkj-we-FlM" secondAttribute="leading" constant="8" id="NOj-mf-Fvj"/>
-                                    <constraint firstAttribute="trailing" secondItem="rnc-rl-Vhy" secondAttribute="trailing" constant="8" id="WPA-XZ-qL9"/>
-                                    <constraint firstAttribute="height" constant="100" id="iPU-r3-M4c"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e6o-OC-hL1">
-                                <rect key="frame" x="16" y="247" width="343" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="F2W-t6-BWN"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejm-5s-udq">
-                                <rect key="frame" x="16" y="256" width="343" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Now, add the first step:"/>
-                                <connections>
-                                    <action selector="addTaskTapped:" destination="9if-cM-A9L" eventType="touchUpInside" id="bYC-wN-wuO"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's an around-the-house goal you have?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCQ-to-UtG">
-                                <rect key="frame" x="16" y="72" width="343" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="NCQ-to-UtG" firstAttribute="top" secondItem="3Fa-93-Iso" secondAttribute="bottom" constant="8" id="5yj-jH-Ueq"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="ejm-5s-udq" secondAttribute="leading" id="KOr-xc-mHB"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="NCQ-to-UtG" secondAttribute="leading" id="Sez-j0-5xf"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Hkj-we-FlM" secondAttribute="leading" id="VxT-1G-mTN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Hkj-we-FlM" secondAttribute="trailing" id="XO0-d4-kAf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ejm-5s-udq" secondAttribute="trailing" id="a98-Kb-abv"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="e6o-OC-hL1" secondAttribute="leading" id="bKV-4Q-iNp"/>
-                            <constraint firstItem="Hkj-we-FlM" firstAttribute="top" secondItem="NCQ-to-UtG" secondAttribute="bottom" constant="8" id="elH-bR-V9A"/>
-                            <constraint firstItem="e6o-OC-hL1" firstAttribute="top" secondItem="Hkj-we-FlM" secondAttribute="bottom" constant="24" id="h3H-MG-LEu"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="NCQ-to-UtG" secondAttribute="trailing" id="jct-jy-ams"/>
-                            <constraint firstItem="ejm-5s-udq" firstAttribute="top" secondItem="e6o-OC-hL1" secondAttribute="bottom" constant="8" id="npO-25-qxL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="e6o-OC-hL1" secondAttribute="trailing" id="xZF-u0-K4J"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Add a goal:" id="wUc-FL-a4M"/>
-                    <connections>
-                        <outlet property="coloredBox" destination="Hkj-we-FlM" id="gNR-R7-yhn"/>
-                        <outlet property="whatsTheGoal" destination="rnc-rl-Vhy" id="rVr-Qu-bUk"/>
-                        <segue destination="pSO-Nf-qym" kind="show" identifier="taskForNewGoal" id="0Yg-HX-3H0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xSI-cl-8Wu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="245.59999999999999" y="-66.11694152923539"/>
-        </scene>
-        <!--Goal Task List-->
+        <!--Task List-->
         <scene sceneID="dhC-Qk-52x">
             <objects>
-                <tableViewController id="P99-aD-v3M" customClass="GoalTaskList" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="P99-aD-v3M" customClass="TaskList" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="D0z-BO-G7Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalTask" rowHeight="100" id="Ymb-tl-0CY" customClass="GoalTask" customModule="MicroReminders" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="100" id="Ymb-tl-0CY" customClass="TaskCell" customModule="MicroReminders" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ymb-tl-0CY" id="QQl-Ik-4ON">
@@ -406,12 +147,12 @@ Cg
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5s-xJ-O1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1350" y="-1238"/>
+            <point key="canvasLocation" x="199" y="-816"/>
         </scene>
-        <!--Custom Task Constraint View Controller-->
+        <!--Task Constraint View Controller-->
         <scene sceneID="ggY-7d-wDQ">
             <objects>
-                <viewController id="pSO-Nf-qym" customClass="CustomTaskConstraintViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pSO-Nf-qym" customClass="TaskConstraintViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UmZ-Kn-qGJ"/>
                         <viewControllerLayoutGuide type="bottom" id="6lk-Gv-EgY"/>
@@ -546,10 +287,10 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx9-Qr-1KB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1350" y="-450"/>
+            <point key="canvasLocation" x="1130" y="-816"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Yg-HX-3H0"/>
+        <segue reference="vZt-HT-pWs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,41 +9,16 @@
 import Foundation
 import Firebase
 
+fileprivate let beaconsForUDID: [String: [UInt16: String]] = [
+    UIDevice.current.identifierForVendor!.uuidString: [/* insert testing beacon info here */:]/*,
+    insert other user's UDIDs and beacon info here */
+]
+
 class Beacons: NSObject, NSCoding {
     static let sharedInstance = Beacons()
     
-    var beacons = [UInt16: String]() {
-        didSet {
-            beaconListeners.forEach({ $1() })
-        }
-    }
+    var beacons: [UInt16: String] = beaconsForUDID[UIDevice.current.identifierForVendor!.uuidString]!
     var beaconExitTimes = [UInt16: Date]()
-    var beaconListeners = [String: () -> Void]()
-    
-    static func beaconsFromCodeword(codeword: String) {
-        /**
-         This gets called on segue from the intro view controller, and then state gets saved in UserDefaults.
-         */
-        
-        let beaconRef = FIRDatabase.database().reference().child("Beacons/\(codeword)")
-        
-        beaconRef.observeSingleEvent(of: .value, with: { snapshot in
-            let stringBeacons = snapshot.value as! [String: String]
-            self.sharedInstance.beacons = stringBeacons.reduce([UInt16: String](), { (acc, e) in
-                var copy = acc
-                copy[UInt16(e.key)!] = e.value
-                return copy
-            })
-            
-            self.sharedInstance.beaconExitTimes = self.sharedInstance.beacons.keys.reduce([UInt16: Date](), { (acc, e) in
-                var copy = acc
-                copy[e] = Date(timeIntervalSince1970: 0)
-                return copy
-            })
-            
-            self.saveBeacons()
-        })
-    }
     
     static func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
         let beacons = sharedInstance.beacons
@@ -70,14 +45,41 @@ class Beacons: NSObject, NSCoding {
     required init(coder decoder: NSCoder) {
         self.beacons = decoder.decodeObject(forKey: "beacons") as! [UInt16: String]
         self.beaconExitTimes = decoder.decodeObject(forKey: "beaconExitTimes") as! [UInt16: Date]
-        self.beaconListeners = decoder.decodeObject(forKey: "beaconListeners") as! [String: () -> Void]
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(beacons, forKey: "beacons")
         coder.encode(beaconExitTimes, forKey: "beaconExitTimes")
-        coder.encode(beaconListeners, forKey: "beaconListeners")
     }
     
     fileprivate override init() { super.init() }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,8 +11,6 @@ import Firebase
 class Task {
     let _id: String
     var name: String
-    var goal: String
-    var order: String
     var length: String = "<1 min"
     var location: String = "unassigned"
     var afterTime: String = "unassigned"
@@ -22,19 +20,15 @@ class Task {
     let created: String = String(Int(Date().timeIntervalSince1970))
     var completed: String = "false"
     
-    init(_ _id: String, name: String, goal: String, order: String) {
+    init(_ _id: String, name: String) {
         self._id = _id
         self.name = name
-        self.goal = goal
-        self.order = order
         self.lastSnoozed = timeRightNow()
     }
     
-    init(_ _id: String, name: String, goal: String, order: String, location: String, beforeTime: String, afterTime: String, completed: String, lastSnoozed: String) {
+    init(_ _id: String, name: String, location: String, beforeTime: String, afterTime: String, completed: String, lastSnoozed: String) {
         self._id = _id
         self.name = name
-        self.goal = goal
-        self.order = order
         self.completed = completed
         self.lastSnoozed = timeRightNow()
         
@@ -47,8 +41,6 @@ class Task {
     init(task: Task) {
         self._id = UUID().uuidString
         self.name = task.name
-        self.goal = task.goal
-        self.order = task.order
         self.location = task.location
         self.lastSnoozed = timeRightNow()
     }
@@ -62,8 +54,6 @@ class Task {
         
         myTaskRef.child(_id).setValue([
             "task":name,
-            "goal":goal,
-            "order":order,
             "length":length,
             "location":location,
             "completed":completed,

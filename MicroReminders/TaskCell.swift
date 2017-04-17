@@ -8,17 +8,16 @@
 
 import UIKit
 
-class GoalTask: UITableViewCell {
+class TaskCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var location: UILabel!
     
-    var tableViewController: GoalTaskList! = nil
+    var tableViewController: TaskList! = nil
  
     var task: Task! = nil
-    var active: GoalTaskState!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,16 +25,16 @@ class GoalTask: UITableViewCell {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-        if active != nil {
-            switch active! {
-            case .active:
-                deactivate()
-            case .unassigned:
-                assignLocation()
-            case .done:
-                reactivate()
-            }
-        }
+//        if active != nil {
+//            switch active! {
+//            case .active:
+//                deactivate()
+//            case .unassigned:
+//                assignLocation()
+//            case .done:
+//                reactivate()
+//            }
+//        }
     }
     
     func deactivate() {

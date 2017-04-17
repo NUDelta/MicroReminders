@@ -1,5 +1,5 @@
 //
-//  CustomTaskConstraintViewController.swift
+//  TaskConstraintViewController.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 1/23/17.
@@ -9,11 +9,10 @@
 import UIKit
 import TTRangeSlider
 
-class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var locations: [String] = Beacons.sharedInstance.beacons.values.map({ $0.capitalized })
     
-    var goal: Goal!
     var pushHandler: (() -> Void)!
     
     var existingTask: Task! // Are we modifying an existing task? e.g. reactivating, assigning prepopulated
@@ -35,7 +34,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
     }
     
     func initIntroText() {
-        intro.text = "A one-minute step towards \"\(goal!.0)\" is"
+        intro.text = "A one-minute step towards your goal is"
     }
     
     func initBasedOnExistingTask() {
@@ -101,7 +100,7 @@ class CustomTaskConstraintViewController: UIViewController, UIPickerViewDelegate
             let beforeTime = String(timeSlider.selectedMaximum)
             let afterTime = String(timeSlider.selectedMinimum)
             
-            let task = Task(newTaskId!, name: name, goal: goal!.0, order: "-1")
+            let task = Task(newTaskId!, name: name)
             
             task.location = location
             task.beforeTime = beforeTime

@@ -9,9 +9,8 @@
 import UIKit
 import Firebase
 
-class GoalTaskList: UITableViewController {
+class TaskList: UITableViewController {
     
-    var goal: Goal!
     var displayTaskDict = [String: [Task]]()
     var displayTaskDictComplete = [String: [Task]]()
     
@@ -24,30 +23,20 @@ class GoalTaskList: UITableViewController {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        navigationItem.title = goal!.0
+        navigationItem.title = "TEST CHANGE THIS"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        Tasks.sharedInstance.taskListeners
-            .updateValue(initGoal, forKey: "updateGoalFor\(goal!.0)")
-        
-        initGoal()
-    }
-    
-    func initGoal() {
-        self.goal = Tasks.sharedInstance.goalForTitle(title: self.goal!.0)
-        self.updateDisplayTasks()
+        updateDisplayTasks()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Tasks.sharedInstance.taskListeners.removeValue(forKey: "updateTasksFor\(goal!.0)")
+        // nothing now, like the stub tho
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let ctcvc = segue.destination as? CustomTaskConstraintViewController {
-            ctcvc.goal = goal
+        if let ctcvc = segue.destination as? TaskConstraintViewController {
             ctcvc.pushHandler = {
                 self.navigationController!.popViewController(animated: true)
             }
@@ -60,7 +49,7 @@ class GoalTaskList: UITableViewController {
 }
 
 // TableView data source and delegate
-extension GoalTaskList {
+extension TaskList {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return displayTaskDict.keys.count + displayTaskDictComplete.keys.count
     }
@@ -76,25 +65,22 @@ extension GoalTaskList {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTask", for: indexPath) as! GoalTask
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
         
         let task = extractSection(section: indexPath.section)[indexPath.row]
         
         if (task.location == "unassigned") {
             cell.backgroundColor = UIColor.white
-            cell.active = .unassigned
             cell.button.setTitle("＋", for: .normal)
             cell.location.text = "Add location:"
         }
         else if (indexPath.section < displayTaskDict.keys.count) {
             cell.backgroundColor = UIColor.white
-            cell.active = .active
             cell.button.setTitle("☐", for: .normal)
             cell.location.text = "\(capitalizeFirstLetter(task.location))"
         }
         else {
             cell.backgroundColor = UIColor.lightGray
-            cell.active = .done
             cell.button.setTitle("☑︎", for: .normal)
             cell.location.text = "\(capitalizeFirstLetter(task.location))"
         }
@@ -114,7 +100,7 @@ extension GoalTaskList {
         let section = extractSectionKey(section: indexPath.section)
         
         if section == "Pending" {
-            let cell = tableView.cellForRow(at: indexPath) as! GoalTask
+            let cell = tableView.cellForRow(at: indexPath) as! TaskCell
             
             cell.taskName.font = UIFont.boldSystemFont(ofSize: cell.taskName.font.pointSize)
             cell.location.font = UIFont.boldSystemFont(ofSize: cell.location.font.pointSize)
@@ -127,7 +113,7 @@ extension GoalTaskList {
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! GoalTask
+        let cell = tableView.cellForRow(at: indexPath) as! TaskCell
         
         cell.taskName.font = UIFont.systemFont(ofSize: cell.taskName.font.pointSize)
         cell.location.font = UIFont.systemFont(ofSize: cell.location.font.pointSize)
@@ -139,30 +125,22 @@ extension GoalTaskList {
     
     func updateDisplayTasks() -> Void {
         func taskDictInsert(dict: inout [String: [Task]], task: Task) {
-            let key = task.goal
+            let key = "0"
             if dict[key] == nil { dict[key] = [Task]() }
             dict[key]!.append(task)
-        }
-        
-        func taskDictSort(dict: inout [String: [Task]]) {
-            for (category, tasklist) in dict {
-                let sorted = tasklist.sorted(by: { (task1, task2) in task1.order < task2.order })
-                dict[category] = sorted
-            }
         }
         
         self.displayTaskDict = [String: [Task]]()
         self.displayTaskDictComplete = [String: [Task]]()
         
-        for task in goal.1 {
-            if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
-            else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
-        }
-        
-        taskDictSort(dict: &self.displayTaskDict)
-        taskDictSort(dict: &self.displayTaskDictComplete)
-        
-        self.tableView.reloadData()
+        Tasks.getTasks(then: {tasks in
+            for task in tasks {
+                if task.completed == "false" { taskDictInsert(dict: &self.displayTaskDict, task: task) }
+                else { taskDictInsert(dict: &self.displayTaskDictComplete, task: task) }
+            }
+            
+            self.tableView.reloadData()
+        })
     }
     
     func extractSection(section: Int) -> [Task] {

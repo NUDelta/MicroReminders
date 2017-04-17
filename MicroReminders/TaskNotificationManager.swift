@@ -86,8 +86,6 @@ class TaskNotificationSender: TaskInteractionManager {
         return [
             "t_id":task._id,
             "t_name":task.name,
-            "t_goal":task.goal,
-            "t_order":task.order,
             "t_completed":task.completed,
             "t_length":task.length,
             "t_lastSnoozed":task.lastSnoozed,
@@ -139,42 +137,17 @@ class TaskNotificationSender: TaskInteractionManager {
             }()
     }
     
-    /** 
-     Determines if the task can be chain-notified (assumes only given tasks within a single goal.
-     
-     Checks location constraints.
-     Note that loosening what this function checks for will result in more chained notifications.
-     */
-    private func canChainNotify(for task: Task, location: String) -> Bool {
-        return task.completed == "false" && task.location.caseInsensitiveCompare(location) == .orderedSame
-    }
-    
     /** Select and notify for tasks for a given location, at the current time */
     func notify(_ location: String) {
         
-        let tasks = Tasks.sharedInstance.tasks
-        
-        let candidatesForNotification = tasks.filter({ canNotify(for: $0, location: location) })
-        
-        if (!candidatesForNotification.isEmpty) {
-            let taskToNotify = scheduler.pickTaskToNotify(tasks: candidatesForNotification)
-            sendNotification(taskToNotify)
-        }
-    }
-    
-    fileprivate func chainedNotify(at location: String, for goalName: String, following prevTask: Task) {
-        let goal = Tasks.sharedInstance.goalForTitle(title: goalName)
-        
-        let candidatesForNotification = goal.1.filter({
-            $0._id != prevTask._id &&
-            canChainNotify(for: $0, location: location)
+        Tasks.getTasks(then: {tasks in
+            let candidatesForNotification = tasks.filter({ self.canNotify(for: $0, location: location) })
+            
+            if (!candidatesForNotification.isEmpty) {
+                let taskToNotify = self.scheduler.pickTaskToNotify(tasks: candidatesForNotification)
+                self.sendNotification(taskToNotify)
+            }
         })
-        
-        if (!candidatesForNotification.isEmpty) {
-            let taskToChainNotify = scheduler.pickTaskToChainNotify(tasks: candidatesForNotification)
-            let notificationMessage = "While you're at it, \(taskToChainNotify.name.lowercased()) as well?"
-            sendNotification(taskToChainNotify, message: notificationMessage, delay: 1)
-        }
     }
 }
 
@@ -188,8 +161,6 @@ class TaskNotificationResponder: TaskInteractionManager {
         return Task(
             userInfo["t_id"]!,
             name: userInfo["t_name"]!,
-            goal: userInfo["t_goal"]!,
-            order: userInfo["t_order"]!,
             location: userInfo["t_location"]!,
             beforeTime: userInfo["t_beforeTime"]!,
             afterTime: userInfo["t_afterTime"]!,
@@ -202,8 +173,6 @@ class TaskNotificationResponder: TaskInteractionManager {
     func markDone(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         markNotificationDone(task)
-        
-        TaskNotificationSender().chainedNotify(at: task.location, for: task.goal, following: task)
     }
     
     /** Snooze a task */

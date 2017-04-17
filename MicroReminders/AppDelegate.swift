@@ -47,22 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
-        if Beacons.loadBeacons() == nil { // The first time we open the app
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let introVC = storyboard.instantiateViewController(withIdentifier: "intro")
-            
-            self.window?.rootViewController = introVC
-            self.window?.makeKeyAndVisible()
-            
-//            Beacons.sharedInstance.beaconListeners["beaconInit"] = {
-//                self.beacons = Beacons.sharedInstance.beacons
-//                self.beaconExitTimes = Beacons.sharedInstance.beaconExitTimes
-//                
-//                Beacons.sharedInstance.beaconListeners.removeValue(forKey: "beaconInit")
-//            }
-        }
-        
         return true
     }
 
