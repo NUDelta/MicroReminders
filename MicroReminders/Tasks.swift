@@ -11,7 +11,7 @@ import Firebase
 
 class Tasks {
     private static let sharedInstance = Tasks()
-    private static let tasksRef = FIRDatabase.database().reference().child("Tasks/\(UIDevice.current.identifierForVendor!.uuidString)")
+    private static let tasksRef = FIRDatabase.database().reference().child("Tasks/\(userKey)")
     
     var tasks: [Task]?
     

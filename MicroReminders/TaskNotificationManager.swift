@@ -20,7 +20,7 @@ class TaskInteractionManager {
         case listReactivated
     }
     
-    fileprivate let myId = UIDevice.current.identifierForVendor!.uuidString
+    fileprivate let myId = userKey
     
     /** Mark a task as completed from a notification */
     func markNotificationDone(_ task: Task, handler: (() -> Void)! = nil) {

@@ -11,8 +11,8 @@ import Foundation
 class MockViewController: UIViewController {
     @IBAction func mockPressed(_ sender: Any) {
         let romeo: UInt16 = 59582
-        let beacons = Beacons.sharedInstance.beacons
+        let location = Beacons.getBeaconLocation(forKey: romeo)
         
-        TaskNotificationSender().notify(beacons[romeo]!)
+        TaskNotificationSender().notify(location)
     }
 }

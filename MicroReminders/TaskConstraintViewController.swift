@@ -11,7 +11,7 @@ import TTRangeSlider
 
 class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    var locations: [String] = Beacons.sharedInstance.beacons.values.map({ $0.capitalized })
+    var locations: [String] = Beacons.getAllLocations().map({ $0.capitalized })
     
     var pushHandler: (() -> Void)!
     

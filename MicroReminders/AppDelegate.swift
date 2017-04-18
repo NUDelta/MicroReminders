@@ -47,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
+        Beacons.listenToBeaconRegions(beaconManager: beaconManager)
+        
         return true
     }
 
@@ -127,10 +129,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        let shared = Beacons.loadBeacons()!
+        let location = Beacons.getBeaconLocation(forKey: regionInt)
+        let then = Beacons.getExitTime(forKey: regionInt)
         
         let threshold: Double = 20 // Minimum number of minutes outside region before notification
-        let then = shared.beaconExitTimes[regionInt]!
         
         /* 
          This should never be relevant - we should only ever enter after exiting. What that means
@@ -141,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         Beacons.setExitTime(forKey: regionInt, to: Date(timeIntervalSinceNow: Double(Int.max)))
         
         if (Date().timeIntervalSince(then) > 60.0*threshold) {
-            TaskNotificationSender().notify(shared.beacons[regionInt]!)
+            TaskNotificationSender().notify(location)
         }
     }
     
@@ -150,13 +152,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("exited \(region.identifier), \(Date())")
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        let shared = Beacons.loadBeacons()!
+        let then = Beacons.getExitTime(forKey: regionInt)
         
         /*
          This is to ensure that we only reset the exit time if the previous region event was an
          entrance, protecting against sequential exit events.
          */
-        if (shared.beaconExitTimes[regionInt]!.timeIntervalSinceNow > Double(Int.max/2)) {
+        if (then.timeIntervalSinceNow > Double(Int.max/2)) {
             Beacons.setExitTime(forKey: regionInt, to: Date())
         }
     }
