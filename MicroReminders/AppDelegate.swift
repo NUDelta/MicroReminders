@@ -62,14 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         switch response.actionIdentifier {
-        case "done":
-            handleDone(response.notification)
         case "snooze":
             handleSnooze(response.notification)
         case UNNotificationDismissActionIdentifier:
             handleClear(response.notification)
-        case UNNotificationDefaultActionIdentifier:
-            handleInApp(response.notification)
+//        case UNNotificationDefaultActionIdentifier:
+//            handleInApp(response.notification)
         default:
             break
         }
@@ -84,19 +82,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* Set up notification actions */
     func setUpNotificationActions() {
         
-        let done = UNNotificationAction(identifier: "done", title: "Done with task!", options: [])
         let snooze = UNNotificationAction(identifier: "snooze", title: "Snooze", options: [])
         
         // put our actions in a category
-        let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [done, snooze], intentIdentifiers: [], options: [.customDismissAction])
+        let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [snooze], intentIdentifiers: [], options: [.customDismissAction])
         
         // register our actions
         UNUserNotificationCenter.current().setNotificationCategories([respond])
-    }
-    
-    /* Handle marking a task done */
-    func handleDone(_ notification: UNNotification) {
-        TaskNotificationResponder().markDone(notification)
     }
     
     /* Handle snoozing a task */
@@ -109,19 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         TaskNotificationResponder().clearSnooze(notification)
     }
     
-    /* Create alertController to handle notification in-app */
-    func handleInApp(_ notification: UNNotification) {
-        let title = "\(notification.request.content.userInfo["t_name"]!)"
-        let alert = UIAlertController(title: title, message: "Would you like to snooze this microtask or is it done?", preferredStyle: .alert)
-        let snooze = UIAlertAction(title: "Snooze", style: .default, handler: { (action: UIAlertAction) in
-            self.handleSnooze(notification)
-        })
-        let markDone = UIAlertAction(title: "Done with task", style: .default, handler: { (action: UIAlertAction) in
-            self.handleDone(notification)
-        })
-        alert.addAction(snooze); alert.addAction(markDone)
-        
-        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+    func handleAppOpened(_ notification: UNNotification) {
+        TaskNotificationResponder().appOpenedSnooze(notification)
     }
     
     /* Send notifications when we enter a region */
@@ -132,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         let location = Beacons.getBeaconLocation(forKey: regionInt)
         let then = Beacons.getExitTime(forKey: regionInt)
         
-        let threshold: Double = 20 // Minimum number of minutes outside region before notification
+        let threshold: Double = 0.1 // Minimum number of minutes outside region before notification
         
         /* 
          This should never be relevant - we should only ever enter after exiting. What that means
