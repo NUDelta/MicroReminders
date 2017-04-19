@@ -62,12 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         switch response.actionIdentifier {
-        case "snooze":
-            handleSnooze(response.notification)
+        case "accept":
+            handleAccept(response.notification)
+            break
+        case "decline":
+            handleDecline(response.notification)
         case UNNotificationDismissActionIdentifier:
             handleClear(response.notification)
-//        case UNNotificationDefaultActionIdentifier:
-//            handleInApp(response.notification)
+            break
+        case UNNotificationDefaultActionIdentifier:
+            handleAppOpened(response.notification)
+            break
         default:
             break
         }
@@ -82,18 +87,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* Set up notification actions */
     func setUpNotificationActions() {
         
-        let snooze = UNNotificationAction(identifier: "snooze", title: "Snooze", options: [])
+        let accept = UNNotificationAction(identifier: "accept", title: "I'll do that now!", options: [])
+        let decline = UNNotificationAction(identifier: "decline", title: "Not now...", options: [])
         
         // put our actions in a category
-        let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [snooze], intentIdentifiers: [], options: [.customDismissAction])
+        let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
         
         // register our actions
         UNUserNotificationCenter.current().setNotificationCategories([respond])
     }
     
-    /* Handle snoozing a task */
-    func handleSnooze(_ notification: UNNotification) {
-        TaskNotificationResponder().snooze(notification)
+    /* Handle accepting a notification */
+    func handleAccept(_ notification: UNNotification) {
+        TaskNotificationResponder().accept(notification)
+    }
+    
+    /* Handle declining a notification */
+    func handleDecline(_ notification: UNNotification) {
+        TaskNotificationResponder().decline(notification, alertPresenter: (self.window?.rootViewController)!)
     }
     
     /** Handle a task notification being cleared */
@@ -101,6 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         TaskNotificationResponder().clearSnooze(notification)
     }
     
+    /* Handle the notification being tapped and opening the app */
     func handleAppOpened(_ notification: UNNotification) {
         TaskNotificationResponder().appOpenedSnooze(notification)
     }

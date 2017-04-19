@@ -13,20 +13,47 @@ import Firebase
 class TaskInteractionManager {
     fileprivate enum TaskInteractionAction {
         case notificationThrown
-        case notificationSnoozed
+        case notificationAccepted
+        case notificationDeclined
         case notificationCleared
         case notificationTapped
     }
     
     fileprivate let myId = userKey
     
-    /** Snooze a task */
-    fileprivate func notificationSnooze(_ task: Task, handler: (() -> Void)! = nil) {
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+    /** Accept a task */
+    fileprivate func notificationAccept(_ task: Task, handler: (() -> Void)! = nil) {
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
         task.pushToFirebase(handler: handler)
-        logTaskNotificationAction(task, action: .notificationSnoozed)
+        logTaskNotificationAction(task, action: .notificationAccepted)
     }
     
+    fileprivate func notificationDecline(_ task: Task, alertPresenter: UIViewController, handler: (() -> Void)! = nil) {
+        task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
+        task.pushToFirebase(handler: handler)
+        logTaskNotificationAction(task, action: .notificationDeclined)
+        
+        alertPresenter.present(declineAlert(for: task), animated: true, completion: nil)
+    }
+    
+    private func declineAlert(for task: Task) -> UIAlertController {
+        let alert = UIAlertController(title: "What makes now a bad time?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Enter", style: .default, handler: { action in
+            if let reason = alert.textFields![0] as UITextField? {
+                if let text = reason.text {
+                    self.logNotificationDeclineReason(task, reason: text)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField(configurationHandler: { textfield in
+            textfield.placeholder = "Short example would be great!"
+        })
+        
+        return alert
+    }
+    
+    /** Snooze by tapping or clearing */
     fileprivate func notificationClear(_ task: Task, handler: (() -> Void)! = nil) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase(handler: handler)
@@ -47,8 +74,11 @@ class TaskInteractionManager {
         case .notificationThrown:
             ref.setValue("notificationThrown")
             break
-        case .notificationSnoozed:
-            ref.setValue("notificationSnoozed")
+        case .notificationAccepted:
+            ref.setValue("notificationAccepted")
+            break
+        case .notificationDeclined:
+            ref.setValue("notificationDeclined")
             break
         case .notificationCleared:
             ref.setValue("notificationCleared")
@@ -57,6 +87,12 @@ class TaskInteractionManager {
             ref.setValue("notificationTapped")
             break
         }
+    }
+    
+    fileprivate func logNotificationDeclineReason(_ task: Task, reason: String) {
+        let ref = FIRDatabase.database().reference().child("DeclineReasons/\(myId)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
+        
+        ref.setValue(reason)
     }
 }
 
@@ -152,12 +188,19 @@ class TaskNotificationResponder: TaskInteractionManager {
         )
     }
     
-    /** Snooze a task */
-    func snooze(_ notification: UNNotification) {
+    /** Accept a notification */
+    func accept(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
-        notificationSnooze(task)
+        notificationAccept(task)
     }
     
+    /** Decline a notification */
+    func decline(_ notification: UNNotification, alertPresenter: UIViewController) {
+        let task = extractTaskFromNotification(notification)
+        notificationDecline(task, alertPresenter: alertPresenter)
+    }
+    
+    /* Snooze a notification by clearing or tapping */
     func clearSnooze(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         notificationClear(task)
