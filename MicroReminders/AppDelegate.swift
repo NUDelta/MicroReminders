@@ -113,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         let location = Beacons.getBeaconLocation(forKey: regionInt)
         let then = Beacons.getExitTime(forKey: regionInt)
         
-        let threshold: Double = 0.1 // Minimum number of minutes outside region before notification
+        let threshold: Double = renotifyThreshold[userKey]! // Minimum number of minutes outside region before notification
         
         /* 
          This should never be relevant - we should only ever enter after exiting. What that means
