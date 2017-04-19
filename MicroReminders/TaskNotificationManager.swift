@@ -14,7 +14,7 @@ class TaskInteractionManager {
     fileprivate enum TaskInteractionAction {
         case notificationThrown
         case notificationAccepted
-        case notificationDeclined
+        case notificationDeclinedWithReason
         case notificationCleared
         case notificationTapped
     }
@@ -28,29 +28,12 @@ class TaskInteractionManager {
         logTaskNotificationAction(task, action: .notificationAccepted)
     }
     
-    fileprivate func notificationDecline(_ task: Task, alertPresenter: UIViewController, handler: (() -> Void)! = nil) {
+    fileprivate func notificationDecline(_ task: Task, reason: String, handler: (() -> Void)! = nil) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
         task.pushToFirebase(handler: handler)
-        logTaskNotificationAction(task, action: .notificationDeclined)
+        logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
         
-        alertPresenter.present(declineAlert(for: task), animated: true, completion: nil)
-    }
-    
-    private func declineAlert(for task: Task) -> UIAlertController {
-        let alert = UIAlertController(title: "What makes now a bad time?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Enter", style: .default, handler: { action in
-            if let reason = alert.textFields![0] as UITextField? {
-                if let text = reason.text {
-                    self.logNotificationDeclineReason(task, reason: text)
-                }
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addTextField(configurationHandler: { textfield in
-            textfield.placeholder = "Short example would be great!"
-        })
-        
-        return alert
+        logNotificationDeclineReason(task, reason: reason)
     }
     
     /** Snooze by tapping or clearing */
@@ -77,8 +60,8 @@ class TaskInteractionManager {
         case .notificationAccepted:
             ref.setValue("notificationAccepted")
             break
-        case .notificationDeclined:
-            ref.setValue("notificationDeclined")
+        case .notificationDeclinedWithReason:
+            ref.setValue("notificationDeclinedWithReason")
             break
         case .notificationCleared:
             ref.setValue("notificationCleared")
@@ -195,9 +178,10 @@ class TaskNotificationResponder: TaskInteractionManager {
     }
     
     /** Decline a notification */
-    func decline(_ notification: UNNotification, alertPresenter: UIViewController) {
+    func decline(_ notification: UNNotification, reason: String) {
         let task = extractTaskFromNotification(notification)
-        notificationDecline(task, alertPresenter: alertPresenter)
+        
+        notificationDecline(task, reason: reason)
     }
     
     /* Snooze a notification by clearing or tapping */

@@ -66,7 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             handleAccept(response.notification)
             break
         case "decline":
-            handleDecline(response.notification)
+            let textResponse = response as! UNTextInputNotificationResponse
+            handleDecline(response.notification, reason: textResponse.userText)
+            break
         case UNNotificationDismissActionIdentifier:
             handleClear(response.notification)
             break
@@ -88,7 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     func setUpNotificationActions() {
         
         let accept = UNNotificationAction(identifier: "accept", title: "I'll do that now!", options: [])
-        let decline = UNNotificationAction(identifier: "decline", title: "Not now...", options: [])
+//        let decline = UNNotificationAction(identifier: "decline", title: "Not now...", options: [])
+        
+        let decline = UNTextInputNotificationAction(identifier: "decline", title: "Not now...", options: [], textInputButtonTitle: "Enter", textInputPlaceholder: "What makes now a bad time?")
         
         // put our actions in a category
         let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
@@ -103,8 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     }
     
     /* Handle declining a notification */
-    func handleDecline(_ notification: UNNotification) {
-        TaskNotificationResponder().decline(notification, alertPresenter: (self.window?.rootViewController)!)
+    func handleDecline(_ notification: UNNotification, reason: String) {
+        TaskNotificationResponder().decline(notification, reason: reason)
     }
     
     /** Handle a task notification being cleared */
@@ -158,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /** Monitoring failing */
     func beaconManager(_ manager: Any, monitoringDidFailFor region: CLBeaconRegion?, withError error: Error) {
-        print("Monitoring failed for: \(region?.identifier) with error \(error.localizedDescription) at \(Date())")
+        print("Monitoring failed for: \(String(describing: region?.identifier)) with error \(error.localizedDescription) at \(Date())")
     }
     
     /** Beacon manager failing */

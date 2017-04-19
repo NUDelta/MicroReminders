@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7198B61850D3C76489199D4C /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */; };
 		D95EAD741EA6C32100F5DD26 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95EAD731EA6C32100F5DD26 /* Users.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
+		D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D19941EA8195A00401DD5 /* MockViewController.swift */; };
 		D989E4681EA4886200BA202F /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4661EA4886200BA202F /* TaskCell.swift */; };
 		D989E4691EA4886200BA202F /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4671EA4886200BA202F /* TaskList.swift */; };
 		D9BF34991E36CCA800650041 /* TaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */; };
@@ -21,7 +21,6 @@
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 		D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9EBC7151E4A850800E3438C /* Media.xcassets */; };
 		D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0C1E62968B00A45CAB /* Tasks.swift */; };
-		D9FE7B0F1E62A6D900A45CAB /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +29,7 @@
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95EAD731EA6C32100F5DD26 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
+		D97D19941EA8195A00401DD5 /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
 		D989E4661EA4886200BA202F /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		D989E4671EA4886200BA202F /* TaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskConstraintViewController.swift; sourceTree = "<group>"; };
@@ -43,8 +43,6 @@
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EBC7151E4A850800E3438C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		D9FE7B0C1E62968B00A45CAB /* Tasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
-		D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockViewController.swift; path = ../MockViewController.swift; sourceTree = "<group>"; };
-		EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7198B61850D3C76489199D4C /* Pods_MicroReminders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +59,6 @@
 		8A63EA7772D87627F5ABC5F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EC12157FA9B09E463B9F1FEF /* Pods_MicroReminders.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,9 +118,9 @@
 		D989E46A1EA48AB200BA202F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D97D19941EA8195A00401DD5 /* MockViewController.swift */,
 				D989E4661EA4886200BA202F /* TaskCell.swift */,
 				D989E4671EA4886200BA202F /* TaskList.swift */,
-				D9FE7B0E1E62A6D900A45CAB /* MockViewController.swift */,
 				D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */,
 			);
 			name = Views;
@@ -269,10 +265,10 @@
 				D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */,
 				D989E4681EA4886200BA202F /* TaskCell.swift in Sources */,
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
+				D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */,
 				D989E4691EA4886200BA202F /* TaskList.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
-				D9FE7B0F1E62A6D900A45CAB /* MockViewController.swift in Sources */,
 				D9BF34991E36CCA800650041 /* TaskConstraintViewController.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
@@ -400,7 +396,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicroReminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,7 +425,7 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicroReminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
