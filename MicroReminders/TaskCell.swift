@@ -11,9 +11,8 @@ import UIKit
 class TaskCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var time: UILabel!
     @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var timeRange: UILabel!
     
     var tableViewController: TaskList! = nil
  
@@ -22,46 +21,6 @@ class TaskCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-    }
-    
-    @IBAction func buttonTapped(_ sender: UIButton) {
-//        if active != nil {
-//            switch active! {
-//            case .active:
-//                deactivate()
-//            case .unassigned:
-//                assignLocation()
-//            case .done:
-//                reactivate()
-//            }
-//        }
-    }
-    
-    func deactivate() {
-        let alert = UIAlertController(title: "Mark task done?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-            TaskInteractionManager().markListDone(self.task, handler: { self.tableViewController.updateDisplayTasks() })
-        }))
-        self.tableViewController.present(alert, animated: true, completion: nil)
-    }
-    
-    func assignLocation() {
-        let alert = UIAlertController(title: "Assign location?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Assign", style: .default, handler: { _ in self.constrainExistingTask() }))
-        self.tableViewController.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func reactivate() {
-        let alert = UIAlertController(title: "Repeat task?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Repeat", style: .default, handler: { _ in
-            TaskInteractionManager().markListReactivated(self.task!)
-            self.constrainExistingTask()
-        }))
-        self.tableViewController.present(alert, animated: true, completion: nil)
     }
     
     func constrainExistingTask() {

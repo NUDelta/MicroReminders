@@ -9,24 +9,31 @@
 import UIKit
 import TTRangeSlider
 
-class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var locations: [String] = Beacons.getAllLocations().map({ $0.capitalized })
+    var existingTask: Task! // The task whose constraints we are modifying
+    
+    lazy var locations: [String] = { // Make the task's existing location first in the list
+        var all = Beacons.getAllLocations()
+        if (self.existingTask.location == "unassigned") {
+            return all.map({ $0.capitalized })
+        }
+        
+        let i = all.index(of: self.existingTask.location.lowercased())!
+        all.remove(at: i)
+        return ([self.existingTask.location] + all).map({ $0.capitalized })
+    }()
     
     var pushHandler: (() -> Void)!
     
-    var existingTask: Task! // Are we modifying an existing task? e.g. reactivating, assigning prepopulated
-    var newTaskId: String!
-    
     @IBOutlet weak var intro: UILabel!
-    @IBOutlet weak var taskDescription: UITextField!
+    @IBOutlet weak var taskDescription: UILabel!
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var timeSlider: TTRangeSlider!
     
     override func viewDidLoad() {
         initLocationPicker()
         initTimeSlider()
-        initTextField()
         initIntroText()
         initBasedOnExistingTask()
         
@@ -34,26 +41,11 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     func initIntroText() {
-        intro.text = "A one-minute step towards your goal is"
+        intro.text = "Remind me to..."
     }
     
     func initBasedOnExistingTask() {
-        if (existingTask != nil) {
-            self.newTaskId = existingTask!._id
-            
-            taskDescription.text = existingTask!.name
-        }
-        else {
-            self.newTaskId = UUID().uuidString
-        }
-    }
-    
-    func initTextField() {
-        taskDescription.delegate = self
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return textField.resignFirstResponder()
+        taskDescription.text = existingTask!.name
     }
     
     func initTimeSlider() {
@@ -74,8 +66,15 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
         timeSlider.minValue = Float(sixAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
         timeSlider.maxValue = Float(twoAM!.timeIntervalSince(epoch) - startOfDay.timeIntervalSince(epoch))
         
-        timeSlider.selectedMinimum = timeSlider.minValue
-        timeSlider.selectedMaximum = timeSlider.maxValue
+        if (self.existingTask.beforeTime == "unassigned" && self.existingTask.afterTime == "unassigned") {
+            timeSlider.selectedMinimum = timeSlider.minValue
+            timeSlider.selectedMaximum = timeSlider.maxValue
+        }
+        else {
+            timeSlider.selectedMinimum = Float(self.existingTask.afterTime)!
+            timeSlider.selectedMaximum = Float(self.existingTask.beforeTime)!
+        }
+        
         timeSlider.enableStep = true
         timeSlider.step = Float(cal.date(byAdding: step, to: epoch)!.timeIntervalSince1970)
         timeSlider.minDistance = Float(cal.date(byAdding: spacing, to: epoch)!.timeIntervalSince1970)
@@ -95,27 +94,23 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBAction func addTaskClicked(_ sender: UIButton) {
         let name = taskDescription.text!
-        if name != "" {
-            let location = locations[locationPicker.selectedRow(inComponent: 0)]
-            let beforeTime = String(timeSlider.selectedMaximum)
-            let afterTime = String(timeSlider.selectedMinimum)
-            
-            let task = Task(newTaskId!, name: name)
-            
-            task.location = location
-            task.beforeTime = beforeTime
-            task.afterTime = afterTime
-            
-            task.pushToFirebase(handler: pushHandler)
-        }
-        else {
-            let alert = UIAlertController(title: "Please enter a task!", message: nil, preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
-        }
+        let location = locations[locationPicker.selectedRow(inComponent: 0)]
+        let beforeTime = String(timeSlider.selectedMaximum)
+        let afterTime = String(timeSlider.selectedMinimum)
+        
+        let task = Task(existingTask._id, name: name)
+        
+        task.location = location
+        task.beforeTime = beforeTime
+        task.afterTime = afterTime
+        
+        task.pushToFirebase(handler: pushHandler)
     }
-    
+}
+
+// Picker view
+extension TaskConstraintViewController {
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return locations.count
     }

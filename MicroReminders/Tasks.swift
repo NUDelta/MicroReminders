@@ -12,8 +12,10 @@ import Firebase
 class Tasks {
     private static let sharedInstance = Tasks()
     private static let tasksRef = FIRDatabase.database().reference().child("Tasks/\(userKey)")
+    private static let goalRef = FIRDatabase.database().reference().child("Goals/\(userKey)")
     
     var tasks: [Task]?
+    var goal: String?
     
     static func getTasks(then handler: @escaping ([Task]) -> Void) {
         let tasks = Tasks.sharedInstance.tasks
@@ -22,6 +24,15 @@ class Tasks {
         }
         else {
             Tasks.sharedInstance.queryTasks(then: handler)
+        }
+    }
+    
+    static func getGoal(then handler: @escaping (String) -> Void) {
+        if let goal = Tasks.sharedInstance.goal {
+            handler(goal)
+        }
+        else {
+            Tasks.sharedInstance.queryGoal(then: handler)
         }
     }
     
@@ -39,6 +50,13 @@ class Tasks {
         Tasks.tasksRef.observeSingleEvent(of: .value, with: {snapshot in
             self.tasks = Tasks.fillTaskList(snapshot)
             handler(self.tasks!)
+        })
+    }
+    
+    private func queryGoal(then handler: @escaping (String) -> Void) {
+        Tasks.goalRef.observeSingleEvent(of: .value, with: {snapshot in
+            self.goal = snapshot.value as? String
+            handler(self.goal!)
         })
     }
     
