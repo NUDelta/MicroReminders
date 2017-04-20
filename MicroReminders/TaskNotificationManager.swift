@@ -19,7 +19,7 @@ class TaskInteractionManager {
         case notificationTapped
     }
     
-    fileprivate let myId = userKey
+    fileprivate let myId = UserConfig.userKey
     
     /** Accept a task */
     fileprivate func notificationAccept(_ task: Task, handler: (() -> Void)! = nil) {
@@ -140,7 +140,7 @@ class TaskNotificationSender: TaskInteractionManager {
     }
     
     /** Select and notify for tasks for a given location, at the current time */
-    func notify(_ location: String) {
+    fileprivate func notify(_ location: String) {
         
         Tasks.getTasks(then: {tasks in
             let candidatesForNotification = tasks.filter({ self.canNotify(for: $0, location: location) })
@@ -151,6 +151,41 @@ class TaskNotificationSender: TaskInteractionManager {
             }
         })
     }
+    
+    /** Handle entering region */
+    func entered(region regionInt: UInt16) {
+        Beacons.shared.getBeaconLocation(forKey: regionInt, handler: { location in
+            Beacons.shared.getExitTime(forKey: regionInt, handler: { then in
+                UserConfig.getThreshold(handler: { threshold in
+                    /*
+                     This should never be relevant - we should only ever enter after exiting. What that means
+                     is that we should check this value before it is set here, and set it again in "exited"
+                     before we check it next. However, since the beacons are buggy, and I'm concerned about
+                     sequential "entered" events, I'm leaving this in here.
+                     */
+                    Beacons.shared.setExitTime(forKey: regionInt, to: Date(timeIntervalSinceNow: Double(Int.max)))
+                    
+                    if (Date().timeIntervalSince(then) > 60.0*threshold) {
+                        self.notify(location)
+                    }
+                })
+            })
+        })
+    }
+    
+    /** Handle exiting region */
+    func exited(region regionInt: UInt16) {
+        Beacons.shared.getExitTime(forKey: regionInt, handler: { then in
+            /*
+             This is to ensure that we only reset the exit time if the previous region event was an
+             entrance, protecting against sequential exit events.
+             */
+            if (then.timeIntervalSinceNow > Double(Int.max/2)) {
+                Beacons.shared.setExitTime(forKey: regionInt, to: Date())
+            }
+        })
+    }
+    
 }
 
 /** Respond to a task notification */

@@ -11,6 +11,7 @@ import Firebase
 
 class Tasks {
     private static let sharedInstance = Tasks()
+    private static let userKey = UserConfig.userKey
     private static let tasksRef = FIRDatabase.database().reference().child("Tasks/\(userKey)")
     private static let goalRef = FIRDatabase.database().reference().child("Goals/\(userKey)")
     

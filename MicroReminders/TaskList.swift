@@ -14,6 +14,7 @@ class TaskList: UITableViewController {
     var tasks: [Task] = [Task]()
     
     var existingTaskToConstrain: Task!
+    var locationsForConstraining: [String]!
     
     // Table loading
     override func viewDidLoad() {
@@ -39,13 +40,26 @@ class TaskList: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let ctcvc = segue.destination as? TaskConstraintViewController {
-            ctcvc.pushHandler = {
+        func prioritize(taskLocation loc: String, locations: [String]) -> [String] {
+            if (loc == "unassigned") {
+                return locations
+            }
+            var tmp = locations
+            tmp.remove(at: locations.index(of: loc.lowercased())!)
+            return [loc] + locations
+        }
+        
+        if let tcvc = segue.destination as? TaskConstraintViewController {
+            tcvc.pushHandler = {
                 self.navigationController!.popViewController(animated: true)
             }
             
             if segue.identifier == "constrainExistingTask" {
-                ctcvc.existingTask = existingTaskToConstrain
+                tcvc.existingTask = existingTaskToConstrain
+                tcvc.locations = prioritize(
+                    taskLocation: existingTaskToConstrain.location,
+                    locations: locationsForConstraining
+                ).map({ $0.capitalized })
             }
         }
     }
@@ -104,7 +118,14 @@ extension TaskList {
         
         let alert = UIAlertController(title: "Edit context?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in cell.constrainExistingTask() }))
+        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
+            Beacons.shared.getAllLocations(handler: { locations in
+                self.existingTaskToConstrain = cell.task
+                self.locationsForConstraining = locations
+                
+                self.performSegue(withIdentifier: "constrainExistingTask", sender: self)
+            })
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     

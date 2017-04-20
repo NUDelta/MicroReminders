@@ -1,4 +1,4 @@
-//
+ //
 //  Beacons.swift
 //  MicroReminders
 //
@@ -12,44 +12,81 @@ import Firebase
 typealias exitTimes = [UInt16: Date]
 
 class Beacons {
-    private static let shared: Beacons = Beacons()
+    static let shared: Beacons = Beacons()
     
-    private var beacons: [UInt16: String] = [UInt16: String]()
-    private var beaconExitTimes: exitTimes = exitTimes()
+    typealias beacons = [UInt16: String]
+    private let beaconRef: FIRDatabaseReference
     
-    static func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
-        for minor in shared.beacons.keys {
-            beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: shared.beacons[minor]!))
+    private var _beacons: beacons?
+    private var beaconExitTimes: exitTimes?
+    
+    func getBeacons(handler: @escaping (beacons) -> Void) {
+        if (self._beacons != nil) {
+            handler(self._beacons!)
+        }
+        else {
+            self.beaconRef.observeSingleEvent(of: .value, with: { snapshot in
+                let bs = snapshot.value as! beacons
+                self._beacons = bs
+                
+                handler(self._beacons!)
+            })
         }
     }
     
-    static func setExitTime(forKey regionInt: UInt16, to date: Date) {
-        shared.beaconExitTimes = loadExitTimes()!
-        shared.beaconExitTimes[regionInt] = date
-        
-        self.saveExitTimes(shared.beaconExitTimes)
+    func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
+        getBeacons(handler: { beacons in
+            for minor in beacons.keys {
+                beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
+            }
+        })
     }
     
-    static func getExitTime(forKey regionInt: UInt16) -> Date {
-        return loadExitTimes()![regionInt]!
+    func setExitTime(forKey regionInt: UInt16, to date: Date) {
+        loadExitTimes(handler: { exitTimes in
+            var tmp = exitTimes
+            tmp[regionInt] = date
+            self.saveExitTimes(tmp)
+        })
     }
     
-    static func getBeaconLocation(forKey regionInt: UInt16) -> String {
-        return shared.beacons[regionInt]!
+    func getExitTime(forKey regionInt: UInt16, handler: @escaping (Date) -> Void) {
+        loadExitTimes(handler: { exitTimes in
+            handler(exitTimes[regionInt]!)
+        })
     }
     
-    static func getAllLocations() -> [String] {
-        return Array(shared.beacons.values)
+    func getBeaconLocation(forKey regionInt: UInt16, handler: @escaping (String) -> Void) {
+        getBeacons(handler: { beacons in
+            handler(beacons[regionInt]!)
+        })
     }
     
-    private static func loadExitTimes() -> exitTimes? {
+    func getAllLocations(handler: @escaping ([String]) -> Void) {
+        getBeacons(handler: { beacons in
+            handler(Array(beacons.values))
+        })
+    }
+    
+    private func loadExitTimes(handler: @escaping (exitTimes) -> Void) {
         if let data = UserDefaults.standard.object(forKey: "beaconExitTimes") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as? exitTimes
+            let times = NSKeyedUnarchiver.unarchiveObject(with: data) as? exitTimes
+            handler(times!)
         }
-        return nil
+        else {
+            getBeacons(handler: { beacons in
+                let times = beacons.reduce(exitTimes(), {acc, pair in
+                    var tmp = acc
+                    tmp.updateValue(Date(), forKey: pair.key)
+                    return tmp
+                })
+                self.saveExitTimes(times)
+                handler(times)
+            })
+        }
     }
     
-    private static func saveExitTimes(_ exits: exitTimes) {
+    private func saveExitTimes(_ exits: exitTimes) {
         let data = NSKeyedArchiver.archivedData(withRootObject: exits)
         UserDefaults.standard.set(data, forKey: "beaconExitTimes")
         UserDefaults.standard.synchronize()
@@ -57,20 +94,9 @@ class Beacons {
 
     
     fileprivate init() {
-        self.beacons = beaconsForUDID[userKey]!
-        
-        if let exits = Beacons.loadExitTimes() {
-            self.beaconExitTimes = exits
-        }
-        else {
-            self.beaconExitTimes = beacons.reduce(exitTimes(), { acc, item in
-                var tmp = acc
-                tmp.updateValue(Date(), forKey: item.key)
-                return tmp
-            })
-        }
-        
-        Beacons.saveExitTimes(self.beaconExitTimes)
+        let userKey = UserConfig.userKey
+        let ref = FIRDatabase.database().reference()
+        self.beaconRef = ref.child("UserConfig/\(userKey)/beacons")
     }
 }
 

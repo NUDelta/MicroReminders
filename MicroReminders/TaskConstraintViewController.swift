@@ -13,18 +13,9 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     var existingTask: Task! // The task whose constraints we are modifying
     
-    lazy var locations: [String] = { // Make the task's existing location first in the list
-        var all = Beacons.getAllLocations()
-        if (self.existingTask.location == "unassigned") {
-            return all.map({ $0.capitalized })
-        }
-        
-        let i = all.index(of: self.existingTask.location.lowercased())!
-        all.remove(at: i)
-        return ([self.existingTask.location] + all).map({ $0.capitalized })
-    }()
+    var locations: [String]! // The locations for constraining
     
-    var pushHandler: (() -> Void)!
+    var pushHandler: (() -> Void)! // What to do after we save the task
     
     @IBOutlet weak var intro: UILabel!
     @IBOutlet weak var taskDescription: UILabel!

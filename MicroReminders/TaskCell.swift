@@ -22,9 +22,4 @@ class TaskCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
-    
-    func constrainExistingTask() {
-        self.tableViewController.existingTaskToConstrain = task
-        self.tableViewController.performSegue(withIdentifier: "constrainExistingTask", sender: self)
-    }
 }

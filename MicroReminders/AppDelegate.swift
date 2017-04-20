@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
-        Beacons.listenToBeaconRegions(beaconManager: beaconManager)
+        Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
         
         return true
     }
@@ -124,40 +124,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* Send notifications when we enter a region */
     func beaconManager(_ manager: Any, didEnter region: CLBeaconRegion) {
         print("entered \(region.identifier) , \(Date())")
+        
         let regionInt: UInt16 = region.minor!.uint16Value
-        
-        let location = Beacons.getBeaconLocation(forKey: regionInt)
-        let then = Beacons.getExitTime(forKey: regionInt)
-        
-        let threshold: Double = renotifyThreshold[userKey]! // Minimum number of minutes outside region before notification
-        
-        /* 
-         This should never be relevant - we should only ever enter after exiting. What that means
-         is that we should check this value before it is set here, and set it again in "didExitRegion"
-         before we check it next. However, since the beacons are buggy, and I'm concerned about
-         sequential "didEnterRegion" events, I'm leaving this in here.
-         */
-        Beacons.setExitTime(forKey: regionInt, to: Date(timeIntervalSinceNow: Double(Int.max)))
-        
-        if (Date().timeIntervalSince(then) > 60.0*threshold) {
-            TaskNotificationSender().notify(location)
-        }
+        TaskNotificationSender().exited(region: regionInt)
     }
     
     /** Keep track of when we exited a region */
     func beaconManager(_ manager: Any, didExitRegion region: CLBeaconRegion) {
         print("exited \(region.identifier), \(Date())")
+        
         let regionInt: UInt16 = region.minor!.uint16Value
-        
-        let then = Beacons.getExitTime(forKey: regionInt)
-        
-        /*
-         This is to ensure that we only reset the exit time if the previous region event was an
-         entrance, protecting against sequential exit events.
-         */
-        if (then.timeIntervalSinceNow > Double(Int.max/2)) {
-            Beacons.setExitTime(forKey: regionInt, to: Date())
-        }
+        TaskNotificationSender().exited(region: regionInt)
     }
     
     /** Monitoring failing */
