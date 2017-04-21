@@ -90,8 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     func setUpNotificationActions() {
         
         let accept = UNNotificationAction(identifier: "accept", title: "I'll do that now!", options: [])
-//        let decline = UNNotificationAction(identifier: "decline", title: "Not now...", options: [])
-        
         let decline = UNTextInputNotificationAction(identifier: "decline", title: "Not now...", options: [], textInputButtonTitle: "Enter", textInputPlaceholder: "Why not? (Optional)")
         
         // put our actions in a category
@@ -157,6 +155,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         
         let regionInt: UInt16 = region.minor!.uint16Value
+        
+        Logger().logRegionInteraction(region: regionInt, way: .entered)
         TaskNotificationSender().entered(region: regionInt)
     }
     
@@ -165,6 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("exited \(region.identifier), \(Date())")
         
         let regionInt: UInt16 = region.minor!.uint16Value
+        
+        Logger().logRegionInteraction(region: regionInt, way: .exited)
         TaskNotificationSender().exited(region: regionInt)
     }
     

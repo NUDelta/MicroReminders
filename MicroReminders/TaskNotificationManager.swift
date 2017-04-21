@@ -11,22 +11,15 @@ import UserNotifications
 import Firebase
 
 class TaskInteractionManager {
-    fileprivate enum TaskInteractionAction {
-        case notificationThrown
-        case notificationAccepted
-        case notificationDeclinedWithReason
-        case notificationDeclinedWithoutReason
-        case notificationCleared
-        case notificationTapped
-    }
     
     fileprivate let myId = UserConfig.shared.userKey
+    fileprivate let logger = Logger()
     
     /** Accept a task */
     fileprivate func notificationAccept(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
         task.pushToFirebase(handler: nil)
-        logTaskNotificationAction(task, action: .notificationAccepted)
+        logger.logTaskNotificationAction(task, action: .notificationAccepted)
     }
     
     fileprivate func notificationDecline(_ task: Task, reason: String?) {
@@ -34,11 +27,11 @@ class TaskInteractionManager {
         task.pushToFirebase(handler: nil)
         
         if (reason != nil) {
-            logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
-            logNotificationDeclineReason(task, reason: reason!)
+            logger.logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
+            logger.logNotificationDeclineReason(task, reason: reason!)
         }
         else {
-            logTaskNotificationAction(task, action: .notificationDeclinedWithoutReason)
+            logger.logTaskNotificationAction(task, action: .notificationDeclinedWithoutReason)
         }
     }
     
@@ -46,45 +39,13 @@ class TaskInteractionManager {
     fileprivate func notificationClear(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase(handler: nil)
-        logTaskNotificationAction(task, action: .notificationCleared)
+        logger.logTaskNotificationAction(task, action: .notificationCleared)
     }
     
     fileprivate func notificationTapped(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
         task.pushToFirebase(handler: nil)
-        logTaskNotificationAction(task, action: .notificationTapped)
-    }
-    
-    /** Get Firebase ref for logging a task notification action happening now */
-    fileprivate func logTaskNotificationAction(_ task: Task, action: TaskInteractionAction) {
-        let ref = FIRDatabase.database().reference().child("Notifications/\(myId)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
-        
-        switch action {
-        case .notificationThrown:
-            ref.setValue("notificationThrown")
-            break
-        case .notificationAccepted:
-            ref.setValue("notificationAccepted")
-            break
-        case .notificationDeclinedWithoutReason:
-            ref.setValue("notificationDeclinedWithoutReason")
-            break
-        case .notificationDeclinedWithReason:
-            ref.setValue("notificationDeclinedWithReason")
-            break
-        case .notificationCleared:
-            ref.setValue("notificationCleared")
-            break
-        case .notificationTapped:
-            ref.setValue("notificationTapped")
-            break
-        }
-    }
-    
-    fileprivate func logNotificationDeclineReason(_ task: Task, reason: String) {
-        let ref = FIRDatabase.database().reference().child("DeclineReasons/\(myId)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
-        
-        ref.setValue(reason)
+        logger.logTaskNotificationAction(task, action: .notificationTapped)
     }
 }
 
@@ -127,7 +88,7 @@ class TaskNotificationSender: TaskInteractionManager {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        logTaskNotificationAction(task, action: .notificationThrown)
+        logger.logTaskNotificationAction(task, action: .notificationThrown)
     }
     
     private func secondsIntoDay() -> Float {

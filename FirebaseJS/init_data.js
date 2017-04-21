@@ -1,5 +1,5 @@
-var firebase = require("firebase");
-var uuid = require("uuid");
+let firebase = require("firebase");
+let uuid = require("uuid");
 
 let beacons = require("./beacons");
 let tasks = require("./tasks");
