@@ -46,7 +46,7 @@ class TaskList: UITableViewController {
             }
             var tmp = locations
             tmp.remove(at: locations.index(of: loc.lowercased())!)
-            return [loc] + locations
+            return [loc] + tmp
         }
         
         if let tcvc = segue.destination as? TaskConstraintViewController {
