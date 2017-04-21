@@ -26,7 +26,15 @@ class Beacons {
         }
         else {
             self.beaconRef.observeSingleEvent(of: .value, with: { snapshot in
-                let bs = snapshot.value as! beacons
+                // It comes back from Firebase as a string dictionary, so
+                // this stuff is necessary. Working theory is that it's because
+                // I push it up as a JSON where the keys are strings.
+                let tmp = snapshot.value as! [String: String]
+                let bs = tmp.reduce(beacons(), { acc, pair in
+                    var _tmp = acc
+                    _tmp.updateValue(pair.value, forKey: UInt16(pair.key)!)
+                    return _tmp
+                })
                 self._beacons = bs
                 
                 handler(self._beacons!)
@@ -96,7 +104,7 @@ class Beacons {
     fileprivate init() {
         let userKey = UserConfig.userKey
         let ref = FIRDatabase.database().reference()
-        self.beaconRef = ref.child("UserConfig/\(userKey)/beacons")
+        self.beaconRef = ref.child("UserConfig/beacons/\(userKey)")
     }
 }
 

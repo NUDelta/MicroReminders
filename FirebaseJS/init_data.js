@@ -24,6 +24,8 @@ function tasksWithUUIDs(tasks) {
     payload["created"] = now
     payload["lastSnoozed"] = "-1"
 
+    payload["task"] = task;
+
     let id = uuid.v4();
     acc[id] = payload;
   });

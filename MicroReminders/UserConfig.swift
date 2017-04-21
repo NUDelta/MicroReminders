@@ -32,6 +32,6 @@ class UserConfig {
     }
     
     private init() {
-        self.thresholdRef = FIRDatabase().reference().child("UserConfig/\(UserConfig.userKey)/threshold")
+        self.thresholdRef = FIRDatabase().reference().child("UserConfig/thresholds/\(UserConfig.userKey)")
     }
 }
