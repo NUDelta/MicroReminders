@@ -94,7 +94,12 @@ class TaskNotificationSender: TaskInteractionManager {
     private func secondsIntoDay() -> Float {
         let cal = Calendar.current
         
-        return Float(Date().timeIntervalSince(cal.startOfDay(for: Date())))
+        let twoAM = Float(2 * 60 * 60)
+        let twentyFourHours = Float(24 * 60 * 60)
+        
+        let seconds = Float(Date().timeIntervalSince(cal.startOfDay(for: Date())))
+        
+        return seconds < twoAM ? seconds + twentyFourHours : seconds
     }
     
     /** Determines if the task can be notified for now. Checks location and time constraints. */
