@@ -1,6 +1,6 @@
 module.exports = {
     // Delta iPhone - testing
-    "delta": 0.1,
+    "delta": 2,
     
     // YK - testing
     "yk": 5,

@@ -176,7 +176,7 @@
 				TargetAttributes = {
 					D93CB7971CC5372D00F8C73B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 823S57WQK3;
+						DevelopmentTeam = W4E2C6X642;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Manual;
 					};
@@ -396,8 +396,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 823S57WQK3;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W4E2C6X642;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -406,8 +406,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a435b2eb-a751-4070-bcd9-629f1f1829cf";
-				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab M";
+				PROVISIONING_PROFILE = "de8fe3cc-0fdc-45fc-a57c-6e0ba1cad6e5";
+				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab";
 				SWIFT_OBJC_BRIDGING_HEADER = /Users/sasha/Documents/courses/dtr/MicroReminders/MicroReminders/ObjCBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -425,8 +425,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Northwestern University";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Northwestern University";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 823S57WQK3;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W4E2C6X642;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -436,8 +436,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.northwestern.delta.M;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a435b2eb-a751-4070-bcd9-629f1f1829cf";
-				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab M";
+				PROVISIONING_PROFILE = "de8fe3cc-0fdc-45fc-a57c-6e0ba1cad6e5";
+				PROVISIONING_PROFILE_SPECIFIER = "Delta Lab";
 				SWIFT_OBJC_BRIDGING_HEADER = /Users/sasha/Documents/courses/dtr/MicroReminders/MicroReminders/ObjCBridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";

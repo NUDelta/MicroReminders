@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         let accept = UNNotificationAction(identifier: "accept", title: "I'll do that now!", options: [])
 //        let decline = UNNotificationAction(identifier: "decline", title: "Not now...", options: [])
         
-        let decline = UNTextInputNotificationAction(identifier: "decline", title: "Not now...", options: [], textInputButtonTitle: "Enter", textInputPlaceholder: "What makes now a bad time?")
+        let decline = UNTextInputNotificationAction(identifier: "decline", title: "Not now...", options: [], textInputButtonTitle: "Enter", textInputPlaceholder: "Why not? (Optional)")
         
         // put our actions in a category
         let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
@@ -116,9 +116,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         TaskNotificationResponder().clearSnooze(notification)
     }
     
-    /* Handle the notification being tapped and opening the app */
+    /**
+     Handle the notification being tapped and opening the app.
+     
+     Present an action sheet with the same options as the notification.
+     If declined, present an alert with a text field to ask "why not".
+     */
     func handleAppOpened(_ notification: UNNotification) {
-        TaskNotificationResponder().appOpenedSnooze(notification)
+        let rVC = self.window?.rootViewController!
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let accept = UIAlertAction(title: "I'll do that now!", style: .default, handler: { action in
+            TaskNotificationResponder().accept(notification)
+        })
+        let decline = UIAlertAction(title: "Not now...", style: .cancel, handler: { action in
+            let alert = UIAlertController(title: nil, message: "Why not? (Optional)", preferredStyle: .alert)
+            let enter = UIAlertAction(title: "Enter", style: .default, handler: { action in
+                let reason = alert.textFields?[0].text
+                TaskNotificationResponder().decline(notification, reason: reason)
+            })
+            let cancel = UIAlertAction(title: "Decline", style: .cancel, handler: { action in
+                TaskNotificationResponder().decline(notification, reason: nil)
+            })
+            
+            alert.addTextField(configurationHandler: { textfield in
+                textfield.placeholder = "What makes now a bad time?"
+            })
+            
+            alert.addAction(enter)
+            alert.addAction(cancel)
+            rVC!.present(alert, animated: true, completion: nil)
+        })
+        alert.addAction(accept)
+        alert.addAction(decline)
+        rVC!.present(alert, animated: true, completion: nil)
     }
     
     /* Send notifications when we enter a region */
@@ -126,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         print("entered \(region.identifier) , \(Date())")
         
         let regionInt: UInt16 = region.minor!.uint16Value
-        TaskNotificationSender().exited(region: regionInt)
+        TaskNotificationSender().entered(region: regionInt)
     }
     
     /** Keep track of when we exited a region */

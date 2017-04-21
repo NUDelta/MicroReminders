@@ -15,37 +15,43 @@ class TaskInteractionManager {
         case notificationThrown
         case notificationAccepted
         case notificationDeclinedWithReason
+        case notificationDeclinedWithoutReason
         case notificationCleared
         case notificationTapped
     }
     
-    fileprivate let myId = UserConfig.userKey
+    fileprivate let myId = UserConfig.shared.userKey
     
     /** Accept a task */
-    fileprivate func notificationAccept(_ task: Task, handler: (() -> Void)! = nil) {
+    fileprivate func notificationAccept(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
-        task.pushToFirebase(handler: handler)
+        task.pushToFirebase(handler: nil)
         logTaskNotificationAction(task, action: .notificationAccepted)
     }
     
-    fileprivate func notificationDecline(_ task: Task, reason: String, handler: (() -> Void)! = nil) {
+    fileprivate func notificationDecline(_ task: Task, reason: String?) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
-        task.pushToFirebase(handler: handler)
-        logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
+        task.pushToFirebase(handler: nil)
         
-        logNotificationDeclineReason(task, reason: reason)
+        if (reason != nil) {
+            logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
+            logNotificationDeclineReason(task, reason: reason!)
+        }
+        else {
+            logTaskNotificationAction(task, action: .notificationDeclinedWithoutReason)
+        }
     }
     
     /** Snooze by tapping or clearing */
-    fileprivate func notificationClear(_ task: Task, handler: (() -> Void)! = nil) {
+    fileprivate func notificationClear(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase(handler: handler)
+        task.pushToFirebase(handler: nil)
         logTaskNotificationAction(task, action: .notificationCleared)
     }
     
-    fileprivate func notificationTapped(_ task: Task, handler: (() -> Void)! = nil) {
+    fileprivate func notificationTapped(_ task: Task) {
         task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase(handler: handler)
+        task.pushToFirebase(handler: nil)
         logTaskNotificationAction(task, action: .notificationTapped)
     }
     
@@ -59,6 +65,9 @@ class TaskInteractionManager {
             break
         case .notificationAccepted:
             ref.setValue("notificationAccepted")
+            break
+        case .notificationDeclinedWithoutReason:
+            ref.setValue("notificationDeclinedWithoutReason")
             break
         case .notificationDeclinedWithReason:
             ref.setValue("notificationDeclinedWithReason")
@@ -156,7 +165,7 @@ class TaskNotificationSender: TaskInteractionManager {
     func entered(region regionInt: UInt16) {
         Beacons.shared.getBeaconLocation(forKey: regionInt, handler: { location in
             Beacons.shared.getExitTime(forKey: regionInt, handler: { then in
-                UserConfig.getThreshold(handler: { threshold in
+                UserConfig.shared.getThreshold(handler: { threshold in
                     /*
                      This should never be relevant - we should only ever enter after exiting. What that means
                      is that we should check this value before it is set here, and set it again in "exited"
@@ -206,26 +215,26 @@ class TaskNotificationResponder: TaskInteractionManager {
         )
     }
     
-    /** Accept a notification */
+    /** Accept a notification from an action */
     func accept(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         notificationAccept(task)
     }
     
-    /** Decline a notification */
-    func decline(_ notification: UNNotification, reason: String) {
+    func decline(_ notification: UNNotification, reason: String?) {
         let task = extractTaskFromNotification(notification)
         
         notificationDecline(task, reason: reason)
     }
     
-    /* Snooze a notification by clearing or tapping */
+    /* Snooze a notification by clearing */
     func clearSnooze(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         notificationClear(task)
     }
     
-    func appOpenedSnooze(_ notification: UNNotification) {
+    /* Tap a notification and interact in-app */
+    func tapped(_ notification: UNNotification) {
         let task = extractTaskFromNotification(notification)
         notificationTapped(task)
     }

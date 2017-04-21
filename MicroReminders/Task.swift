@@ -50,7 +50,7 @@ class Task {
     }
     
     func pushToFirebase(handler: (() -> Void)!) -> Void {
-        let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UserConfig.userKey)")
+        let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UserConfig.shared.userKey)")
         
         myTaskRef.child(_id).setValue([
             "task":name,

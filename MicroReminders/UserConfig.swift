@@ -12,26 +12,27 @@ import Firebase
 class UserConfig {
     static let shared: UserConfig = UserConfig()
     
-    static let userKey = "delta"
+    let userKey: String = "delta"
 
     private let thresholdRef: FIRDatabaseReference
     private var renotifyThreshold: Double?  // Minimum number of minutes outside region before notification
     
-    static func getThreshold(handler: @escaping (Double) -> Void) {
-        if (shared.renotifyThreshold != nil) {
-            handler(shared.renotifyThreshold!)
+    func getThreshold(handler: @escaping (Double) -> Void) {
+        if (self.renotifyThreshold != nil) {
+            handler(self.renotifyThreshold!)
         }
         else {
-            shared.thresholdRef.observeSingleEvent(of: .value, with: { snapshot in
+            self.thresholdRef.observeSingleEvent(of: .value, with: { snapshot in
                 let thresh = snapshot.value as! Double
-                shared.renotifyThreshold = thresh
+                self.renotifyThreshold = thresh
                 
-                handler(shared.renotifyThreshold!)
+                handler(self.renotifyThreshold!)
             })
         }
     }
     
     private init() {
-        self.thresholdRef = FIRDatabase().reference().child("UserConfig/thresholds/\(UserConfig.userKey)")
+        let ref = FIRDatabase.database().reference()
+        self.thresholdRef = ref.child("UserConfig/thresholds/\(self.userKey)")
     }
 }
