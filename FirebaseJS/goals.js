@@ -1,6 +1,6 @@
-goals = {
+module.exports = {
 		// Delta iPhone
-		"delta" : "Drink more water",
-		"yk": "Drink more water",
-		"kap": "Drink more water"
+		"delta" : "Be more prepared for class",
+		"yk": "Healthier in body and spirit",
+		"kap": "DTR harder"
 }

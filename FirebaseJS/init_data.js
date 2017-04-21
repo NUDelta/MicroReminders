@@ -1,66 +1,68 @@
 var firebase = require("firebase");
 var uuid = require("uuid");
-require("./prepopulated_tasks.js");
-require("./prepopulated_goals.js");
-require("./beacons.js");
-require("./prepop_personalized_tasks.js");
-require("./goals.js");
+
+let beacons = require("./beacons");
+let tasks = require("./tasks");
+let goals = require("./goals");
+let thresholds = require('./thresholds');
+
+let config = require('./config');
 
 // Initialize Firebase
-var config = require('./config');
 firebase.initializeApp(config);
 
-function prePopWithUUID(prepop) {
-  var newJson = {}
-  for (i in prepop) {
-    prepop[i].location = "unassigned"
-		prepop[i].beforeTime = "unassigned"
-		prepop[i].afterTime = "unassigned"
-    prepop[i].completed = "false"
-    prepop[i].length = "<1 min"
-    var now = Math.floor(new Date().getTime() / 1000).toString();
-    prepop[i].created = now
-    prepop[i].lastSnoozed = "-1"
-    newJson[uuid.v4()] = prepop[i];
-  }
-  return newJson;
-}
+function tasksWithUUIDs(tasks) {
+  let acc = {};
+  tasks.forEach(task => {
+    let payload = {};
+    payload["location"] = "unassigned"
+		payload["beforeTime"] = "unassigned"
+		payload["afterTime"] = "unassigned"
+    payload["completed"] = "false"
+    payload.length = "<1 min"
+    let now = Math.floor(new Date().getTime() / 1000).toString();
+    payload["created"] = now
+    payload["lastSnoozed"] = "-1"
 
-function prePopTasks() {
-  firebase.database().ref('Tasks/Prepopulated_Tasks').set(
-    prePopWithUUID(prepopTasks)
-  ).then(process.exit);
-}
-
-function prePopGoals() {
-  firebase.database().ref('Tasks/Prepopulated_Goals').set(
-    prePopWithUUID(prepopGoals)
-  ).then(process.exit);
+    let id = uuid.v4();
+    acc[id] = payload;
+  });
+  return acc;
 }
 
 function populateBeacons() {
-  firebase.database().ref('Beacons/').set(
-    beaconInfo
+  firebase.database().ref('UserConfig/beacons').set(
+    beacons
   ).then(process.exit);
 }
 
-function populateTasksForUDID(udid) {
-  firebase.database().ref("Tasks/" + udid).set(
-    prePopWithUUID(prepopPersonalizedTasks)
+function populateThresholds() {
+  firebase.database().ref("UserConfig/thresholds").set(
+    thresholds
   ).then(process.exit);
 }
 
-function populateGoalsForUsers() {
+function populateGoals() {
 	firebase.database().ref("Goals/").set(
 		goals
 	).then(process.exit);
 }
-		
-// prePopGoals();
-// prePopTasks();
-// populateBeacons();
-populateTasksForUDID("delta");
-populateTasksForUDID("kap");
-populateTasksForUDID("yk");
-populateGoalsForUsers();
+
+function populateTasks() {
+  let tasksJson = {};
+
+  Object.keys(tasks).forEach(_id => {
+    let tasksForId = tasks[_id];
+    tasksJson[_id] = tasksWithUUIDs(tasksForId);
+  })
+
+  firebase.database().ref("Tasks/").set(
+    tasksJson
+  ).then(process.exit);
+}
+	
+populateBeacons();
+populateThresholds();
+populateGoals();
+populateTasks();
 
