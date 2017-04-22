@@ -38,3 +38,9 @@ Last updated 4/20/17.
 #### After termination
 - Terminate app. Sleep beacon. Wait appropriate amount of time for beacon exit and cooldown. Awaken beacon. Check notification thrown.
 - Terminate app. Sleep beacon. Wait appropriate amount of time for beacon exit, but not enough for cooldown. Awaken beacon. Check no notification thrown.
+
+### Switching beacons
+*Precondition*: In Firebase:
+1. All exit times for user's beacons are deleted.
+2. All tasks with old beacon name are switched to new - UPPERCASED.
+3. Beacon ID and name are replaced with new one - LOWERCASED

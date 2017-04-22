@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
+        beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
         
         return true

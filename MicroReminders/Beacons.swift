@@ -16,8 +16,9 @@ class Beacons {
     
     typealias beacons = [UInt16: String]
     private let beaconRef: FIRDatabaseReference
-    
     private var _beacons: beacons?
+    
+    private let exitTimeRef: FIRDatabaseReference
     private var beaconExitTimes: exitTimes?
     
     func getBeacons(handler: @escaping (beacons) -> Void) {
@@ -77,27 +78,48 @@ class Beacons {
     }
     
     private func loadExitTimes(handler: @escaping (exitTimes) -> Void) {
-        if let data = UserDefaults.standard.object(forKey: "beaconExitTimes") as? Data {
-            let times = NSKeyedUnarchiver.unarchiveObject(with: data) as? exitTimes
-            handler(times!)
+        if (self.beaconExitTimes != nil) {
+            // If we have exit times already loaded
+            handler(self.beaconExitTimes!)
         }
         else {
-            getBeacons(handler: { beacons in
-                let times = beacons.reduce(exitTimes(), {acc, pair in
-                    var tmp = acc
-                    tmp.updateValue(Date(), forKey: pair.key)
-                    return tmp
-                })
-                self.saveExitTimes(times)
-                handler(times)
+            exitTimeRef.observeSingleEvent(of: .value, with: { snapshot in
+                // If we have times in Firebase but not locally
+                if let times = snapshot.value as? [String: Double] {
+                    self.beaconExitTimes = times.reduce(exitTimes(), { acc, pair in
+                        var tmp = acc
+                        tmp.updateValue(Date(timeIntervalSince1970: pair.value), forKey: UInt16(pair.key)!)
+                        return tmp
+                    })
+                }
+                else {
+                    // If this is the first time we are loading times
+                    self.getBeacons(handler: { beacons in
+                        self.beaconExitTimes = beacons.reduce(exitTimes(), { acc, pair in
+                            var tmp = acc
+                            tmp.updateValue(Date(), forKey: pair.key)
+                            return tmp
+                        })
+                        self.saveExitTimes(self.beaconExitTimes!)
+                        handler(self.beaconExitTimes!)
+                    })
+                }
             })
         }
     }
     
     private func saveExitTimes(_ exits: exitTimes) {
-        let data = NSKeyedArchiver.archivedData(withRootObject: exits)
-        UserDefaults.standard.set(data, forKey: "beaconExitTimes")
-        UserDefaults.standard.synchronize()
+        // Save exit times locally
+        self.beaconExitTimes = exits
+        
+        // Save exit times to Firebase
+        let times: [String: Double] = exits.reduce([String: Double](), { acc, pair in
+            var tmp = acc
+            tmp.updateValue(pair.value.timeIntervalSince1970, forKey: String(pair.key))
+            return tmp
+        })
+        
+        self.exitTimeRef.setValue(times)
     }
 
     
@@ -105,6 +127,7 @@ class Beacons {
         let userKey = UserConfig.shared.userKey
         let ref = FIRDatabase.database().reference()
         self.beaconRef = ref.child("UserConfig/beacons/\(userKey)")
+        self.exitTimeRef = ref.child("BeaconExitTimes/\(userKey)")
     }
 }
 
