@@ -68,23 +68,19 @@ class TaskNotificationSender: TaskInteractionManager {
         ]
     }
     
-    fileprivate func sendNotification(_ task: Task, subtitle: String? = nil, message: String? = nil, delay: Double? = nil) {
+    fileprivate func sendNotification(_ task: Task) {
         print("Notifying \(task.name)")
         
         let content = UNMutableNotificationContent()
         content.title = task.name
-        if subtitle != nil { content.subtitle = subtitle! }
-        content.body = message == nil ? "Reminder to \(task.name.lowercased())!" : message!
-        if message != nil { content.body = message! }
+        content.body = "Reminder to \(task.name.lowercased())!"
         
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "respond_to_task"
         content.userInfo = userInfoFromTask(task)
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay != nil ? delay! : 0.1, repeats: false)
-        
         let requestIdentifier = "reminder"
-        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: nil)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
@@ -116,7 +112,6 @@ class TaskNotificationSender: TaskInteractionManager {
     
     /** Select and notify for tasks for a given location, at the current time */
     fileprivate func notify(_ location: String) {
-        
         Tasks.getTasks(then: {tasks in
             let candidatesForNotification = tasks.filter({ self.canNotify(for: $0, location: location) })
             
@@ -127,38 +122,52 @@ class TaskNotificationSender: TaskInteractionManager {
         })
     }
     
+    fileprivate func doNotNotify(for region: UInt16, howLong: Double?) {
+        UserConfig.shared.getThreshold(handler: { threshold in
+            // Nuke any existing notification requests
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(region)"])
+            
+            // Add a fresh one
+            let content = UNMutableNotificationContent()
+            content.title = "Do not notify for region \(region)"
+            content.subtitle = "Do we need both of these?"
+            content.body = "I really hope not."
+            
+            content.categoryIdentifier = "do_not_notify"
+            content.badge = 4
+            
+            let trigger = UNTimeIntervalNotificationTrigger(
+                timeInterval: howLong != nil ? howLong! : threshold * 60,
+                repeats: false
+            )
+            
+            let requestIdentifier = "\(region)"
+            
+            let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        })
+    }
+    
     /** Handle entering region */
     func entered(region regionInt: UInt16) {
+        logger.logRegionInteraction(region: regionInt, way: .entered)
+        
         Beacons.shared.getBeaconLocation(forKey: regionInt, handler: { location in
-            Beacons.shared.getExitTime(forKey: regionInt, handler: { then in
-                UserConfig.shared.getThreshold(handler: { threshold in
-                    /*
-                     This should never be relevant - we should only ever enter after exiting. What that means
-                     is that we should check this value before it is set here, and set it again in "exited"
-                     before we check it next. However, since the beacons are buggy, and I'm concerned about
-                     sequential "entered" events, I'm leaving this in here.
-                     */
-                    Beacons.shared.setExitTime(forKey: regionInt, to: Date(timeIntervalSinceNow: Double(Int.max)))
-                    
-                    if (Date().timeIntervalSince(then) > 60.0*threshold) {
-                        self.notify(location)
-                    }
-                })
+            Beacons.shared.okayToNotify(for: regionInt, handler: { ok in
+                if ok {
+                    self.notify(location)
+                }
+                self.doNotNotify(for: regionInt, howLong: Double(Int.max))
             })
         })
     }
     
     /** Handle exiting region */
     func exited(region regionInt: UInt16) {
-        Beacons.shared.getExitTime(forKey: regionInt, handler: { then in
-            /*
-             This is to ensure that we only reset the exit time if the previous region event was an
-             entrance, protecting against sequential exit events.
-             */
-            if (then.timeIntervalSinceNow > Double(Int.max/2)) {
-                Beacons.shared.setExitTime(forKey: regionInt, to: Date())
-            }
-        })
+        logger.logRegionInteraction(region: regionInt, way: .exited)
+        
+        doNotNotify(for: regionInt, howLong: nil)
     }
     
 }

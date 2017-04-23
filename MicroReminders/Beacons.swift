@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import UserNotifications
 
 typealias exitTimes = [UInt16: Date]
 
@@ -18,8 +19,7 @@ class Beacons {
     private let beaconRef: FIRDatabaseReference
     private var _beacons: beacons?
     
-    private let exitTimeRef: FIRDatabaseReference
-    private var beaconExitTimes: exitTimes?
+    private var _okayToNotify: [UInt16: Bool]?
     
     func getBeacons(handler: @escaping (beacons) -> Void) {
         if (self._beacons != nil) {
@@ -43,28 +43,6 @@ class Beacons {
         }
     }
     
-    func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
-        getBeacons(handler: { beacons in
-            for minor in beacons.keys {
-                beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
-            }
-        })
-    }
-    
-    func setExitTime(forKey regionInt: UInt16, to date: Date) {
-        loadExitTimes(handler: { exitTimes in
-            var tmp = exitTimes
-            tmp[regionInt] = date
-            self.saveExitTimes(tmp)
-        })
-    }
-    
-    func getExitTime(forKey regionInt: UInt16, handler: @escaping (Date) -> Void) {
-        loadExitTimes(handler: { exitTimes in
-            handler(exitTimes[regionInt]!)
-        })
-    }
-    
     func getBeaconLocation(forKey regionInt: UInt16, handler: @escaping (String) -> Void) {
         getBeacons(handler: { beacons in
             handler(beacons[regionInt]!)
@@ -77,57 +55,46 @@ class Beacons {
         })
     }
     
-    private func loadExitTimes(handler: @escaping (exitTimes) -> Void) {
-        if (self.beaconExitTimes != nil) {
-            // If we have exit times already loaded
-            handler(self.beaconExitTimes!)
-        }
-        else {
-            exitTimeRef.observeSingleEvent(of: .value, with: { snapshot in
-                // If we have times in Firebase but not locally
-                if let times = snapshot.value as? [String: Double] {
-                    self.beaconExitTimes = times.reduce(exitTimes(), { acc, pair in
-                        var tmp = acc
-                        tmp.updateValue(Date(timeIntervalSince1970: pair.value), forKey: UInt16(pair.key)!)
-                        return tmp
-                    })
-                }
-                else {
-                    // If this is the first time we are loading times
-                    self.getBeacons(handler: { beacons in
-                        self.beaconExitTimes = beacons.reduce(exitTimes(), { acc, pair in
-                            var tmp = acc
-                            tmp.updateValue(Date(), forKey: pair.key)
-                            return tmp
-                        })
-                        self.saveExitTimes(self.beaconExitTimes!)
-                        handler(self.beaconExitTimes!)
-                    })
-                }
-            })
-        }
+    func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
+        beaconManager.stopMonitoringForAllRegions()
+        getBeacons(handler: { beacons in
+            for minor in beacons.keys {
+                beaconManager.startMonitoring(for: CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, major: 5625, minor: minor, identifier: beacons[minor]!))
+            }
+        })
     }
     
-    private func saveExitTimes(_ exits: exitTimes) {
-        // Save exit times locally
-        self.beaconExitTimes = exits
-        
-        // Save exit times to Firebase
-        let times: [String: Double] = exits.reduce([String: Double](), { acc, pair in
-            var tmp = acc
-            tmp.updateValue(pair.value.timeIntervalSince1970, forKey: String(pair.key))
-            return tmp
+    func okayToNotify(for region: UInt16, handler: @escaping (Bool) -> Void) {
+        self.getBeacons(handler: { bs in
+            
+            // True for each of our beacon values
+            self._okayToNotify = bs.reduce([UInt16: Bool](), { acc, pair in
+                var tmp = acc
+                tmp.updateValue(true, forKey: pair.key)
+                return tmp
+            })
+            
+            // False if we have a "do not notify" notification waiting around
+            UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+                for request in requests {
+                    if let key = UInt16(request.identifier) {
+                        // If this request has a beacon ID as its identifier
+                        if (bs[key] != nil) {
+                            // If this beacon ID is one of our active beacons
+                            self._okayToNotify![key] = false
+                        }
+                    }
+                }
+                
+                handler(self._okayToNotify![region]!)
+            })
         })
-        
-        self.exitTimeRef.setValue(times)
     }
-
     
     fileprivate init() {
         let userKey = UserConfig.shared.userKey
         let ref = FIRDatabase.database().reference()
         self.beaconRef = ref.child("UserConfig/beacons/\(userKey)")
-        self.exitTimeRef = ref.child("BeaconExitTimes/\(userKey)")
     }
 }
 

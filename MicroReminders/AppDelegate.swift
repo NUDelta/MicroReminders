@@ -47,16 +47,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         self.beaconManager.delegate = self
         self.beaconManager.requestAlwaysAuthorization() // Get location permissions
         
-        beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
         
         return true
     }
 
-    /* Handle notification in app (received while in app) */
+    /* Handle notification presenting in-app */
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        completionHandler([.alert, .sound, .badge])
+        switch notification.request.content.categoryIdentifier {
+        case "respond_to_task":
+            completionHandler([.alert, .sound, .badge])
+        case "do_not_notify":
+            completionHandler([])
+        default:
+            print("Category not recognized: \(notification.request.content.categoryIdentifier)")
+        }
     }
     
     /* Handle notification actions */
@@ -96,8 +102,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         // put our actions in a category
         let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
         
+        let doNotNotify = UNNotificationCategory(identifier: "do_not_notify", actions: [], intentIdentifiers: [], options: [])
+        
         // register our actions
-        UNUserNotificationCenter.current().setNotificationCategories([respond])
+        UNUserNotificationCenter.current().setNotificationCategories([respond, doNotNotify])
     }
     
     /* Handle accepting a notification */
@@ -157,7 +165,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        Logger().logRegionInteraction(region: regionInt, way: .entered)
         TaskNotificationSender().entered(region: regionInt)
     }
     
@@ -167,7 +174,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        Logger().logRegionInteraction(region: regionInt, way: .exited)
         TaskNotificationSender().exited(region: regionInt)
     }
     
