@@ -44,3 +44,5 @@ Last updated 4/20/17.
 1. All exit times for user's beacons are deleted.
 2. All tasks with old beacon name are switched to new - UPPERCASED.
 3. Beacon ID and name are replaced with new one - LOWERCASED
+
+- All tests in UI and Notifications
