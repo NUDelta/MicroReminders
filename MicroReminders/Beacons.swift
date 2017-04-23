@@ -91,13 +91,14 @@ class Beacons {
                         tmp.updateValue(Date(timeIntervalSince1970: pair.value), forKey: UInt16(pair.key)!)
                         return tmp
                     })
+                    handler(self.beaconExitTimes!)
                 }
                 else {
                     // If this is the first time we are loading times
                     self.getBeacons(handler: { beacons in
                         self.beaconExitTimes = beacons.reduce(exitTimes(), { acc, pair in
                             var tmp = acc
-                            tmp.updateValue(Date(), forKey: pair.key)
+                            tmp.updateValue(Date(timeIntervalSince1970: 0), forKey: pair.key)
                             return tmp
                         })
                         self.saveExitTimes(self.beaconExitTimes!)
