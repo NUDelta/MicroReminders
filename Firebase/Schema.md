@@ -1,0 +1,29 @@
+- Root
+    - Habits
+        - <username> 1...S
+            - Habit title 1...M
+                - Habit action 1...N
+                    - Context object
+    - Regions
+        - <username> 1...S
+            - Region 1...R
+                - ExitTime
+                - EnterTime
+                - Log
+                    - <timestamp> 1...N
+                        - Entered/exited
+    - Notifications
+        - <username> 1...S
+            - Habit title 1...M
+                - Habit action 1...N
+                    - Thrown 1...T
+                        - <seconds since 1970>: "thrown"
+                    - Accepted 1...A
+                        - <seconds since 1970>: one of "accepted_in_app", "accepted_in_notification"
+                    - Declined 1...D
+                        - <seconds since 1970>: one of "cleared", "declined_with_reason_in_app", "declined_with_reason_notification"
+    - UserConfig
+        - Beacons
+            - <username> 1...S
+                - Beacon minor
+                    - Region name

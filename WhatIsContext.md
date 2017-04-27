@@ -1,0 +1,25 @@
+## Aspects of context:
+- Time of day (range)
+    - Start time
+    - End time
+- Location
+    - Location name
+    - Entry/exit flag
+    - Delay
+        - 0: immediately upon entry/exit
+        - N > 0: N minutes after entry/exit
+- Phone plugging action
+    - Plugged/unplugged flag
+    - Delay:
+        - 0: immediately upon plug/unplug
+        - N > 0: N minutes after plug/unplug
+- Previous interactions
+    - Notification thrown
+        - Threshold since last
+        - Timestamp of last
+    - Notification accepted
+        - Threshold since last
+        - Timestamp of last
+    - Notification declined
+        - Threshold since last
+        - Timestamp of last

@@ -58,6 +58,7 @@ extension Logger {
         case notificationDeclinedWithoutReason
         case notificationCleared
         case notificationTapped
+        // make another version of all of these for "in_app" and "in_notification"
     }
     
     /** Get Firebase ref for logging an h_action notification action happening now */
