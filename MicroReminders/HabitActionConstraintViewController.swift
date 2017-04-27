@@ -1,5 +1,5 @@
 //
-//  TaskConstraintViewController.swift
+//  HabitActionConstraintViewController.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 1/23/17.
@@ -9,13 +9,13 @@
 import UIKit
 import TTRangeSlider
 
-class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class HabitActionConstraintViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var existingTask: Task! // The task whose constraints we are modifying
+    var existingTask: HabitAction! // The h_action whose constraints we are modifying
     
     var locations: [String]! // The locations for constraining
     
-    var pushHandler: (() -> Void)! // What to do after we save the task
+    var pushHandler: (() -> Void)! // What to do after we save the h_action
     
     @IBOutlet weak var intro: UILabel!
     @IBOutlet weak var taskDescription: UILabel!
@@ -89,18 +89,18 @@ class TaskConstraintViewController: UIViewController, UIPickerViewDelegate, UIPi
         let beforeTime = String(timeSlider.selectedMaximum)
         let afterTime = String(timeSlider.selectedMinimum)
         
-        let task = Task(existingTask._id, name: name)
+        let h_action = HabitAction(existingTask._id, name: name)
         
-        task.location = location
-        task.beforeTime = beforeTime
-        task.afterTime = afterTime
+        h_action.location = location
+        h_action.beforeTime = beforeTime
+        h_action.afterTime = afterTime
         
-        task.pushToFirebase(handler: pushHandler)
+        h_action.pushToFirebase(handler: pushHandler)
     }
 }
 
 // Picker view
-extension TaskConstraintViewController {
+extension HabitActionConstraintViewController {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return locations.count

@@ -60,9 +60,9 @@ extension Logger {
         case notificationTapped
     }
     
-    /** Get Firebase ref for logging a task notification action happening now */
-    func logTaskNotificationAction(_ task: Task, action: TaskInteractionAction) {
-        let ref = notificationRef.child("\(task._id)/\(Int(Date().timeIntervalSince1970))")
+    /** Get Firebase ref for logging an h_action notification action happening now */
+    func logTaskNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction) {
+        let ref = notificationRef.child("\(h_action._id)/\(Int(Date().timeIntervalSince1970))")
         
         switch action {
         case .notificationThrown:
@@ -86,8 +86,8 @@ extension Logger {
         }
     }
     
-    func logNotificationDeclineReason(_ task: Task, reason: String) {
-        let ref = baseRef.child("DeclineReasons/\(UserConfig.shared.userKey)/\(task._id)/\(Int(Date().timeIntervalSince1970))")
+    func logNotificationDeclineReason(_ h_action: HabitAction, reason: String) {
+        let ref = baseRef.child("DeclineReasons/\(UserConfig.shared.userKey)/\(h_action._id)/\(Int(Date().timeIntervalSince1970))")
         
         ref.setValue(reason)
     }

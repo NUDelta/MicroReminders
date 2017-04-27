@@ -11,9 +11,9 @@ import Firebase
 
 class HabitList: UITableViewController {
     
-    var habits: [(goal: String, tasks: [Task])] = [(String, [Task])]()
+    var habits: [(goal: String, tasks: [HabitAction])] = [(String, [HabitAction])]()
     
-    var existingTaskToConstrain: Task!
+    var existingTaskToConstrain: HabitAction!
     var locationsForConstraining: [String]!
     
     // Table loading
@@ -45,7 +45,7 @@ class HabitList: UITableViewController {
             return [loc] + tmp
         }
         
-        if let tcvc = segue.destination as? TaskConstraintViewController {
+        if let tcvc = segue.destination as? HabitActionConstraintViewController {
             tcvc.pushHandler = {
                 self.navigationController!.popViewController(animated: true)
             }
@@ -84,21 +84,21 @@ extension HabitList {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HabitActionCell", for: indexPath) as! HabitActionCell
         
-        let task = habits[indexPath.section].tasks[indexPath.row]
+        let h_action = habits[indexPath.section].tasks[indexPath.row]
     
-        cell.task = task
+        cell.h_action = h_action
         cell.tableViewController = self
-        cell.taskName.text = task.name
+        cell.taskName.text = h_action.name
         
-        if (task.location == "unassigned") {
+        if (h_action.location == "unassigned") {
             cell.location.text = "unassigned"
         }
         else {
-            cell.location.text = "At: \(task.location)"
+            cell.location.text = "At: \(h_action.location)"
         }
         
         
-        if (task.beforeTime == "unassigned" || task.afterTime == "unassigned") {
+        if (h_action.beforeTime == "unassigned" || h_action.afterTime == "unassigned") {
             cell.timeRange.text = "unassigned"
         }
         else {
@@ -107,7 +107,7 @@ extension HabitList {
                 return NumberTimeFormatter().string(for: NSNumber(floatLiteral: parsed))!
             }
             
-            cell.timeRange.text = "Active: \(formatTime(task.afterTime)) to \(formatTime(task.beforeTime))"
+            cell.timeRange.text = "Active: \(formatTime(h_action.afterTime)) to \(formatTime(h_action.beforeTime))"
         }
         
         return cell
@@ -120,7 +120,7 @@ extension HabitList {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
             Beacons.shared.getAllLocations(handler: { locations in
-                self.existingTaskToConstrain = cell.task
+                self.existingTaskToConstrain = cell.h_action
                 self.locationsForConstraining = locations
                 
                 self.performSegue(withIdentifier: "constrainExistingTask", sender: self)

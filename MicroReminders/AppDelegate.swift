@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         TaskNotificationResponder().decline(notification, reason: reason)
     }
     
-    /** Handle a task notification being cleared */
+    /** Handle an h_action notification being cleared */
     func handleClear(_ notification: UNNotification) {
         TaskNotificationResponder().clearSnooze(notification)
     }

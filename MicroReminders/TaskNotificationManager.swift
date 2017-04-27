@@ -15,71 +15,71 @@ class TaskInteractionManager {
     fileprivate let myId = UserConfig.shared.userKey
     fileprivate let logger = Logger()
     
-    /** Accept a task */
-    fileprivate func notificationAccept(_ task: Task) {
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
-        task.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(task, action: .notificationAccepted)
+    /** Accept an h_action */
+    fileprivate func notificationAccept(_ h_action: HabitAction) {
+        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
+        h_action.pushToFirebase(handler: nil)
+        logger.logTaskNotificationAction(h_action, action: .notificationAccepted)
     }
     
-    fileprivate func notificationDecline(_ task: Task, reason: String?) {
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
-        task.pushToFirebase(handler: nil)
+    fileprivate func notificationDecline(_ h_action: HabitAction, reason: String?) {
+        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
+        h_action.pushToFirebase(handler: nil)
         
         if (reason != nil) {
-            logger.logTaskNotificationAction(task, action: .notificationDeclinedWithReason)
-            logger.logNotificationDeclineReason(task, reason: reason!)
+            logger.logTaskNotificationAction(h_action, action: .notificationDeclinedWithReason)
+            logger.logNotificationDeclineReason(h_action, reason: reason!)
         }
         else {
-            logger.logTaskNotificationAction(task, action: .notificationDeclinedWithoutReason)
+            logger.logTaskNotificationAction(h_action, action: .notificationDeclinedWithoutReason)
         }
     }
     
     /** Snooze by tapping or clearing */
-    fileprivate func notificationClear(_ task: Task) {
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(task, action: .notificationCleared)
+    fileprivate func notificationClear(_ h_action: HabitAction) {
+        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+        h_action.pushToFirebase(handler: nil)
+        logger.logTaskNotificationAction(h_action, action: .notificationCleared)
     }
     
-    fileprivate func notificationTapped(_ task: Task) {
-        task.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        task.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(task, action: .notificationTapped)
+    fileprivate func notificationTapped(_ h_action: HabitAction) {
+        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970))
+        h_action.pushToFirebase(handler: nil)
+        logger.logTaskNotificationAction(h_action, action: .notificationTapped)
     }
 }
 
-/** Send task notifications */
+/** Send h_action notifications */
 class TaskNotificationSender: TaskInteractionManager {
     fileprivate let scheduler = TaskScheduler()
     
-    /** Convert a task to a dictionary for storage in a notification */
-    fileprivate func userInfoFromTask(_ task: Task) -> [String: String] {
+    /** Convert an h_action to a dictionary for storage in a notification */
+    fileprivate func userInfoFromTask(_ h_action: HabitAction) -> [String: String] {
         return [
-            "t_id":task._id,
-            "t_name":task.name,
-            "t_completed":task.completed,
-            "t_length":task.length,
-            "t_lastSnoozed":task.lastSnoozed,
-            "t_created":task.created,
-            "t_location":task.location,
-            "t_beforeTime":task.beforeTime,
-            "t_afterTime":task.afterTime
+            "t_id":h_action._id,
+            "t_name":h_action.name,
+            "t_completed":h_action.completed,
+            "t_length":h_action.length,
+            "t_lastSnoozed":h_action.lastSnoozed,
+            "t_created":h_action.created,
+            "t_location":h_action.location,
+            "t_beforeTime":h_action.beforeTime,
+            "t_afterTime":h_action.afterTime
         ]
     }
     
-    fileprivate func sendNotification(_ task: Task, subtitle: String? = nil, message: String? = nil, delay: Double? = nil) {
-        print("Notifying \(task.name)")
+    fileprivate func sendNotification(_ h_action: HabitAction, subtitle: String? = nil, message: String? = nil, delay: Double? = nil) {
+        print("Notifying \(h_action.name)")
         
         let content = UNMutableNotificationContent()
-        content.title = task.name
+        content.title = h_action.name
         if subtitle != nil { content.subtitle = subtitle! }
-        content.body = message == nil ? "Reminder to \(task.name.lowercased())!" : message!
+        content.body = message == nil ? "Reminder to \(h_action.name.lowercased())!" : message!
         if message != nil { content.body = message! }
         
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "respond_to_task"
-        content.userInfo = userInfoFromTask(task)
+        content.userInfo = userInfoFromTask(h_action)
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay != nil ? delay! : 0.1, repeats: false)
         
@@ -88,7 +88,7 @@ class TaskNotificationSender: TaskInteractionManager {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        logger.logTaskNotificationAction(task, action: .notificationThrown)
+        logger.logTaskNotificationAction(h_action, action: .notificationThrown)
     }
     
     private func secondsIntoDay() -> Float {
@@ -102,15 +102,15 @@ class TaskNotificationSender: TaskInteractionManager {
         return seconds < twoAM ? seconds + twentyFourHours : seconds
     }
     
-    /** Determines if the task can be notified for now. Checks location and time constraints. */
-    private func canNotify(for task: Task, location: String) -> Bool {
+    /** Determines if the h_action can be notified for now. Checks location and time constraints. */
+    private func canNotify(for h_action: HabitAction, location: String) -> Bool {
         let seconds = secondsIntoDay()
         
         return {
-            task.completed == "false" &&
-            task.location.caseInsensitiveCompare(location) == .orderedSame &&
-            Float(task.beforeTime)! > seconds &&
-            Float(task.afterTime)! < seconds
+            h_action.completed == "false" &&
+            h_action.location.caseInsensitiveCompare(location) == .orderedSame &&
+            Float(h_action.beforeTime)! > seconds &&
+            Float(h_action.afterTime)! < seconds
             }()
     }
     
@@ -165,14 +165,14 @@ class TaskNotificationSender: TaskInteractionManager {
     
 }
 
-/** Respond to a task notification */
+/** Respond to an h_action notification */
 class TaskNotificationResponder: TaskInteractionManager {
     
-    /** Extract a a task from a notification */
-    fileprivate func extractTaskFromNotification(_ notification: UNNotification) -> Task {
+    /** Extract an h_action from a notification */
+    fileprivate func extractTaskFromNotification(_ notification: UNNotification) -> HabitAction {
         let userInfo = notification.request.content.userInfo as! [String:String]
         
-        return Task(
+        return HabitAction(
             userInfo["t_id"]!,
             name: userInfo["t_name"]!,
             location: userInfo["t_location"]!,
@@ -185,41 +185,41 @@ class TaskNotificationResponder: TaskInteractionManager {
     
     /** Accept a notification from an action */
     func accept(_ notification: UNNotification) {
-        let task = extractTaskFromNotification(notification)
-        notificationAccept(task)
+        let h_action = extractTaskFromNotification(notification)
+        notificationAccept(h_action)
     }
     
     func decline(_ notification: UNNotification, reason: String?) {
-        let task = extractTaskFromNotification(notification)
+        let h_action = extractTaskFromNotification(notification)
         
-        notificationDecline(task, reason: reason)
+        notificationDecline(h_action, reason: reason)
     }
     
     /* Snooze a notification by clearing */
     func clearSnooze(_ notification: UNNotification) {
-        let task = extractTaskFromNotification(notification)
-        notificationClear(task)
+        let h_action = extractTaskFromNotification(notification)
+        notificationClear(h_action)
     }
     
     /* Tap a notification and interact in-app */
     func tapped(_ notification: UNNotification) {
-        let task = extractTaskFromNotification(notification)
-        notificationTapped(task)
+        let h_action = extractTaskFromNotification(notification)
+        notificationTapped(h_action)
     }
 }
 
 
-/** Pick the next task to notify */
+/** Pick the next h_action to notify */
 fileprivate class TaskScheduler {
     
-    /** Pick a random task */
-    fileprivate func pickRandom(tasks: [Task]) -> Task {
+    /** Pick a random h_action */
+    fileprivate func pickRandom(tasks: [HabitAction]) -> HabitAction {
         let randomInd = Int(arc4random()) % tasks.count
         return tasks[randomInd]
     }
     
-    /** Pick a scheduling policy, and notify for that task */
-    fileprivate func pickTaskToNotify(tasks: [Task]) -> Task {
+    /** Pick a scheduling policy, and notify for that h_action */
+    fileprivate func pickTaskToNotify(tasks: [HabitAction]) -> HabitAction {
         return pickRandom(tasks: tasks)
     }
 }

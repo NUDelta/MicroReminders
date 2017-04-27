@@ -14,9 +14,9 @@ class Habits {
     private static let userKey = UserConfig.shared.userKey
     private static let habitRef = FIRDatabase.database().reference().child("Habits/\(userKey)")
     
-    var habits: [(String, [Task])]?
+    var habits: [(String, [HabitAction])]?
     
-    static func getHabits(then handler: @escaping ([(String, [Task])]) -> Void) {
+    static func getHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
         if let habits = Habits.sharedInstance.habits {
             handler(habits)
         }
@@ -35,24 +35,24 @@ class Habits {
         })
     }
     
-    private func queryHabits(then handler: @escaping ([(String, [Task])]) -> Void) {
+    private func queryHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
         Habits.habitRef.observeSingleEvent(of: .value, with: {snapshot in
             self.habits = Habits.extractHabits(snapshot)
             handler(self.habits!)
         })
     }
     
-    private static func extractHabits(_ snapshot: FIRDataSnapshot) -> [(String, [Task])] {
+    private static func extractHabits(_ snapshot: FIRDataSnapshot) -> [(String, [HabitAction])] {
         let habitJSON = snapshot.value as? [String: [String: [String: String]]]
         
-        var _habits = [(String, [Task])]()
+        var _habits = [(String, [HabitAction])]()
         
         if habitJSON != nil {
             for (goal, tasks) in habitJSON! {
-                var taskList = [Task]()
+                var taskList = [HabitAction]()
                 
                 for (_id, taskData) in tasks {
-                    let task = Task(
+                    let h_action = HabitAction(
                         _id,
                         name: taskData["task"]!,
                         location: taskData["location"]!,
@@ -62,7 +62,7 @@ class Habits {
                         lastSnoozed: taskData["lastSnoozed"]!
                     )
                     
-                    taskList.append(task)
+                    taskList.append(h_action)
                 }
                 
                 _habits.append((goal, taskList))

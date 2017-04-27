@@ -78,7 +78,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Task" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="HabitAction" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
                                             <rect key="frame" x="8" y="16" width="359" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -141,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="197.59999999999999" y="-816.34182908545733"/>
         </scene>
-        <!--Task Constraint View Controller-->
+        <!--Habit Action Constraint View Controller-->
         <scene sceneID="ggY-7d-wDQ">
             <objects>
-                <viewController id="pSO-Nf-qym" customClass="TaskConstraintViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pSO-Nf-qym" customClass="HabitActionConstraintViewController" customModule="MicroReminders" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UmZ-Kn-qGJ"/>
                         <viewControllerLayoutGuide type="bottom" id="6lk-Gv-EgY"/>
@@ -202,7 +202,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CD8-q7-Jr2">
                                 <rect key="frame" x="16" y="410.5" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Save task"/>
+                                <state key="normal" title="Save h_action"/>
                                 <connections>
                                     <action selector="addTaskClicked:" destination="pSO-Nf-qym" eventType="touchUpInside" id="0pG-hv-yoM"/>
                                 </connections>

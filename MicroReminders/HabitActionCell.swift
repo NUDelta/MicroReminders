@@ -16,7 +16,7 @@ class HabitActionCell: UITableViewCell {
     
     var tableViewController: HabitList! = nil
  
-    var task: Task! = nil
+    var h_action: HabitAction! = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()

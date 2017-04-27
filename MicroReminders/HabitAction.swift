@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  HabitAction.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 10/22/16.
@@ -8,7 +8,7 @@
 
 import Firebase
 
-class Task {
+class HabitAction {
     let _id: String
     var name: String
     var length: String = "<1 min"
@@ -38,11 +38,11 @@ class Task {
         self.afterTime = afterTime
     }
     
-    /** Create a copy of a task - completed and created are reset */
-    init(task: Task) {
+    /** Create a copy of an h_action - completed and created are reset */
+    init(h_action: HabitAction) {
         self._id = UUID().uuidString
-        self.name = task.name
-        self.location = task.location
+        self.name = h_action.name
+        self.location = h_action.location
         self.lastSnoozed = timeRightNow()
     }
     
