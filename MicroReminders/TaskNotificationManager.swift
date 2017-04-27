@@ -116,8 +116,9 @@ class TaskNotificationSender: TaskInteractionManager {
     
     /** Select and notify for tasks for a given location, at the current time */
     fileprivate func notify(_ location: String) {
-        
-        Tasks.getTasks(then: {tasks in
+
+        /*
+        Habits.getHabits(then: {tasks in
             let candidatesForNotification = tasks.filter({ self.canNotify(for: $0, location: location) })
             
             if (!candidatesForNotification.isEmpty) {
@@ -125,6 +126,7 @@ class TaskNotificationSender: TaskInteractionManager {
                 self.sendNotification(taskToNotify)
             }
         })
+        */
     }
     
     /** Handle entering region */

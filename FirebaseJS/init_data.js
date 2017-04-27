@@ -3,7 +3,6 @@ let uuid = require("uuid");
 
 let beacons = require("./beacons");
 let tasks = require("./tasks");
-let goals = require("./goals");
 let thresholds = require('./thresholds');
 
 let config = require('./config');
@@ -11,24 +10,38 @@ let config = require('./config');
 // Initialize Firebase
 firebase.initializeApp(config);
 
-function tasksWithUUIDs(tasks) {
+function goalsAndTasksWithUUIDs(tasks) {
+  // tasks: [<username>: [<goaltitle>: <microbehavior>+]+]+
   let acc = {};
-  tasks.forEach(task => {
-    let payload = {};
-    payload["location"] = "unassigned"
-		payload["beforeTime"] = "unassigned"
-		payload["afterTime"] = "unassigned"
-    payload["completed"] = "false"
-    payload.length = "<1 min"
-    let now = Math.floor(new Date().getTime() / 1000).toString();
-    payload["created"] = now
-    payload["lastSnoozed"] = "-1"
+  
+  Object.keys(tasks).forEach(name => {
+    acc[name] = {};
+    Object.keys(tasks[name]).forEach(goal => {
+      acc[name][goal] = {}
+      
+      let actions = tasks[name][goal];
+      actions.forEach(task => {
+        let payload = {};
+        payload["location"] = "unassigned"
+        payload["beforeTime"] = "unassigned"
+        payload["afterTime"] = "unassigned"
+        payload["completed"] = "false"
+        payload["length"] = "<1 min"
+        let now = Math.floor(new Date().getTime() / 1000).toString();
+        payload["created"] = now
+        payload["lastSnoozed"] = "-1"
 
-    payload["task"] = task;
+        payload["goal"] = goal;
+        payload["task"] = task;
 
-    let id = uuid.v4();
-    acc[id] = payload;
+        let id = uuid.v4();
+
+        acc[name][goal][id] = payload;
+      });
+    });
   });
+
+  
   return acc;
 }
 
@@ -44,27 +57,15 @@ function populateThresholds() {
   ).then(process.exit);
 }
 
-function populateGoals() {
-	firebase.database().ref("Goals/").set(
-		goals
-	).then(process.exit);
-}
-
 function populateTasks() {
-  let tasksJson = {};
-
-  Object.keys(tasks).forEach(_id => {
-    let tasksForId = tasks[_id];
-    tasksJson[_id] = tasksWithUUIDs(tasksForId);
-  })
-
-  firebase.database().ref("Tasks/").set(
-    tasksJson
+  firebase.database().ref("Habits/").set(
+    goalsAndTasksWithUUIDs(tasks)
   ).then(process.exit);
 }
 	
 populateBeacons();
 populateThresholds();
-populateGoals();
 populateTasks();
 
+// let util = require('util');
+// console.log(util.inspect(goalsAndTasksWithUUIDs(tasks), false, null));

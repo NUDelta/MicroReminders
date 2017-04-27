@@ -1,5 +1,5 @@
 //
-//  MyTasksTableViewController.swift
+//  MyHabitsTableViewController.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 10/30/16.
@@ -9,9 +9,9 @@
 import UIKit
 import Firebase
 
-class TaskList: UITableViewController {
+class HabitList: UITableViewController {
     
-    var tasks: [Task] = [Task]()
+    var habits: [(goal: String, tasks: [Task])] = [(String, [Task])]()
     
     var existingTaskToConstrain: Task!
     var locationsForConstraining: [String]!
@@ -23,16 +23,12 @@ class TaskList: UITableViewController {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        navigationItem.title = "Loading..."
-        
-        Tasks.getGoal(then: { goal in
-            self.navigationItem.title = goal
-        })
+        navigationItem.title = "My habits and actions"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateDisplayTasks()
+        updateDisplayHabits()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,13 +62,17 @@ class TaskList: UITableViewController {
 }
 
 // TableView data source and delegate
-extension TaskList {
+extension HabitList {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return habits.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return habits[section].tasks.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return habits[section].goal
     }
     
     func capitalizeFirstLetter(_ string: String) -> String {
@@ -82,9 +82,9 @@ extension TaskList {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HabitActionCell", for: indexPath) as! HabitActionCell
         
-        let task = tasks[indexPath.row]
+        let task = habits[indexPath.section].tasks[indexPath.row]
     
         cell.task = task
         cell.tableViewController = self
@@ -114,7 +114,7 @@ extension TaskList {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! TaskCell
+        let cell = tableView.cellForRow(at: indexPath) as! HabitActionCell
         
         let alert = UIAlertController(title: "Edit context?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -129,9 +129,9 @@ extension TaskList {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func updateDisplayTasks() -> Void {
-        Tasks.getTasks(then: { tasks in
-            self.tasks = tasks
+    func updateDisplayHabits() -> Void {
+        Habits.getHabits(then: { habits in
+            self.habits = habits
             self.tableView.reloadData()
         })
     }

@@ -11,8 +11,8 @@
 		D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95EAD731EA6C32100F5DD26 /* UserConfig.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
 		D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D19941EA8195A00401DD5 /* MockViewController.swift */; };
-		D989E4681EA4886200BA202F /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4661EA4886200BA202F /* TaskCell.swift */; };
-		D989E4691EA4886200BA202F /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4671EA4886200BA202F /* TaskList.swift */; };
+		D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4661EA4886200BA202F /* HabitActionCell.swift */; };
+		D989E4691EA4886200BA202F /* HabitList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4671EA4886200BA202F /* HabitList.swift */; };
 		D9BF34991E36CCA800650041 /* TaskConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */; };
 		D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
@@ -22,7 +22,7 @@
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
 		D9EBC7161E4A850800E3438C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9EBC7151E4A850800E3438C /* Media.xcassets */; };
 		D9ECB6691EA9C4BC00DB2A41 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECB6681EA9C4BC00DB2A41 /* Logger.swift */; };
-		D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0C1E62968B00A45CAB /* Tasks.swift */; };
+		D9FE7B0D1E62968B00A45CAB /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7B0C1E62968B00A45CAB /* Habits.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +33,8 @@
 		D95EAD731EA6C32100F5DD26 /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
 		D97D19941EA8195A00401DD5 /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
-		D989E4661EA4886200BA202F /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
-		D989E4671EA4886200BA202F /* TaskList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		D989E4661EA4886200BA202F /* HabitActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitActionCell.swift; sourceTree = "<group>"; };
+		D989E4671EA4886200BA202F /* HabitList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitList.swift; sourceTree = "<group>"; };
 		D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskConstraintViewController.swift; sourceTree = "<group>"; };
 		D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTimeFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		D9E588A61CC538F80084D7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9EBC7151E4A850800E3438C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		D9ECB6681EA9C4BC00DB2A41 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		D9FE7B0C1E62968B00A45CAB /* Tasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		D9FE7B0C1E62968B00A45CAB /* Habits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 			children = (
 				D9ECB6671EA9C4AC00DB2A41 /* Logging */,
 				D989E46A1EA48AB200BA202F /* Views */,
-				D9D6E5CA1E3289C400B0CA53 /* Tasks */,
+				D9D6E5CA1E3289C400B0CA53 /* Habits */,
 				D90323841CE811160025FEBB /* Supporting files */,
 				D9E588A51CC538F80084D7E7 /* Main.storyboard */,
 				D9C2FF881DC50970007D08F1 /* Beacons.swift */,
@@ -126,22 +126,22 @@
 			isa = PBXGroup;
 			children = (
 				D97D19941EA8195A00401DD5 /* MockViewController.swift */,
-				D989E4661EA4886200BA202F /* TaskCell.swift */,
-				D989E4671EA4886200BA202F /* TaskList.swift */,
+				D989E4661EA4886200BA202F /* HabitActionCell.swift */,
+				D989E4671EA4886200BA202F /* HabitList.swift */,
 				D9BF34981E36CCA800650041 /* TaskConstraintViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		D9D6E5CA1E3289C400B0CA53 /* Tasks */ = {
+		D9D6E5CA1E3289C400B0CA53 /* Habits */ = {
 			isa = PBXGroup;
 			children = (
-				D9FE7B0C1E62968B00A45CAB /* Tasks.swift */,
+				D9FE7B0C1E62968B00A45CAB /* Habits.swift */,
 				D9DF32E91DBBE68D00281264 /* Task.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 				D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */,
 			);
-			name = Tasks;
+			name = Habits;
 			sourceTree = "<group>";
 		};
 		D9ECB6671EA9C4AC00DB2A41 /* Logging */ = {
@@ -277,11 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9FE7B0D1E62968B00A45CAB /* Tasks.swift in Sources */,
-				D989E4681EA4886200BA202F /* TaskCell.swift in Sources */,
+				D9FE7B0D1E62968B00A45CAB /* Habits.swift in Sources */,
+				D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */,
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
 				D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */,
-				D989E4691EA4886200BA202F /* TaskList.swift in Sources */,
+				D989E4691EA4886200BA202F /* HabitList.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* Task.swift in Sources */,
 				D9ECB6691EA9C4BC00DB2A41 /* Logger.swift in Sources */,

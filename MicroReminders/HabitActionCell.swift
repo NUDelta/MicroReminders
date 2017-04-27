@@ -1,5 +1,5 @@
 //
-//  MyTasksTableCell.swift
+//  MyHabitsTableCell.swift
 //  MicroReminders
 //
 //  Created by Sasha Weiss on 10/30/16.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+class HabitActionCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var timeRange: UILabel!
     
-    var tableViewController: TaskList! = nil
+    var tableViewController: HabitList! = nil
  
     var task: Task! = nil
     

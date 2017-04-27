@@ -16,6 +16,7 @@ class Task {
     var afterTime: String = "unassigned"
     var beforeTime: String = "unassigned"
     var lastSnoozed: String = "-1"
+    // There is a goal field added, don't forget about it
     
     let created: String = String(Int(Date().timeIntervalSince1970))
     var completed: String = "false"
@@ -50,7 +51,7 @@ class Task {
     }
     
     func pushToFirebase(handler: (() -> Void)!) -> Void {
-        let myTaskRef = FIRDatabase.database().reference().child("Tasks/\(UserConfig.shared.userKey)")
+        let myTaskRef = FIRDatabase.database().reference().child("Habits/\(UserConfig.shared.userKey)")
         
         myTaskRef.child(_id).setValue([
             "task":name,

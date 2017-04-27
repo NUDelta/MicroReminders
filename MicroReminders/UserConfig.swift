@@ -12,7 +12,7 @@ import Firebase
 class UserConfig {
     static let shared: UserConfig = UserConfig()
     
-    let userKey: String = "delta"
+    let userKey: String = "gyoza"
 
     private let thresholdRef: FIRDatabaseReference
     private var renotifyThreshold: Double?  // Minimum number of minutes outside region before notification
