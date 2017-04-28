@@ -17,6 +17,7 @@
 		D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9DF32EA1DBBE68D00281264 /* HabitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* HabitAction.swift */; };
+		D9E068341EB2AB52004DBADF /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E068331EB2AB52004DBADF /* Context.swift */; };
 		D9E128221DEBA48B00DAC235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */; };
 		D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E588941CC538650084D7E7 /* AppDelegate.swift */; };
 		D9E588A81CC538F80084D7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9E588A51CC538F80084D7E7 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTimeFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* HabitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitAction.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D9E068331EB2AB52004DBADF /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		D9E128211DEBA48B00DAC235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9E588941CC538650084D7E7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D9E588951CC538650084D7E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				D9DF32E91DBBE68D00281264 /* HabitAction.swift */,
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 				D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */,
+				D9E068331EB2AB52004DBADF /* Context.swift */,
 			);
 			name = Habits;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				D9FE7B0D1E62968B00A45CAB /* Habits.swift in Sources */,
 				D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */,
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
+				D9E068341EB2AB52004DBADF /* Context.swift in Sources */,
 				D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */,
 				D989E4691EA4886200BA202F /* HabitList.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,

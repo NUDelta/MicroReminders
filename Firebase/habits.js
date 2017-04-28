@@ -497,7 +497,7 @@ module.exports = {
             "Punch in your parent's phone number": { // evening time, leaving house
                 "time_of_day": {
                     "before": 77400.0,
-                    "after":  61200.0
+                    "after":  54000.0
                 },
                 "location": {
                     "region_name": "whole house",

@@ -43,7 +43,7 @@ class Habits {
     }
     
     private static func extractHabits(_ snapshot: FIRDataSnapshot) -> [(String, [HabitAction])] {
-        let habitJSON = snapshot.value as? [String: [String: [String: String]]]
+        let habitJSON = snapshot.value as? [String: [String: [String: AnyObject]]]
         
         var _habits = [(String, [HabitAction])]()
         

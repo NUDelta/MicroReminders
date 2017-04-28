@@ -9,64 +9,35 @@
 import Firebase
 
 class HabitAction {
-    let _id: String
-    var name: String
-    var length: String = "<1 min"
-    var location: String = "unassigned"
-    var afterTime: String = "unassigned"
-    var beforeTime: String = "unassigned"
-    var lastSnoozed: String = "-1"
-    // There is a goal field added, don't forget about it
     
-    let created: String = String(Int(Date().timeIntervalSince1970))
-    var completed: String = "false"
+    let description: String
+    let habit: String
+    let context: Context
     
-    init(_ _id: String, name: String) {
-        self._id = _id
-        self.name = name
-        self.lastSnoozed = timeRightNow()
+    init(_ description: String, habit: String, context: Context) {
+        self.description = description
+        self.habit = habit
+        self.context = context
     }
     
-    init(_ _id: String, name: String, location: String, beforeTime: String, afterTime: String, completed: String, lastSnoozed: String) {
-        self._id = _id
-        self.name = name
-        self.completed = completed
-        self.lastSnoozed = timeRightNow()
+    func setLastInteraction(of type: ReminderInteraction.InteractionType, to value: Double, with handler: (() -> Void)!) -> Void {
+        let ref = FIRDatabase.database().reference()
+            .child("Habits/\(UserConfig.shared.userKey)/\(self.habit)/\(self.description)/prev_interactions")
         
-        self.location = location
-        self.beforeTime = beforeTime
-        self.afterTime = afterTime
-    }
-    
-    /** Create a copy of an h_action - completed and created are reset */
-    init(h_action: HabitAction) {
-        self._id = UUID().uuidString
-        self.name = h_action.name
-        self.location = h_action.location
-        self.lastSnoozed = timeRightNow()
-    }
-    
-    func timeRightNow() -> String {
-        return String(Int(Date().timeIntervalSince1970))
-    }
-    
-    func pushToFirebase(handler: (() -> Void)!) -> Void {
-        let myTaskRef = FIRDatabase.database().reference().child("Habits/\(UserConfig.shared.userKey)")
+        var ref_adj: FIRDatabaseReference
+        switch type {
+        case .accepted:
+            ref_adj = ref.child("accepted/last")
+            break
+        case .declined:
+            ref_adj = ref.child("declined/last")
+            break
+        case .thrown:
+            ref_adj = ref.child("thrown/last")
+            break
+        }
         
-        myTaskRef.child(_id).setValue([
-            "task":name,
-            "length":length,
-            "location":location,
-            "completed":completed,
-            "lastSnoozed":lastSnoozed,
-            "created":created,
-            "afterTime":afterTime,
-            "beforeTime":beforeTime
-            ], withCompletionBlock: { (err, ref) in
-                if handler != nil {
-                    handler()
-                }
-        })
+        ref_adj.setValue(value, withCompletionBlock: { _ in handler() })
     }
 }
 
