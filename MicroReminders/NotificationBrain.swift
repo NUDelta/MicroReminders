@@ -50,6 +50,8 @@ class NotificationBrain {
                 self.notifier.sendNotificationNow(immediate)
             }
             
+            /* 3) Start background monitoring for the delays */
+            
         })
         
     }
