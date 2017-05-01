@@ -28,7 +28,7 @@ extension Logger {
     
     func logRegionInteraction(region: UInt16, way: regionInteraction) {
         Beacons.shared.getBeaconLocation(forKey: region, handler: { location in
-            let ref = self.regionRef.child("\(Int(Date().timeIntervalSince1970))")
+            let ref = self.regionRef.child(location).child("\(Int(Date().timeIntervalSince1970))")
             
             var key: String
             switch (way) {
@@ -40,7 +40,7 @@ extension Logger {
                 break
             }
             
-            ref.setValue([key: location])
+            ref.setValue(key)
         })
     }
 }
@@ -52,44 +52,53 @@ extension Logger {
     }
     
     enum TaskInteractionAction {
-        case notificationThrown
-        case notificationAccepted
-        case notificationDeclinedWithReason
-        case notificationDeclinedWithoutReason
-        case notificationCleared
-        case notificationTapped
-        // make another version of all of these for "in_app" and "in_notification"
+        case thrown
+        case acceptedInApp
+        case acceptedInNotification
+        case cleared
+        case declinedInNotification
+        case declinedWithReasonInApp
+        case declinedWithReasonInNotification
     }
     
     /** Get Firebase ref for logging an h_action notification action happening now */
-    func logTaskNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction) {
-        let ref = notificationRef.child("\(h_action._id)/\(Int(Date().timeIntervalSince1970))")
+    func logTaskNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction, decline_reason: String?) {
+        let ref = notificationRef.child("\(UserConfig.shared.userKey)").child("\(h_action.habit)").child("\(h_action.description)")
         
+        //.child("\(Int(Date().timeIntervalSince1970))")
+        
+        var value: Any // Will be a String or [String: String]
+        var child: FIRDatabaseReference
         switch action {
-        case .notificationThrown:
-            ref.setValue("notificationThrown")
+        case .thrown:
+            child = ref.child("Thrown")
+            value = "thrown"
             break
-        case .notificationAccepted:
-            ref.setValue("notificationAccepted")
+        case .acceptedInApp:
+            child = ref.child("Accepted")
+            value = "accepted_in_app"
             break
-        case .notificationDeclinedWithoutReason:
-            ref.setValue("notificationDeclinedWithoutReason")
+        case .acceptedInNotification:
+            child = ref.child("Accepted")
+            value = "accepted_in_notification"
             break
-        case .notificationDeclinedWithReason:
-            ref.setValue("notificationDeclinedWithReason")
+        case .cleared:
+            child = ref.child("Declined")
+            value = "cleared"
             break
-        case .notificationCleared:
-            ref.setValue("notificationCleared")
+        case .declinedInNotification:
+            child = ref.child("Declined")
+            value = "declined_in_notification"
             break
-        case .notificationTapped:
-            ref.setValue("notificationTapped")
+        case .declinedWithReasonInNotification:
+            child = ref.child("Declined")
+            value = ["declined_with_reason_in_notification": decline_reason!]
+            break
+        case .declinedWithReasonInApp:
+            child = ref.child("Declined")
+            value = ["declined_with_reason_in_app": decline_reason!]
             break
         }
-    }
-    
-    func logNotificationDeclineReason(_ h_action: HabitAction, reason: String) {
-        let ref = baseRef.child("DeclineReasons/\(UserConfig.shared.userKey)/\(h_action._id)/\(Int(Date().timeIntervalSince1970))")
-        
-        ref.setValue(reason)
+        child.child("\(Int(Date().timeIntervalSince1970))").setValue(value)
     }
 }

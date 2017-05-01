@@ -34,31 +34,6 @@ class HabitList: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         // nothing now, like the stub tho
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        func prioritize(taskLocation loc: String, locations: [String]) -> [String] {
-            if (loc == "unassigned") {
-                return locations
-            }
-            var tmp = locations
-            tmp.remove(at: locations.index(of: loc.lowercased())!)
-            return [loc] + tmp
-        }
-        
-        if let tcvc = segue.destination as? HabitActionConstraintViewController {
-            tcvc.pushHandler = {
-                self.navigationController!.popViewController(animated: true)
-            }
-            
-            if segue.identifier == "constrainExistingTask" {
-                tcvc.existingTask = existingTaskToConstrain
-                tcvc.locations = prioritize(
-                    taskLocation: existingTaskToConstrain.location,
-                    locations: locationsForConstraining
-                ).map({ $0.capitalized })
-            }
-        }
-    }
 }
 
 // TableView data source and delegate
@@ -114,19 +89,7 @@ extension HabitList {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! HabitActionCell
-        
-        let alert = UIAlertController(title: "Edit context?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
-            Beacons.shared.getAllLocations(handler: { locations in
-                self.existingTaskToConstrain = cell.h_action
-                self.locationsForConstraining = locations
-                
-                self.performSegue(withIdentifier: "constrainExistingTask", sender: self)
-            })
-        }))
-        self.present(alert, animated: true, completion: nil)
+        // No response to taps
     }
     
     func updateDisplayHabits() -> Void {

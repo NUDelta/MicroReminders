@@ -6,12 +6,9 @@
                     - Context object
     - Regions
         - <username> 1...S
-            - Region 1...R
-                - ExitTime
-                - EnterTime
-                - Log
-                    - <timestamp> 1...N
-                        - Entered/exited
+            - <region> 1...R
+                - <timestamp> 1...N
+                    - Entered/exited
     - Notifications
         - <username> 1...S
             - Habit title 1...M
@@ -21,7 +18,7 @@
                     - Accepted 1...A
                         - <seconds since 1970>: one of "accepted_in_app", "accepted_in_notification"
                     - Declined 1...D
-                        - <seconds since 1970>: one of "cleared", "declined_with_reason_in_app", "declined_with_reason_notification"
+                        - <seconds since 1970>: one of "cleared", "declined_in_notification", "declined_with_reason_in_app": <reason>, "declined_with_reason_notification": <reason>
     - UserConfig
         - Beacons
             - <username> 1...S

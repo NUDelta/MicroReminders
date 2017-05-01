@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		460F4B4BC51FD62D494A0119 /* Pods_MicroReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6CC92951DD12E86EB8885E /* Pods_MicroReminders.framework */; };
+		D91A10E91EB2F84B00025835 /* ContextChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A10E81EB2F84B00025835 /* ContextChecker.swift */; };
+		D91A10EB1EB3689500025835 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A10EA1EB3689500025835 /* NotificationHandler.swift */; };
+		D93432D01EB6B7F9001DFD36 /* NotificationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */; };
+		D93432D21EB6B92C001DFD36 /* BackgroundTasker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432D11EB6B92C001DFD36 /* BackgroundTasker.swift */; };
 		D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95EAD731EA6C32100F5DD26 /* UserConfig.swift */; };
 		D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */; };
 		D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D19941EA8195A00401DD5 /* MockViewController.swift */; };
 		D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4661EA4886200BA202F /* HabitActionCell.swift */; };
 		D989E4691EA4886200BA202F /* HabitList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4671EA4886200BA202F /* HabitList.swift */; };
-		D9BF34991E36CCA800650041 /* HabitActionConstraintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF34981E36CCA800650041 /* HabitActionConstraintViewController.swift */; };
 		D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */; };
 		D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C2FF881DC50970007D08F1 /* Beacons.swift */; };
 		D9DF32EA1DBBE68D00281264 /* HabitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF32E91DBBE68D00281264 /* HabitAction.swift */; };
@@ -30,13 +33,16 @@
 		7BD9CF5CF668BE182CFF2666 /* Pods-MicroReminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.release.xcconfig"; sourceTree = "<group>"; };
 		9E6CC92951DD12E86EB8885E /* Pods_MicroReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC977EBBD58CFA943005459 /* Pods-MicroReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroReminders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicroReminders/Pods-MicroReminders.debug.xcconfig"; sourceTree = "<group>"; };
+		D91A10E81EB2F84B00025835 /* ContextChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextChecker.swift; sourceTree = "<group>"; };
+		D91A10EA1EB3689500025835 /* NotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBrain.swift; sourceTree = "<group>"; };
+		D93432D11EB6B92C001DFD36 /* BackgroundTasker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTasker.swift; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95EAD731EA6C32100F5DD26 /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TaskNotificationManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D97D19941EA8195A00401DD5 /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
 		D989E4661EA4886200BA202F /* HabitActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitActionCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D989E4671EA4886200BA202F /* HabitList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitList.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		D9BF34981E36CCA800650041 /* HabitActionConstraintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitActionConstraintViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTimeFormatter.swift; sourceTree = "<group>"; };
 		D9C2FF881DC50970007D08F1 /* Beacons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacons.swift; sourceTree = "<group>"; };
 		D9DF32E91DBBE68D00281264 /* HabitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitAction.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -130,7 +136,6 @@
 				D97D19941EA8195A00401DD5 /* MockViewController.swift */,
 				D989E4661EA4886200BA202F /* HabitActionCell.swift */,
 				D989E4671EA4886200BA202F /* HabitList.swift */,
-				D9BF34981E36CCA800650041 /* HabitActionConstraintViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -143,6 +148,10 @@
 				D97A44181DC3B3DE00B3A184 /* TaskNotificationManager.swift */,
 				D9BF349A1E36CCCC00650041 /* NumberTimeFormatter.swift */,
 				D9E068331EB2AB52004DBADF /* Context.swift */,
+				D91A10E81EB2F84B00025835 /* ContextChecker.swift */,
+				D91A10EA1EB3689500025835 /* NotificationHandler.swift */,
+				D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */,
+				D93432D11EB6B92C001DFD36 /* BackgroundTasker.swift */,
 			);
 			name = Habits;
 			sourceTree = "<group>";
@@ -286,13 +295,16 @@
 				D9E068341EB2AB52004DBADF /* Context.swift in Sources */,
 				D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */,
 				D989E4691EA4886200BA202F /* HabitList.swift in Sources */,
+				D91A10EB1EB3689500025835 /* NotificationHandler.swift in Sources */,
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* HabitAction.swift in Sources */,
 				D9ECB6691EA9C4BC00DB2A41 /* Logger.swift in Sources */,
-				D9BF34991E36CCA800650041 /* HabitActionConstraintViewController.swift in Sources */,
 				D97A44191DC3B3DE00B3A184 /* TaskNotificationManager.swift in Sources */,
+				D93432D21EB6B92C001DFD36 /* BackgroundTasker.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
 				D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */,
+				D91A10E91EB2F84B00025835 /* ContextChecker.swift in Sources */,
+				D93432D01EB6B7F9001DFD36 /* NotificationBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
