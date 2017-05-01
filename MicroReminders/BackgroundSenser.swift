@@ -10,27 +10,36 @@ import Foundation
 
 /** Handles running context checking in the background */
 class BackgroundSenser {
-    fileprivate let backgroundTaskManager = BackgroundTaskManager()
     fileprivate let bgTask: BackgroundTaskManager = BackgroundTaskManager.shared()
+    
+    fileprivate var bgTimer: Timer? = Timer()
+    fileprivate var bgDelayTimer: Timer? = Timer()
+    
+    /** Steps
+     
+     1) For each action with a location time delay, start a timer
+     
+     2) For each action waiting for a plug event, add an observer
+     
+     3) For each action with a delay after a plug event, add an observer that starts a timer
+     
+     */
+    
+    func wait(for: [HabitAction], handler: (HabitAction) -> Void) {
+        
+    }
 
-    func delayAfterLocationEvent(...) {
-        
-    }
-    
-    func delayUntilPlugEvent(...) {
-        
-    }
-    
-    func delayAfterPlugEvent(...) {
-        
-    }
-    
-    
-    // background task
-    
-    
-    var bgTimer: Timer? = Timer()
-    var bgDelayTimer: Timer? = Timer()
+//    func delayAfterLocationEvent(...) {
+//        
+//    }
+//    
+//    func delayUntilPlugEvent(...) {
+//        
+//    }
+//    
+//    func delayAfterPlugEvent(...) {
+//        
+//    }
     
     //MARK: Background Task Functions
     private func stopUpdates() {
@@ -62,11 +71,6 @@ class BackgroundSenser {
         super.viewDidLoad()
         
         startBGTask()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func startBGTask() {

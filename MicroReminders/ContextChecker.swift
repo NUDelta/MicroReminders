@@ -9,20 +9,14 @@
 import Foundation
 import Firebase
 
-/** Perform checks to see if we have h_actions that should be reminded right now.
- 
- All checking is initiated by entrance/exiting of a region.
- */
+/** Find actions legal immediately after a region change */
 class ContextChecker {
     
     /** Get potential tasks in response to a region change. */
     fileprivate func availableForRegionChange(_ h_action: HabitAction, reg: String, dir: LocationContext.EnterExit) -> Bool {
-        let lc = h_action.context.location
+        let dir_match = h_action.context.location.enter_exit == dir
         
-        let reg_match = lc.region_name == reg
-        let dir_match = lc.enter_exit == dir
-        
-        return reg_match && dir_match
+        return legalLocation(h_action, loc: reg) && dir_match
     }
     
     fileprivate func availableForRegionChange(_ h_actions: [HabitAction], reg: String, dir: LocationContext.EnterExit) -> [HabitAction] {
@@ -31,44 +25,23 @@ class ContextChecker {
         })
     }
     
-    /** Check if timeOfDay falls in the h_action's time context.
- 
-     timeOfDay represents seconds into the day.
-     */
-    fileprivate func availableAtTimeOfDay(_ h_action: HabitAction, timeOfDay: Int) -> Bool {
-        let tc = h_action.context.time
-        
-        let before = timeOfDay < tc.before
-        let after = timeOfDay > tc.after
-        
-        return before && after
-    }
-    
-    fileprivate func availableAtTimeOfDay(_ h_actions: [HabitAction], timeOfDay: Int) -> [HabitAction] {
+    fileprivate func availableAtTimeOfDay(_ h_actions: [HabitAction]) -> [HabitAction] {
         return h_actions.filter({ ha in
-            return availableAtTimeOfDay(ha, timeOfDay: timeOfDay)
+            return legalTOD(ha)
         })
     }
     
     /** Filter h_actions for those that are available based on their recent previous interactions */
     fileprivate func immediatelyAvailableFromPreviousInteractions(_ h_actions: [HabitAction]) -> [HabitAction] {
-        let rn = timeSince1970InSeconds()
-        
         return h_actions.filter({ ha in
-            let prev = ha.context.prev
-            
-            let thrown = (prev.thrown.last + prev.thrown.thresh_since_last) < rn
-            let accepted = (prev.accepted.last + prev.accepted.thresh_since_last) < rn
-            let declined = (prev.declined.last + prev.declined.thresh_since_last) < rn
-            
-            return thrown && accepted && declined
+            return legalWRTPreviousInteractions(ha)
         })
     }
     
     /** Filter h_actions for those whose context does not depend on a plug event */
     fileprivate func noPlugContext(_ h_actions: [HabitAction]) -> [HabitAction] {
         return h_actions.filter({ ha in
-            return ha.context.plug.plug_unplug == .ignore
+            return !hasPlugContext(ha)
         })
     }
     
@@ -76,7 +49,7 @@ class ContextChecker {
     func immediatelyAvailableUponRegionChange(_ h_actions: [HabitAction], dir: LocationContext.EnterExit, reg: String) -> [HabitAction] {
         
         let loc_avail = availableForRegionChange(h_actions, reg: reg, dir: dir) // Good for region
-        let time_avail = availableAtTimeOfDay(loc_avail, timeOfDay: offsetIntoTodayInSeconds()) // Good for right now
+        let time_avail = availableAtTimeOfDay(loc_avail) // Good for right now
         let prev_avail = immediatelyAvailableFromPreviousInteractions(time_avail) // Past all thresholds
         let no_plug = noPlugContext(prev_avail) // Not tied to a plug event
         
@@ -84,44 +57,73 @@ class ContextChecker {
     }
 }
 
-/** Check if any tasks with delays would be available at the end of the delay.
- 
- Delays can be after a region movement or plug event, and must finish inside the time range.
- */
+/** Check for tasks that get passed off to BackgroundSenser */
 extension ContextChecker {
     
-    /** Finds actions that will be available after a location delay.
-     
-     Assumes location does not change during delay (Delayer must enforce).
-     */
-    func willBeAvailableAfterLocationDelay(_ h_actions: [HabitAction]) -> [HabitAction] {
-        let has_delay = h_actions.filter({ ha in
-            return ha.context.location.delay > 0
+    /** Finds actions that have a location delay */
+    func hasLocationDelay(_ h_actions: [HabitAction], for loc: String) -> [HabitAction] {
+        return h_actions.filter({ ha in
+            return legalLocation(ha, loc: loc) && hasLocationDelay(ha)
+        })
+    }
+    
+    /** Finds actions that have plug context with or w/o delay */
+    func hasPlug(_ h_actions: [HabitAction], at loc: String, withDelay: Bool) -> [HabitAction] {
+        let plugs = h_actions.filter({ ha in
+            return legalLocation(ha, loc: loc) && hasPlugContext(ha)
         })
         
-        let offset = offsetIntoTodayInSeconds()
-        return has_delay.filter({ ha in
-            let tod = offset + ha.context.location.delay
-            
-            return availableAtTimeOfDay(ha, timeOfDay: tod)
-        })
+        return withDelay ?
+            plugs.filter({ ha in
+                hasPlugDelay(ha)
+            }) : plugs.filter({ ha in
+                !hasPlugDelay(ha)
+            })
+    }
+}
+
+/** Check aspects of context */
+extension ContextChecker {
+    
+    /** Check location is legal */
+    func legalLocation(_ h_action: HabitAction, loc: String) -> Bool {
+        return h_action.context.location.region_name == loc
     }
     
-    /** Finds actions that have plug context, so we can delay on entrance until the plug */
-    private func hasPlugContext(_ h_actions: [HabitAction]) -> [HabitAction] {
-        return h_actions.filter({ ha in
-            return ha.context.plug.plug_unplug != .ignore
-        })
+    /** Check TOD is legal right now */
+    func legalTOD(_ h_action: HabitAction) -> Bool {
+        let tc = h_action.context.time
+        let timeOfDay = offsetIntoTodayInSeconds()
+        
+        let before = timeOfDay < tc.before
+        let after = timeOfDay > tc.after
+        
+        return before && after
     }
     
-    /** Finds actions that will be available after a delay from a plug event at fromTime */
-    func willBeAvailableAfterPlugDelay(_ h_actions: [HabitAction]) -> [HabitAction] {
-        let offset = offsetIntoTodayInSeconds()
-        return hasPlugContext(h_actions).filter({ ha in
-            let tod = offset + ha.context.plug.delay
-            
-            return availableAtTimeOfDay(ha, timeOfDay: tod)
-        })
+    /** Check time is legal WRT previous interactions */
+    func legalWRTPreviousInteractions(_ h_action: HabitAction) -> Bool {
+        let rn = timeSince1970InSeconds()
+        
+        let prev = h_action.context.prev
+        
+        let thrown = (prev.thrown.last + prev.thrown.thresh_since_last) < rn
+        let accepted = (prev.accepted.last + prev.accepted.thresh_since_last) < rn
+        let declined = (prev.declined.last + prev.declined.thresh_since_last) < rn
+        
+        return thrown && accepted && declined
+    }
+    
+    func hasPlugContext(_ h_action: HabitAction) -> Bool {
+        return h_action.context.plug.plug_unplug != .ignore
+    }
+    
+    func hasPlugDelay(_ h_action: HabitAction) -> Bool {
+        return h_action.context.plug.delay > 0
+    }
+    
+    func hasLocationDelay(_ h_action: HabitAction) -> Bool {
+        return h_action.context.location.delay > 0
     }
 }
 
