@@ -15,3 +15,5 @@
 #import <EstimoteSDK/EstimoteSDK.h>
 #import <TTRangeSlider/TTRangeSlider.h>
 #import <TTRangeSlider/TTRangeSliderDelegate.h>
+#import "BackgroundTaskManager.h"
+
