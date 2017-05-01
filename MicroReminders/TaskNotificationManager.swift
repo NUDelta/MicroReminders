@@ -15,38 +15,6 @@ class TaskInteractionManager {
     fileprivate let myId = UserConfig.shared.userKey
     fileprivate let logger = Logger()
     
-    /** Accept an h_action */
-    fileprivate func notificationAccept(_ h_action: HabitAction) {
-        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // This is probably not useful, needs new field
-        h_action.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(h_action, action: .notificationAccepted)
-    }
-    
-    fileprivate func notificationDecline(_ h_action: HabitAction, reason: String?) {
-        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970)) // Also probably not useful
-        h_action.pushToFirebase(handler: nil)
-        
-        if (reason != nil) {
-            logger.logTaskNotificationAction(h_action, action: .notificationDeclinedWithReason)
-            logger.logNotificationDeclineReason(h_action, reason: reason!)
-        }
-        else {
-            logger.logTaskNotificationAction(h_action, action: .notificationDeclinedWithoutReason)
-        }
-    }
-    
-    /** Snooze by tapping or clearing */
-    fileprivate func notificationClear(_ h_action: HabitAction) {
-        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        h_action.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(h_action, action: .notificationCleared)
-    }
-    
-    fileprivate func notificationTapped(_ h_action: HabitAction) {
-        h_action.lastSnoozed = String(Int(Date().timeIntervalSince1970))
-        h_action.pushToFirebase(handler: nil)
-        logger.logTaskNotificationAction(h_action, action: .notificationTapped)
-    }
 }
 
 /** Send h_action notifications */
@@ -90,11 +58,6 @@ class TaskNotificationSender: TaskInteractionManager {
     }
     
 }
-
-/** Respond to an h_action notification */
-class TaskNotificationResponder: TaskInteractionManager {
-    
-    }
 
 
 /** Pick the next h_action to notify */

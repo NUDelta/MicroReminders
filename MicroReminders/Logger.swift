@@ -10,14 +10,14 @@ import Foundation
 import Firebase
 
 class Logger {
-    let baseRef: FIRDatabaseReference = FIRDatabase.database().reference()
+    fileprivate static let baseRef: FIRDatabaseReference = FIRDatabase.database().reference()
     
     init() {}
 }
 
 // Region entering/exiting
 extension Logger {
-    var regionRef: FIRDatabaseReference {
+    private static var regionRef: FIRDatabaseReference {
         return baseRef.child("Regions/\(UserConfig.shared.userKey)")
     }
     
@@ -26,28 +26,26 @@ extension Logger {
         case exited
     }
     
-    func logRegionInteraction(region: UInt16, way: regionInteraction) {
-        Beacons.shared.getBeaconLocation(forKey: region, handler: { location in
-            let ref = self.regionRef.child(location).child("\(Int(Date().timeIntervalSince1970))")
-            
-            var key: String
-            switch (way) {
-            case .entered:
-                key = "entered"
-                break
-            case .exited:
-                key = "exited"
-                break
-            }
-            
-            ref.setValue(key)
-        })
+    static func logRegionInteraction(region: String, way: regionInteraction) {
+        let ref = self.regionRef.child(region).child("\(Int(Date().timeIntervalSince1970))")
+        
+        var key: String
+        switch (way) {
+        case .entered:
+            key = "entered"
+            break
+        case .exited:
+            key = "exited"
+            break
+        }
+        
+        ref.setValue(key)
     }
 }
 
 // Notification interactions
 extension Logger {
-    var notificationRef: FIRDatabaseReference {
+    private static var notificationRef: FIRDatabaseReference {
         return baseRef.child("Notifications/\(UserConfig.shared.userKey)")
     }
     
@@ -62,7 +60,7 @@ extension Logger {
     }
     
     /** Get Firebase ref for logging an h_action notification action happening now */
-    func logTaskNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction, decline_reason: String?) {
+    static func logActionNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction, decline_reason: String?) {
         let ref = notificationRef.child("\(UserConfig.shared.userKey)").child("\(h_action.habit)").child("\(h_action.description)")
         
         //.child("\(Int(Date().timeIntervalSince1970))")

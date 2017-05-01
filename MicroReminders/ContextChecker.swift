@@ -115,7 +115,7 @@ extension ContextChecker {
     }
     
     /** Finds actions that will be available after a delay from a plug event at fromTime */
-    func willBeAvailableAfterPlugDelay(_ h_actions: [HabitAction], fromTime: Int) -> [HabitAction] {
+    func willBeAvailableAfterPlugDelay(_ h_actions: [HabitAction]) -> [HabitAction] {
         let offset = offsetIntoTodayInSeconds()
         return hasPlugContext(h_actions).filter({ ha in
             let tod = offset + ha.context.plug.delay

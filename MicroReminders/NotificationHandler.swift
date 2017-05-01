@@ -41,8 +41,10 @@ extension NotificationHandler {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        logger.logTaskNotificationAction(h_action, action: .notificationThrown)
+        Logger.logActionNotificationAction(h_action, action: .thrown, decline_reason: nil)
+        h_action.setLastInteraction(of: .thrown, to: Date().timeIntervalSince1970, with: nil)
     }
+    
 }
 
 /** Respond to notification actions */
@@ -58,33 +60,29 @@ extension NotificationHandler {
         )
     }
     
-    /** Accept a notification from an action */
     func accept(_ notification: UNNotification) {
         let h_action = extractTaskFromNotification(notification)
         
-        notificationAccept(h_action)
+        Logger.logActionNotificationAction(h_action, action: .acceptedInNotification, decline_reason: nil)
+        
+        h_action.setLastInteraction(of: .accepted, to: Date().timeIntervalSince1970, with: nil)
     }
     
     func decline(_ notification: UNNotification, reason: String?) {
         let h_action = extractTaskFromNotification(notification)
         
-        notificationDecline(h_action, reason: reason)
+        Logger.logActionNotificationAction(h_action, action: .declinedInNotification, decline_reason: nil)
+        
+        h_action.setLastInteraction(of: .declined, to: Date().timeIntervalSince1970, with: nil)
     }
     
-    /* Snooze a notification by clearing */
-    func clearSnooze(_ notification: UNNotification) {
+    func clear(_ notification: UNNotification) {
         let h_action = extractTaskFromNotification(notification)
         
-        notificationClear(h_action)
-    }
-    
-    /* Tap a notification and interact in-app */
-    func tapped(_ notification: UNNotification) {
-        let h_action = extractTaskFromNotification(notification)
+        Logger.logActionNotificationAction(h_action, action: .cleared, decline_reason: nil)
         
-        notificationTapped(h_action)
+        h_action.setLastInteraction(of: .declined, to: Date().timeIntervalSince1970, with: nil)
     }
-
 }
 
 
