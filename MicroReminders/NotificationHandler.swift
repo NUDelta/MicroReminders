@@ -74,7 +74,9 @@ extension NotificationHandler {
     func decline(_ notification: UNNotification, reason: String?) {
         let (habit, description) = extractHabitAction(from: notification)
         
-        Logger.logActionNotificationAction(for: habit, and: description, action: .declinedInNotification, decline_reason: nil)
+        Logger.logActionNotificationAction(for: habit, and: description,
+                                           action: (reason != nil) ? .declinedWithReasonInNotification : .declinedInNotification,
+                                           decline_reason: reason)
         
         HabitAction.setLastInteraction(of: .declined,
                                        withHabit: habit,
