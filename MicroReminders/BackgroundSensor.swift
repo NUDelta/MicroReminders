@@ -10,7 +10,7 @@ import Foundation
 import NotificationCenter
 
 /** Context sense in the background */
-class BackgroundSenser {
+class BackgroundSensor {
     
     fileprivate var bgTimer: Timer? = Timer()
     fileprivate var delayTimers: [HabitAction: Timer] = [:]
@@ -39,6 +39,8 @@ class BackgroundSenser {
     fileprivate var waitingForPlugImm: [HabitAction] = []
     fileprivate var immPlugHandler: ([HabitAction]) -> Void = {_ in }
     func waitForPlug(for h_actions: [HabitAction], handler: @escaping ([HabitAction]) -> Void) {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        
         self.waitingForPlugImm = h_actions
         self.immPlugHandler = handler
         
@@ -74,6 +76,8 @@ class BackgroundSenser {
     fileprivate var waitingForPlugDel: [HabitAction] = []
     fileprivate var delPlugHandler: (HabitAction) -> Void = {_ in }
     func waitForPlugAndDelay(for h_actions: [HabitAction], handler: @escaping (HabitAction) -> Void) {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        
         self.waitingForPlugDel = h_actions
         self.delPlugHandler = handler
         
@@ -85,6 +89,7 @@ class BackgroundSenser {
     }
     
     @objc fileprivate func handlePlugEventDel() {
+        UIDevice.current.isBatteryMonitoringEnabled = true
         let state = UIDevice.current.batteryState
         var avail: [HabitAction] = []
         
@@ -113,7 +118,7 @@ class BackgroundSenser {
 }
 
 /** Keep the app alive in the background indefinitely */
-extension BackgroundSenser {
+extension BackgroundSensor {
     
     /* Kill the background task */
     func stop() {

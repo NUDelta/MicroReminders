@@ -57,7 +57,7 @@ class ContextChecker {
     }
 }
 
-/** Check for tasks that get passed off to BackgroundSenser */
+/** Check for tasks that get passed off to BackgroundSensor */
 extension ContextChecker {
     
     /** Finds actions that have a location delay */

@@ -11,7 +11,7 @@
 		D91A10E91EB2F84B00025835 /* ContextChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A10E81EB2F84B00025835 /* ContextChecker.swift */; };
 		D91A10EB1EB3689500025835 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A10EA1EB3689500025835 /* NotificationHandler.swift */; };
 		D93432D01EB6B7F9001DFD36 /* NotificationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */; };
-		D93432D21EB6B92C001DFD36 /* BackgroundSenser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432D11EB6B92C001DFD36 /* BackgroundSenser.swift */; };
+		D93432D21EB6B92C001DFD36 /* BackgroundSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432D11EB6B92C001DFD36 /* BackgroundSensor.swift */; };
 		D93432D51EB77D92001DFD36 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D93432D41EB77D92001DFD36 /* BackgroundTaskManager.m */; };
 		D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95EAD731EA6C32100F5DD26 /* UserConfig.swift */; };
 		D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D19941EA8195A00401DD5 /* MockViewController.swift */; };
@@ -36,7 +36,7 @@
 		D91A10E81EB2F84B00025835 /* ContextChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextChecker.swift; sourceTree = "<group>"; };
 		D91A10EA1EB3689500025835 /* NotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBrain.swift; sourceTree = "<group>"; };
-		D93432D11EB6B92C001DFD36 /* BackgroundSenser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundSenser.swift; sourceTree = "<group>"; };
+		D93432D11EB6B92C001DFD36 /* BackgroundSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundSensor.swift; sourceTree = "<group>"; };
 		D93432D41EB77D92001DFD36 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		D93432D61EB77DBE001DFD36 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +106,7 @@
 				D91A10E81EB2F84B00025835 /* ContextChecker.swift */,
 				D91A10EA1EB3689500025835 /* NotificationHandler.swift */,
 				D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */,
-				D93432D11EB6B92C001DFD36 /* BackgroundSenser.swift */,
+				D93432D11EB6B92C001DFD36 /* BackgroundSensor.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 				D9C2FF891DC50970007D08F1 /* Beacons.swift in Sources */,
 				D9DF32EA1DBBE68D00281264 /* HabitAction.swift in Sources */,
 				D9ECB6691EA9C4BC00DB2A41 /* Logger.swift in Sources */,
-				D93432D21EB6B92C001DFD36 /* BackgroundSenser.swift in Sources */,
+				D93432D21EB6B92C001DFD36 /* BackgroundSensor.swift in Sources */,
 				D9E5889B1CC538650084D7E7 /* AppDelegate.swift in Sources */,
 				D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */,
 				D91A10E91EB2F84B00025835 /* ContextChecker.swift in Sources */,
