@@ -29,7 +29,6 @@ extension NotificationHandler {
         content.categoryIdentifier = "action_notification"
         
         content.userInfo = [
-            "context": h_action.context,
             "habit": h_action.habit,
             "description": h_action.description
         ]
@@ -41,8 +40,12 @@ extension NotificationHandler {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        Logger.logActionNotificationAction(h_action, action: .thrown, decline_reason: nil)
-        h_action.setLastInteraction(of: .thrown, to: Date().timeIntervalSince1970, with: nil)
+        Logger.logActionNotificationAction(for: h_action.habit, and: h_action.description, action: .thrown, decline_reason: nil)
+        HabitAction.setLastInteraction(of: .thrown,
+                                       withHabit: h_action.habit,
+                                       withAction: h_action.description,
+                                       to: Int(Date().timeIntervalSince1970),
+                                       with: nil)
     }
     
 }
@@ -50,38 +53,46 @@ extension NotificationHandler {
 /** Respond to notification actions */
 extension NotificationHandler {
     /** Extract an h_action from a notification */
-    fileprivate func extractTaskFromNotification(_ notification: UNNotification) -> HabitAction {
+    fileprivate func extractHabitAction(from notification: UNNotification) -> (String, String) {
         let userInfo = notification.request.content.userInfo as! [String : Any]
         
-        return HabitAction(
-            userInfo["description"] as! String,
-            habit: userInfo["habit"] as! String,
-            context: userInfo["context"] as! Context
-        )
+        return (userInfo["habit"] as! String, userInfo["description"] as! String)
     }
     
     func accept(_ notification: UNNotification) {
-        let h_action = extractTaskFromNotification(notification)
+        let (habit, description) = extractHabitAction(from: notification)
         
-        Logger.logActionNotificationAction(h_action, action: .acceptedInNotification, decline_reason: nil)
+        Logger.logActionNotificationAction(for: habit, and: description, action: .acceptedInNotification, decline_reason: nil)
         
-        h_action.setLastInteraction(of: .accepted, to: Date().timeIntervalSince1970, with: nil)
+        HabitAction.setLastInteraction(of: .accepted,
+                                       withHabit: habit,
+                                       withAction: description,
+                                       to: Int(Date().timeIntervalSince1970),
+                                       with: nil)
     }
     
     func decline(_ notification: UNNotification, reason: String?) {
-        let h_action = extractTaskFromNotification(notification)
+        let (habit, description) = extractHabitAction(from: notification)
         
-        Logger.logActionNotificationAction(h_action, action: .declinedInNotification, decline_reason: nil)
+        Logger.logActionNotificationAction(for: habit, and: description, action: .declinedInNotification, decline_reason: nil)
         
-        h_action.setLastInteraction(of: .declined, to: Date().timeIntervalSince1970, with: nil)
+        HabitAction.setLastInteraction(of: .declined,
+                                       withHabit: habit,
+                                       withAction: description,
+                                       to: Int(Date().timeIntervalSince1970),
+                                       with: nil)
     }
     
     func clear(_ notification: UNNotification) {
-        let h_action = extractTaskFromNotification(notification)
+        let (habit, description) = extractHabitAction(from: notification)
         
-        Logger.logActionNotificationAction(h_action, action: .cleared, decline_reason: nil)
+        Logger.logActionNotificationAction(for: habit, and: description, action: .cleared, decline_reason: nil)
         
-        h_action.setLastInteraction(of: .declined, to: Date().timeIntervalSince1970, with: nil)
+        HabitAction.setLastInteraction(of: .declined,
+                                       withHabit: habit,
+                                       withAction: description,
+                                       to: Int(Date().timeIntervalSince1970),
+                                       with: nil)
     }
 }
 

@@ -61,6 +61,7 @@ class Beacons {
     fileprivate init() {
         let userKey = UserConfig.shared.userKey
         self.beaconRef = FIRDatabase.database().reference().child("UserConfig").child("beacons").child("\(userKey)")
+        self.getBeacons(handler: { _ in print("Initialized beacons...") })
     }
 }
 

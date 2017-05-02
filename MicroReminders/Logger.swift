@@ -60,10 +60,8 @@ extension Logger {
     }
     
     /** Get Firebase ref for logging an h_action notification action happening now */
-    static func logActionNotificationAction(_ h_action: HabitAction, action: TaskInteractionAction, decline_reason: String?) {
-        let ref = notificationRef.child("\(UserConfig.shared.userKey)").child("\(h_action.habit)").child("\(h_action.description)")
-        
-        //.child("\(Int(Date().timeIntervalSince1970))")
+    static func logActionNotificationAction(for habit: String, and description: String, action: TaskInteractionAction, decline_reason: String?) {
+        let ref = notificationRef.child("\(habit)").child("\(description)")
         
         var value: Any // Will be a String or [String: String]
         var child: FIRDatabaseReference

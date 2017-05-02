@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         let decline = UNTextInputNotificationAction(identifier: "decline", title: "Not now...", options: [], textInputButtonTitle: "Enter", textInputPlaceholder: "Why not? (Optional)")
         
         // put our actions in a category
-        let respond = UNNotificationCategory(identifier: "respond_to_task", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
+        let respond = UNNotificationCategory(identifier: "action_notification", actions: [accept, decline], intentIdentifiers: [], options: [.customDismissAction])
         
         // register our actions
         UNUserNotificationCenter.current().setNotificationCategories([respond])

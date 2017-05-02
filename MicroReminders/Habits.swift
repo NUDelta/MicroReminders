@@ -26,13 +26,7 @@ class Habits {
     }
     
     private init() {
-        listenToHabits()
-    }
-    
-    private func listenToHabits() {
-        Habits.habitRef.observe(.value, with: {snapshot in
-            self.habits = Habits.extractHabits(snapshot)
-        })
+        queryHabits(then: {_ in print("Initialized habits...") })
     }
     
     private func queryHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {

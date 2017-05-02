@@ -20,9 +20,13 @@ class HabitAction {
         self.context = context
     }
     
-    func setLastInteraction(of type: ReminderInteraction.InteractionType, to value: Double, with handler: (() -> Void)!) -> Void {
+    static func setLastInteraction(of type: ReminderInteraction.InteractionType,
+                                   withHabit habit: String,
+                                   withAction description: String,
+                                   to value: Int,
+                                   with handler: (() -> Void)?) -> Void {
         let ref = FIRDatabase.database().reference()
-            .child("Habits/\(UserConfig.shared.userKey)/\(self.habit)/\(self.description)/prev_interactions")
+            .child("Habits/\(UserConfig.shared.userKey)/\(habit)/\(description)/prev_interactions")
         
         var ref_adj: FIRDatabaseReference
         switch type {
@@ -37,7 +41,11 @@ class HabitAction {
             break
         }
         
-        ref_adj.setValue(value, withCompletionBlock: { _ in handler() })
+        ref_adj.setValue(value, withCompletionBlock: { _ in
+            if (handler != nil) {
+                handler!()
+            }
+        })
     }
 }
 
