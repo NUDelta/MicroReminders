@@ -8,7 +8,17 @@
 
 import Firebase
 
-class HabitAction {
+class HabitAction: Hashable, Equatable {
+    
+    /* Hash is just habit and description. TODO: include context */
+    var hashValue: Int {
+        return description.hashValue ^ habit.hashValue
+    }
+    
+    /* Equality is just habit and description. TODO: include context */
+    static func == (lhs: HabitAction, rhs: HabitAction) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
     
     let description: String
     let habit: String

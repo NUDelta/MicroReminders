@@ -56,23 +56,39 @@ class NotificationBrain {
                 let plugDelay = habits.reduce([HabitAction]()) { acc, habit in
                     return acc + self.checker.hasPlug(habit.1, at: region, withDelay: true)
                 }
+                
+                
             })
         })
     }
     
     func exited(region: UInt16) {
-        Beacons.shared.getBeaconLocation(forKey: region, handler: { region	 in
+        Beacons.shared.getBeaconLocation(forKey: region, handler: { region in
             Logger.logRegionInteraction(region: region, way: .exited)
             
             /** Steps:
              
-             1) Kill any background tasks dependent on us being in the region
+             1) Find any actions immediately available after exiting
              
-             2) Find any actions with applicable exit context.
+             2) Pic on (there should only be one) and send a notification
              
-             3) Pick on (there should only be one) and send a notification.
+             3) Kill any background tasks dependent on us being in the region
              
              */
+            
+            Habits.getHabits(then: { habits in
+                
+                /* 1) Isolate the actions that are remindable right now */
+                let immediates = habits.reduce([HabitAction]()) { acc, habit in
+                    return acc + self.checker
+                        .immediatelyAvailableUponRegionChange(habit.1, dir: .exit, reg: region)
+                }
+                
+                /* 2) Of the immediates, pick one and notify */
+                if let immediate = self.pickRandom(h_actions: immediates) {
+                    self.notifier.sendNotificationNow(immediate)
+                }
+            })
         })
     }
 }
