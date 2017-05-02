@@ -63,27 +63,11 @@ extension HabitList {
     
         cell.h_action = h_action
         cell.tableViewController = self
-        cell.taskName.text = h_action.name
+        cell.taskName.text = h_action.description
         
-        if (h_action.location == "unassigned") {
-            cell.location.text = "unassigned"
-        }
-        else {
-            cell.location.text = "At: \(h_action.location)"
-        }
+        cell.location.text = "Haven't finished this yet"
         
-        
-        if (h_action.beforeTime == "unassigned" || h_action.afterTime == "unassigned") {
-            cell.timeRange.text = "unassigned"
-        }
-        else {
-            func formatTime(_ taskTime: String) -> String {
-                let parsed = Double(taskTime)!
-                return NumberTimeFormatter().string(for: NSNumber(floatLiteral: parsed))!
-            }
-            
-            cell.timeRange.text = "Active: \(formatTime(h_action.afterTime)) to \(formatTime(h_action.beforeTime))"
-        }
+        cell.timeRange.text = "Probably use the NumberTimeFormatter for this eventually"
         
         return cell
     }

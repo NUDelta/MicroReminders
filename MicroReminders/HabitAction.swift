@@ -27,13 +27,13 @@ class HabitAction {
         var ref_adj: FIRDatabaseReference
         switch type {
         case .accepted:
-            ref_adj = ref.child("accepted/last")
+            ref_adj = ref.child("accepted").child("last")
             break
         case .declined:
-            ref_adj = ref.child("declined/last")
+            ref_adj = ref.child("declined").child("last")
             break
         case .thrown:
-            ref_adj = ref.child("thrown/last")
+            ref_adj = ref.child("thrown").child("last")
             break
         }
         

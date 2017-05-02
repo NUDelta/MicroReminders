@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     var window: UIWindow?
 
     let beaconManager = ESTBeaconManager()
+    let notificationBrain = NotificationBrain()
+    let notificationHandler = NotificationHandler()
     
     override init() {
         FIRApp.configure() // Configure Firebase (must happen before any Firebase-using classes init)
@@ -102,17 +104,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     
     /* Handle accepting a notification */
     func handleAccept(_ notification: UNNotification) {
-        TaskNotificationResponder().accept(notification)
+        notificationHandler.accept(notification)
     }
     
     /* Handle declining a notification */
     func handleDecline(_ notification: UNNotification, reason: String) {
-        TaskNotificationResponder().decline(notification, reason: reason)
+        notificationHandler.decline(notification, reason: reason)
     }
     
     /** Handle an h_action notification being cleared */
     func handleClear(_ notification: UNNotification) {
-        TaskNotificationResponder().clearSnooze(notification)
+        notificationHandler.clear(notification)
     }
     
     /**
@@ -126,16 +128,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let accept = UIAlertAction(title: "I'll do that now!", style: .default, handler: { action in
-            TaskNotificationResponder().accept(notification)
+            self.notificationHandler.accept(notification)
         })
         let decline = UIAlertAction(title: "Not now...", style: .cancel, handler: { action in
             let alert = UIAlertController(title: nil, message: "Why not? (Optional)", preferredStyle: .alert)
             let enter = UIAlertAction(title: "Enter", style: .default, handler: { action in
                 let reason = alert.textFields?[0].text
-                TaskNotificationResponder().decline(notification, reason: reason)
+                self.notificationHandler.decline(notification, reason: reason)
             })
             let cancel = UIAlertAction(title: "Decline", style: .cancel, handler: { action in
-                TaskNotificationResponder().decline(notification, reason: nil)
+                self.notificationHandler.decline(notification, reason: nil)
             })
             
             alert.addTextField(configurationHandler: { textfield in
@@ -157,8 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        Logger().logRegionInteraction(region: regionInt, way: .entered)
-        TaskNotificationSender().entered(region: regionInt)
+        notificationBrain.entered(region: regionInt)
     }
     
     /** Keep track of when we exited a region */
@@ -167,8 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         let regionInt: UInt16 = region.minor!.uint16Value
         
-        Logger().logRegionInteraction(region: regionInt, way: .exited)
-        TaskNotificationSender().exited(region: regionInt)
+        notificationBrain.exited(region: regionInt)
     }
     
     /** Monitoring failing */

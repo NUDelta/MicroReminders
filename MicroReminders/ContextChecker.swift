@@ -107,9 +107,9 @@ extension ContextChecker {
         
         let prev = h_action.context.prev
         
-        let thrown = (prev.thrown.last + prev.thrown.thresh_since_last) < rn
-        let accepted = (prev.accepted.last + prev.accepted.thresh_since_last) < rn
-        let declined = (prev.declined.last + prev.declined.thresh_since_last) < rn
+        let thrown = (prev.thrown.last + Int(60*prev.thrown.thresh_since_last)) < rn
+        let accepted = (prev.accepted.last + Int(60*prev.accepted.thresh_since_last)) < rn
+        let declined = (prev.declined.last + Int(60*prev.declined.thresh_since_last)) < rn
         
         return thrown && accepted && declined
     }

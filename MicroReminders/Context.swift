@@ -58,9 +58,9 @@ struct ReminderInteraction {
     
     let type: InteractionType
     let last: Int
-    let thresh_since_last: Int
+    let thresh_since_last: Float
     
-    init(type: InteractionType, last: Int, thresh_since_last: Int) {
+    init(type: InteractionType, last: Int, thresh_since_last: Float) {
         self.type = type
         self.last = last
         self.thresh_since_last = thresh_since_last

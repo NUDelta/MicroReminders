@@ -3,7 +3,6 @@ let uuid = require("uuid");
 
 let beacons = require("./beacons");
 let habits = require("./habits");
-let thresholds = require('./thresholds');
 
 let config = require('./config');
 
@@ -16,21 +15,14 @@ function populateBeacons() {
   ).then(process.exit);
 }
 
-function populateThresholds() {
-  firebase.database().ref("UserConfig/thresholds").set(
-    thresholds
-  ).then(process.exit);
-}
-
-function populateTasks() {
+function populateHabits() {
   firebase.database().ref("Habits/").set(
     habits
   ).then(process.exit);
 }
 	
 populateBeacons();
-populateThresholds();
-populateTasks();
+populateHabits();
 
 // let util = require('util');
-// console.log(util.inspect(goalsAndTasksWithUUIDs(habits), false, null));
+// console.log(util.inspect(goalsAndHabitsWithUUIDs(habits), false, null));
