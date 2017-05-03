@@ -14,7 +14,9 @@ class Beacons {
     
     typealias beacons = [UInt16: String]
     private let beaconRef: FIRDatabaseReference
+    private let currRef: FIRDatabaseReference
     private var _beacons: beacons?
+    private var currRegion: String?
     
     func getBeacons(handler: @escaping (beacons) -> Void) {
         if (self._beacons != nil) {
@@ -38,6 +40,15 @@ class Beacons {
         }
     }
     
+    func getCurrentRegion(handler: @escaping (String) -> Void) {
+        self.currRef.observeSingleEvent(of: .value, with: { snapshot in
+            let curr = snapshot.value as! String // either a region name or "outside"
+            self.currRegion = curr
+            
+            handler(self.currRegion!)
+        })
+    }
+    
     func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
         getBeacons(handler: { beacons in
             for minor in beacons.keys {
@@ -52,15 +63,11 @@ class Beacons {
         })
     }
     
-    func getAllLocations(handler: @escaping ([String]) -> Void) {
-        getBeacons(handler: { beacons in
-            handler(Array(beacons.values))
-        })
-    }
-    
     fileprivate init() {
         let userKey = UserConfig.shared.userKey
-        self.beaconRef = FIRDatabase.database().reference().child("UserConfig").child("beacons").child("\(userKey)")
+        let ref = FIRDatabase.database().reference()
+        self.beaconRef = ref.child("UserConfig").child("beacons").child("\(userKey)")
+        self.currRef = ref.child("Regions").child("\(userKey)").child("current")
         self.getBeacons(handler: { _ in print("Initialized beacons...") })
     }
 }

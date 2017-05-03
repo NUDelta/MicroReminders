@@ -10,39 +10,53 @@ Last updated 4/20/17.
 ## Functionality
 ### UI
 #### First opening
-- Can open successfully, and display all tasks for the user key specified in the build (context unassigned).
-- In task constraint view, all locations are present.
-- In task constraint view, time presents correctly.
-- Context can be assigned to unassigned tasks.
-- Context can be reassigned to previously assigned tasks.
-    - Changing location context doesn't crash and is reflected in Firebase.
-    - Changing time context doesn't crash and is reflected in Firebase.
+- Can open successfully, and display all tasks for the user key specified in the build.
 
 #### After termination
 - All the same tests as in "first opening" succeed after terminating and relaunching the app.
 
 #### After uninstall/reinstall
-- All tasks retain context assigned before uninstall.
 
-### Notifications
-#### First opening
-*Precondition*: 1+ tasks have been assigned to a beacon on hand. 1+ task has time context which includes now, 1+ task has time context which does not include now.
-- Awakening a sleeping beacon triggers a reminder associated with that location, with time context including now.
-    - The reminder is not for a task with time range excluding now.
-- Notifications are not re-triggered before the cooldown period has expired.
-    - Sleep beacon/remove phone from room, wait long enough for beacon to exit, bring phone back. Check no notification thrown.
-    - Sleep beacon/remove phone from room, wait appropriate time, bring phone back. Check notification thrown.
-- All notification actions are present in notification.
-- Interaction with each notification action performs as expected, and logs correctly to Firebase.
+### Notifications and context
+Note: test all of these with the app on the debugger, but also with the app terminated prior to the notification trigger.
 
-#### After termination
-- Terminate app. Sleep beacon. Wait appropriate amount of time for beacon exit and cooldown. Awaken beacon. Check notification thrown.
-- Terminate app. Sleep beacon. Wait appropriate amount of time for beacon exit, but not enough for cooldown. Awaken beacon. Check no notification thrown.
+#### Notification responses
+- Verify notification actions for "I'll do that now!" and "Not now..." are present
+- Tapping "I'll do that now" logs an acceptance to Firebase
+- Tapping "Not now" offers a text input, which logs as a decline_with_reason to Firebase
+- Both the above options are available via an alert if app is opened (notification tapped)
 
-### Switching beacons
-*Precondition*: In Firebase:
-1. All exit times for user's beacons are deleted.
-2. All tasks with old beacon name are switched to new - UPPERCASED.
-3. Beacon ID and name are replaced with new one - LOWERCASED
+#### Vanilla time/location
+*Precondition*: a task with location L, with entering trigger, with time context that includes right now
+- "Enter" region L. Verify notification is thrown.
+- Modify time context to not include now. Enter region L. Verify notification is not thrown.
 
-- All tests in UI and Notifications
+Repeat with a task with exiting trigger.
+
+#### Time/location with delay
+*Precondition*: a task with location L, with a delay D < 3, with time context that includes right now
+- Enter region L. Wait D minutes. Verify notification is thrown.
+- Exit region L. Wait 60 seconds. Reenter region L. Wait D minutes. Verify notification is thrown.
+- Exit region L. Wait 60 seconds. Reenter region L. Wait < D minutes. Exit region L. Verify no notification is thrown.
+
+Repeat with a D > 3, to verify background tasking really works.
+
+#### Plug in/unplug
+*Precondition*: a task with location L, with time context that includes right now, with a plug/unplug context without a delay.
+- Enter region L. Plug in the phone. Verify a notification is thrown.
+- Exit region L. Wait 60 seconds. Plug in the phone. Verify no notification is thrown.
+- Enter region L, with phone plugged in. Unplug. Verify no notification is thrown.
+
+Repeat, with plug and unplug reversed.
+
+#### Plug in/unplug with delay
+*Precondition*: a task with location L, with time context that includes right now, with a plug/unplug context with a delay D (see notes on D above).
+- Enter region L. Plug in the phone. Wait D seconds. Verify notification is thrown, only at end of D.
+- Exit region L. Wait 60 seconds. Plug in the phone. Wait D minutes. Verify no notification is thrown.
+- Enter region L, with phone plugged in. Unplug. Verify no notification is thrown.
+
+Repeat, with plug and unplug reversed.
+
+#### Switching context
+- Make change in Firebase. Terminate app. Reopen. Verify slight lag as habits repopulate.
+

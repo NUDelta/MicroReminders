@@ -51,11 +51,11 @@ class Habits {
                     let lc = LocationContext(
                         region: loc["region_name"] as! String,
                         enter_exit: (loc["enter_exit"] as! Int) == 1 ? .enter : .exit,
-                        delay: loc["delay"] as! Int
+                        delay: loc["delay"] as! Double
                     )
                     
                     /* Plug context */
-                    let plug = context["plug"] as! [String: Int]
+                    let plug = context["plug"] as! [String: Double]
                     let pc = PlugContext(
                         plug_unplug: (plug["plug_unplug"] == 1) ? .plug : (plug["plug_unplug"] == -1) ? .unplug : .ignore,
                         delay: plug["delay"]!
@@ -69,7 +69,7 @@ class Habits {
                     )
                     
                     /* Previous interaction context */
-                    let _prev = context["prev_interactions"] as! [String: [String: Float]]
+                    let _prev = context["prev_interactions"] as! [String: [String: Double]]
                     
                     let _acc = _prev["accepted"]!
                     let acc = ReminderInteraction(type: .accepted, last: Int(_acc["last"]!), thresh_since_last: _acc["thresh_since_last"]!)

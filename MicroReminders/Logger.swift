@@ -15,7 +15,7 @@ class Logger {
     init() {}
 }
 
-// Region entering/exiting
+/* Region entering/exiting */
 extension Logger {
     private static var regionRef: FIRDatabaseReference {
         return baseRef.child("Regions/\(UserConfig.shared.userKey)")
@@ -27,19 +27,22 @@ extension Logger {
     }
     
     static func logRegionInteraction(region: String, way: regionInteraction) {
-        let ref = self.regionRef.child(region).child("\(Int(Date().timeIntervalSince1970))")
+        let logRef = self.regionRef.child(region).child("\(Int(Date().timeIntervalSince1970))")
+        let currRef = self.regionRef.child("current")
         
         var key: String
         switch (way) {
         case .entered:
+            currRef.setValue(region)
             key = "entered"
             break
         case .exited:
+            currRef.setValue("outside")
             key = "exited"
             break
         }
         
-        ref.setValue(key)
+        logRef.setValue(key)
     }
 }
 

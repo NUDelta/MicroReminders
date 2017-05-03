@@ -16,15 +16,16 @@ class BackgroundSensor {
     fileprivate var delayTimers: [HabitAction: Timer] = [:]
     
     
-    
     /*-------------------------------------------------------------*/
     /* Wait for location delays */
     func startLocationDelayTimers(for h_actions: [HabitAction], handler: @escaping (HabitAction) -> Void) {
         
         h_actions.forEach({ ha in
-            let delay = Double(ha.context.location.delay)
-            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in handler(ha) })
-            
+            let delay = ha.context.location.delay * 60
+            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
+                self.delayTimers.removeValue(forKey: ha)
+                handler(ha)
+            })
             self.delayTimers.updateValue(timer, forKey: ha)
         })
         
@@ -109,9 +110,12 @@ class BackgroundSensor {
     
     fileprivate func startDelayTimerAfterPlug(for h_actions: [HabitAction]) {
         h_actions.forEach({ ha in
-            let delay = Double(ha.context.plug.delay)
+            let delay = Double(ha.context.plug.delay) * 60.0
             
-            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in self.delPlugHandler(ha) })
+            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
+                self.delayTimers.removeValue(forKey: ha)
+                self.delPlugHandler(ha)
+            })
             self.delayTimers.updateValue(timer, forKey: ha)
         })
     }
@@ -119,29 +123,6 @@ class BackgroundSensor {
 
 /** Keep the app alive in the background indefinitely */
 extension BackgroundSensor {
-    
-    /* Kill the background task */
-    func stop() {
-        print("Killing background task...")
-        
-        if (bgTimer != nil) {
-            bgTimer!.invalidate()
-            bgTimer = nil
-        }
-        
-        cleanup()
-    }
-    
-    fileprivate func cleanup() {
-        /* Invalidate delay timers */
-        self.delayTimers.forEach({ pair in
-            pair.value.invalidate()
-        })
-        self.delayTimers.removeAll()
-        
-        /* Remove battery state observers */
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceBatteryStateDidChange, object: nil)
-    }
     
     @objc fileprivate func restart() {
         print("Restarted background timer...")

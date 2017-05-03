@@ -45,13 +45,21 @@ class ContextChecker {
         })
     }
     
+    /** Filter h_actions for those whose context does not depend on waiting after a location change */
+    fileprivate func noLocationDelay(_ h_actions: [HabitAction]) -> [HabitAction] {
+        return h_actions.filter({ ha in
+            return !hasLocationDelay(ha)
+        })
+    }
+    
     /** Filter h_actions to determine if any are available for notification as soon as a region movement occurs. */
     func immediatelyAvailableUponRegionChange(_ h_actions: [HabitAction], dir: LocationContext.EnterExit, reg: String) -> [HabitAction] {
         
         let loc_avail = availableForRegionChange(h_actions, reg: reg, dir: dir) // Good for region
         let time_avail = availableAtTimeOfDay(loc_avail) // Good for right now
         let prev_avail = immediatelyAvailableFromPreviousInteractions(time_avail) // Past all thresholds
-        let no_plug = noPlugContext(prev_avail) // Not tied to a plug event
+        let no_delay = noLocationDelay(prev_avail) // Not supposed to delay
+        let no_plug = noPlugContext(no_delay) // Not suppose to wait for a plug event
         
         return no_plug
     }

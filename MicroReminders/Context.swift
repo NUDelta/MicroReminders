@@ -14,9 +14,9 @@ struct LocationContext {
     
     let region_name: String
     let enter_exit: EnterExit
-    let delay: Int
+    let delay: Double
     
-    init(region: String, enter_exit: EnterExit, delay: Int) {
+    init(region: String, enter_exit: EnterExit, delay: Double) {
         self.region_name = region
         self.enter_exit = enter_exit
         self.delay = delay
@@ -31,9 +31,9 @@ struct PlugContext {
     }
     
     let plug_unplug: PlugUnplug
-    let delay: Int
+    let delay: Double
     
-    init(plug_unplug: PlugUnplug, delay: Int) {
+    init(plug_unplug: PlugUnplug, delay: Double) {
         self.plug_unplug = plug_unplug
         self.delay = delay
     }
@@ -58,9 +58,9 @@ struct ReminderInteraction {
     
     let type: InteractionType
     let last: Int
-    let thresh_since_last: Float
+    let thresh_since_last: Double
     
-    init(type: InteractionType, last: Int, thresh_since_last: Float) {
+    init(type: InteractionType, last: Int, thresh_since_last: Double) {
         self.type = type
         self.last = last
         self.thresh_since_last = thresh_since_last

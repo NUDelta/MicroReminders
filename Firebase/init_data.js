@@ -20,7 +20,13 @@ function populateHabits() {
     habits
   ).then(process.exit);
 }
-	
+
+function clear() {
+	firebase.database().ref().remove()
+		.then(process.exit);
+}
+
+clear();
 populateBeacons();
 populateHabits();
 

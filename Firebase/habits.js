@@ -15,7 +15,7 @@ module.exports = {
                 "location": {
                     "region_name": "zelda",
                     "enter_exit": 1,
-                    "delay": 0
+                    "delay": 0.2
                 },
                 "plug": {
                     "plug_unplug": 0,
