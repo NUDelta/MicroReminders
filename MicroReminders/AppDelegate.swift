@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             while(!self.jobExpired) {
                 // Do a check
                 print("sensing")
-                FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("sensing_\(self.bgTask)")
+                FIRDatabase.database().reference().child("sensing").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
                 Thread.sleep(forTimeInterval: 1)
             }
             
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         func expirationHandler() {
             print("killing")
-            FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("killing_\(self.bgTask)")
+            FIRDatabase.database().reference().child("killing").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
             
             UIApplication.shared.endBackgroundTask(self.bgTask)
             
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
             self.jobExpired = true
             while (self.jobExpired) {
                 print("spinning")
-                FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("spinning_\(self.bgTask)")
+                FIRDatabase.database().reference().child("spin").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
                 Thread.sleep(forTimeInterval: 1)
             }
             
