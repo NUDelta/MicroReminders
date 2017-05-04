@@ -45,11 +45,11 @@ module.exports = {
                 },
                 "location": {
                     "region_name": "zelda",
-                    "enter_exit": -1,
+                    "enter_exit": 1,
                     "delay": 0
                 },
                 "plug": {
-                    "plug_unplug": 0,
+                    "plug_unplug": -1,
                     "delay": 0,
                 },
                 "prev_interactions": {

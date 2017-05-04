@@ -1,7 +1,8 @@
 module.exports = {
     // Delta iPhone - testing
     "delta": {
-        56913: "zelda"
+        // 56913: "zelda"
+				8888: "narnia"
     },
     // YK - testing
     "yk": {

@@ -29,7 +29,7 @@ class NotificationBrain {
                 }
                 
                 /* 2) Of the immediates, pick one and notify */
-                self.notify(immediates)
+//                self.notify(immediates)
                 
                 /* 3) Find tasks with a plug event */
                 let immOnPlug = habits.reduce([HabitAction]()) { acc, habit in
@@ -37,7 +37,7 @@ class NotificationBrain {
                 }
                 
                 /* Start background monitoring for plug events */
-                sensor.waitForPlug(for: immOnPlug, handler: self.notify)
+//                sensor.waitForPlug(for: immOnPlug, handler: self.notify)
             })
         })
     }

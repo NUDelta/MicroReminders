@@ -31,7 +31,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     let notificationBrain = NotificationBrain()
     let notificationHandler = NotificationHandler()
     
-    let bgSensor = BackgroundSensor()
+    /* ------ */
+    /* Keep app alive in background */
+    
+    var jobExpired: Bool = false
+    var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    
+    func startBackgroundTask() {
+        DispatchQueue.global().async {
+            while(!self.jobExpired) {
+                // Do a check
+                print("sensing")
+                FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("sensing_\(self.bgTask)")
+                Thread.sleep(forTimeInterval: 1)
+            
+                self.jobExpired = false
+            }
+        }
+    }
+    
+    /* ------ */
     
     override init() {
         FIRApp.configure() // Configure Firebase (must happen before any Firebase-using classes init)
@@ -53,10 +72,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
-        
-        bgSensor.startBGTask()
-        
+    
         return true
+    }
+
+    /* ------ */
+    /* Keep app alive */
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        
+        func expirationHandler() {
+            print("killing")
+            FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("killing_\(self.bgTask)")
+            
+            UIApplication.shared.endBackgroundTask(self.bgTask)
+            
+            self.bgTask = UIBackgroundTaskInvalid
+            
+            self.bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: expirationHandler)
+            
+            self.jobExpired = true
+            while (self.jobExpired) {
+                print("spinning")
+                FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("spinning_\(self.bgTask)")
+                Thread.sleep(forTimeInterval: 1)
+            }
+        }
+        
+        application.beginBackgroundTask(expirationHandler: expirationHandler)
+        self.startBackgroundTask()
     }
 
     /* Handle notification in app (received while in app) */
@@ -202,5 +245,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         print("determined state for region: \(region.identifier) to be *\(stateString)*, \(Date())")
     }
+    
+    /* --------------------------------------- */
+    /* Keep the app alive in the background indefinitely */
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

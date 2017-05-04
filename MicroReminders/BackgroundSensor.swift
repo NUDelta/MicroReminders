@@ -30,9 +30,6 @@ class BackgroundSensor {
         print("Listening for battery state changes...")
         NotificationCenter.default
             .addObserver(self, selector: #selector(handlePlugEventImm), name: .UIDeviceBatteryStateDidChange, object: nil)
-        
-        /* Keep the app alive to listen */
-//        self.startBGTask()
     }
     
     @objc fileprivate func handlePlugEventImm() {
@@ -60,43 +57,5 @@ class BackgroundSensor {
 
 /** Keep the app alive in the background indefinitely */
 extension BackgroundSensor {
-    
-    func stopBGTask() {
-        
-        if (bgTimer != nil) {
-            bgTimer!.invalidate()
-            bgTimer = nil
-        }
-        
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceBatteryStateDidChange, object: nil)
-    }
-    
-    @objc fileprivate func restart() {
-        print("Restarted background timer...")
-        
-        FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("hey")
-        
-        if (bgTimer != nil) {
-            bgTimer!.invalidate()
-            bgTimer = nil
-        }
-        
-        startBGTask()
-    }
-    
-    @objc func startBGTask() {
-        print("Started background sensing...")
-        
-        if (bgTimer != nil) { // If we already have a background task running
-            return
-        }
-        
-        let bgTask = BackgroundTaskManager.shared()
-        bgTask?.beginNewBackgroundTask()
-        
-        let intervalLength = 10.0
-        
-        // Invalidate and recreate the background task, to give it new life
-        bgTimer = Timer.scheduledTimer(timeInterval: intervalLength, target: self, selector: #selector(self.restart), userInfo: nil, repeats: false)
-    }
+    // Not anymore
 }
