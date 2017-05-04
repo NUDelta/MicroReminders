@@ -96,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
                 FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("spinning_\(self.bgTask)")
                 Thread.sleep(forTimeInterval: 1)
             }
+            
+            self.startBackgroundTask()
         }
         
         application.beginBackgroundTask(expirationHandler: expirationHandler)
