@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     let notificationBrain = NotificationBrain()
     let notificationHandler = NotificationHandler()
     
+    let bgSensor = BackgroundSensor()
+    
     override init() {
         FIRApp.configure() // Configure Firebase (must happen before any Firebase-using classes init)
     }
@@ -51,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
+        
+        bgSensor.startBGTask()
         
         return true
     }

@@ -12,23 +12,15 @@ import Foundation
 class NotificationBrain {
     let checker = ContextChecker()
     let notifier = NotificationHandler()
-    let sensor = BackgroundSensor()
     
     /** Handles entering a region */
     func entered(region: UInt16) {
         Beacons.shared.getBeaconLocation(forKey: region, handler: { region in
             Logger.logRegionInteraction(region: region, way: .entered)
-                
-            /** Steps:
-             
-             1) Isolate the actions that are immediately remindable
-             2) Of the immediately available, pick one and notify
-             3) Find tasks for the location with delays (time/plug)
-             4) Start background monitoring for the delays
-             
-             */
-            
+
             Habits.getHabits(then: { habits in
+                
+                let sensor = BackgroundSensor()
                 
                 /* 1) Isolate the actions that are remindable right now */
                 let immediates = habits.reduce([HabitAction]()) { acc, habit in
@@ -39,23 +31,13 @@ class NotificationBrain {
                 /* 2) Of the immediates, pick one and notify */
                 self.notify(immediates)
                 
-                /* 3) Find tasks with delays */
-                let locDelay = habits.reduce([HabitAction]()) { acc, habit in
-                    return acc + self.checker.hasLocationDelay(habit.1, for: region)
-                }
-                
+                /* 3) Find tasks with a plug event */
                 let immOnPlug = habits.reduce([HabitAction]()) { acc, habit in
-                    return acc + self.checker.hasPlug(habit.1, at: region, withDelay: false)
+                    return acc + self.checker.hasPlug(habit.1, at: region)
                 }
                 
-                let plugDelay = habits.reduce([HabitAction]()) { acc, habit in
-                    return acc + self.checker.hasPlug(habit.1, at: region, withDelay: true)
-                }
-                
-                /* Start background monitoring for the delays */
-                self.sensor.startLocationDelayTimers(for: locDelay, handler: self.notifyIfLegal)
-                self.sensor.waitForPlug(for: immOnPlug, handler: self.notify)
-                self.sensor.waitForPlugAndDelay(for: plugDelay, handler: self.notifyIfLegal)
+                /* Start background monitoring for plug events */
+                sensor.waitForPlug(for: immOnPlug, handler: self.notify)
             })
         })
     }
@@ -64,12 +46,7 @@ class NotificationBrain {
         Beacons.shared.getBeaconLocation(forKey: region, handler: { region in
             Logger.logRegionInteraction(region: region, way: .exited)
             
-            /** Steps:
-             
-             1) Find any actions immediately available after exiting
-             2) Pick one (there should only be one) and send a notification
-             kki
-             */
+//            self.sensor.stop()
             
             Habits.getHabits(then: { habits in
                 
@@ -89,36 +66,6 @@ class NotificationBrain {
 
 /** Utility functions */
 extension NotificationBrain {
-    
-    /** Check static context is legal, and notify */
-    fileprivate func notifyIfLegal(_ h_action: HabitAction) {
-        Beacons.shared.getCurrentRegion(handler: { currRegion in
-            
-            /* Check location, time of day, and previous */
-            if (self.checker.legalLocation(h_action, loc: currRegion)
-                && self.checker.legalTOD(h_action)
-                && self.checker.legalWRTPreviousInteractions(h_action)
-                ) {
-                self.notify(h_action)
-            }
-        })
-    }
-    
-    fileprivate func notifyIfLegal(_ h_actions: [HabitAction]) {
-        Beacons.shared.getCurrentRegion(handler: { currRegion in
-            h_actions.forEach({ h_action in
-                
-                /* Check location, time of day, and previous */
-                if (self.checker.legalLocation(h_action, loc: currRegion)
-                    && self.checker.legalTOD(h_action)
-                    && self.checker.legalWRTPreviousInteractions(h_action)
-                    ) {
-                    self.notify(h_action)
-                }
-            })
-        })
-    }
-
     
     /** Send a notification for an h_action */
     fileprivate func notify(_ h_action: HabitAction) {

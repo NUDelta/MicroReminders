@@ -28,16 +28,13 @@ extension Logger {
     
     static func logRegionInteraction(region: String, way: regionInteraction) {
         let logRef = self.regionRef.child(region).child("\(Int(Date().timeIntervalSince1970))")
-        let currRef = self.regionRef.child("current")
         
         var key: String
         switch (way) {
         case .entered:
-            currRef.setValue(region)
             key = "entered"
             break
         case .exited:
-            currRef.setValue("outside")
             key = "exited"
             break
         }

@@ -8,34 +8,12 @@
 
 import Foundation
 import NotificationCenter
+import Firebase
 
 /** Context sense in the background */
 class BackgroundSensor {
     
-    fileprivate var bgTimer: Timer? = Timer()
-    fileprivate var bgDelayTimer: Timer? = Timer()
-    fileprivate var delayTimers: [HabitAction: Timer] = [:]
-    
-    
-    
-    /*-------------------------------------------------------------*/
-    /* Wait for location delays */
-    func startLocationDelayTimers(for h_actions: [HabitAction], handler: @escaping (HabitAction) -> Void) {
-        
-        h_actions.forEach({ ha in
-            let delay = ha.context.location.delay * 60
-            if (self.delayTimers[ha] == nil) {
-                let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
-                    self.delayTimers.removeValue(forKey: ha)
-                    handler(ha)
-                })
-                self.delayTimers.updateValue(timer, forKey: ha)
-            }
-        })
-        
-        /* Keep the app alive to wait */
-        startBGTask()
-    }
+    fileprivate var bgTimer: Timer? = nil
     
     
     
@@ -49,18 +27,22 @@ class BackgroundSensor {
         self.waitingForPlugImm = h_actions
         self.immPlugHandler = handler
         
+        print("Listening for battery state changes...")
         NotificationCenter.default
             .addObserver(self, selector: #selector(handlePlugEventImm), name: .UIDeviceBatteryStateDidChange, object: nil)
         
         /* Keep the app alive to listen */
-        self.startBGTask()
+//        self.startBGTask()
     }
     
     @objc fileprivate func handlePlugEventImm() {
         let state = UIDevice.current.batteryState
-        var avail: [HabitAction] = []
+        var avail: [HabitAction]
         
         switch (state) {
+        case .full:
+            avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .plug })
+            break
         case .charging:
             avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .plug })
             break
@@ -68,70 +50,31 @@ class BackgroundSensor {
             avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .unplug })
             break
         default:
+            avail = []
             break
         }
         
         self.immPlugHandler(avail)
-    }
-    
-    
-    
-    /*-------------------------------------------------------------*/
-    /* Wait to respond after a delay to plug events */
-    fileprivate var waitingForPlugDel: [HabitAction] = []
-    fileprivate var delPlugHandler: (HabitAction) -> Void = {_ in }
-    func waitForPlugAndDelay(for h_actions: [HabitAction], handler: @escaping (HabitAction) -> Void) {
-        UIDevice.current.isBatteryMonitoringEnabled = true
-        
-        self.waitingForPlugDel = h_actions
-        self.delPlugHandler = handler
-        
-        NotificationCenter.default
-            .addObserver(self, selector: #selector(handlePlugEventDel), name: .UIDeviceBatteryStateDidChange, object: nil)
-        
-        /* Keep the app alive to listen and wait */
-        self.startBGTask()
-    }
-    
-    @objc fileprivate func handlePlugEventDel() {
-        UIDevice.current.isBatteryMonitoringEnabled = true
-        let state = UIDevice.current.batteryState
-        var avail: [HabitAction] = []
-        
-        switch (state) {
-        case .charging:
-            avail = self.waitingForPlugDel.filter({ ha in ha.context.plug.plug_unplug == .plug })
-            break
-        case .unplugged:
-            avail = self.waitingForPlugDel.filter({ ha in ha.context.plug.plug_unplug == .unplug })
-            break
-        default:
-            break
-        }
-        
-        self.startDelayTimerAfterPlug(for: avail)
-    }
-    
-    fileprivate func startDelayTimerAfterPlug(for h_actions: [HabitAction]) {
-        h_actions.forEach({ ha in
-            let delay = Double(ha.context.plug.delay) * 60.0
-            
-            if (self.delayTimers[ha] == nil) {
-                let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
-                    self.delayTimers.removeValue(forKey: ha)
-                    self.delPlugHandler(ha)
-                })
-                self.delayTimers.updateValue(timer, forKey: ha)
-            }
-        })
     }
 }
 
 /** Keep the app alive in the background indefinitely */
 extension BackgroundSensor {
     
+    func stopBGTask() {
+        
+        if (bgTimer != nil) {
+            bgTimer!.invalidate()
+            bgTimer = nil
+        }
+        
+        NotificationCenter.default.removeObserver(self, name: .UIDeviceBatteryStateDidChange, object: nil)
+    }
+    
     @objc fileprivate func restart() {
         print("Restarted background timer...")
+        
+        FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("hey")
         
         if (bgTimer != nil) {
             bgTimer!.invalidate()
@@ -141,7 +84,7 @@ extension BackgroundSensor {
         startBGTask()
     }
     
-    @objc fileprivate func startBGTask() {
+    @objc func startBGTask() {
         print("Started background sensing...")
         
         if (bgTimer != nil) { // If we already have a background task running

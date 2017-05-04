@@ -28,6 +28,10 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Would love access to Location Services to do beacon stuff</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

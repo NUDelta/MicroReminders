@@ -40,15 +40,6 @@ class Beacons {
         }
     }
     
-    func getCurrentRegion(handler: @escaping (String) -> Void) {
-        self.currRef.observeSingleEvent(of: .value, with: { snapshot in
-            let curr = snapshot.value as! String // either a region name or "outside"
-            self.currRegion = curr
-            
-            handler(self.currRegion!)
-        })
-    }
-    
     func listenToBeaconRegions(beaconManager: ESTBeaconManager) {
         getBeacons(handler: { beacons in
             for minor in beacons.keys {

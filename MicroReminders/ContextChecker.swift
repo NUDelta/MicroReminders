@@ -44,22 +44,14 @@ class ContextChecker {
             return !hasPlugContext(ha)
         })
     }
-    
-    /** Filter h_actions for those whose context does not depend on waiting after a location change */
-    fileprivate func noLocationDelay(_ h_actions: [HabitAction]) -> [HabitAction] {
-        return h_actions.filter({ ha in
-            return !hasLocationDelay(ha)
-        })
-    }
-    
+
     /** Filter h_actions to determine if any are available for notification as soon as a region movement occurs. */
     func immediatelyAvailableUponRegionChange(_ h_actions: [HabitAction], dir: LocationContext.EnterExit, reg: String) -> [HabitAction] {
         
         let loc_avail = availableForRegionChange(h_actions, reg: reg, dir: dir) // Good for region
         let time_avail = availableAtTimeOfDay(loc_avail) // Good for right now
         let prev_avail = immediatelyAvailableFromPreviousInteractions(time_avail) // Past all thresholds
-        let no_delay = noLocationDelay(prev_avail) // Not supposed to delay
-        let no_plug = noPlugContext(no_delay) // Not suppose to wait for a plug event
+        let no_plug = noPlugContext(prev_avail) // Not supposed to wait for a plug event
         
         return no_plug
     }
@@ -68,25 +60,11 @@ class ContextChecker {
 /** Check for tasks that get passed off to BackgroundSensor */
 extension ContextChecker {
     
-    /** Finds actions that have a location delay */
-    func hasLocationDelay(_ h_actions: [HabitAction], for loc: String) -> [HabitAction] {
-        return h_actions.filter({ ha in
-            return legalLocation(ha, loc: loc) && hasLocationDelay(ha)
-        })
-    }
-    
     /** Finds actions that have plug context with or w/o delay */
-    func hasPlug(_ h_actions: [HabitAction], at loc: String, withDelay: Bool) -> [HabitAction] {
-        let plugs = h_actions.filter({ ha in
+    func hasPlug(_ h_actions: [HabitAction], at loc: String) -> [HabitAction] {
+        return h_actions.filter({ ha in
             return legalLocation(ha, loc: loc) && hasPlugContext(ha)
         })
-        
-        return withDelay ?
-            plugs.filter({ ha in
-                hasPlugDelay(ha)
-            }) : plugs.filter({ ha in
-                !hasPlugDelay(ha)
-            })
     }
 }
 
@@ -124,14 +102,6 @@ extension ContextChecker {
     
     func hasPlugContext(_ h_action: HabitAction) -> Bool {
         return h_action.context.plug.plug_unplug != .ignore
-    }
-    
-    func hasPlugDelay(_ h_action: HabitAction) -> Bool {
-        return h_action.context.plug.delay > 0
-    }
-    
-    func hasLocationDelay(_ h_action: HabitAction) -> Bool {
-        return h_action.context.location.delay > 0
     }
 }
 
