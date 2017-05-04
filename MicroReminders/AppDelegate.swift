@@ -44,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
                 print("sensing")
                 FIRDatabase.database().reference().child("log").child("\(Int(Date().timeIntervalSince1970))").setValue("sensing_\(self.bgTask)")
                 Thread.sleep(forTimeInterval: 1)
-            
-                self.jobExpired = false
             }
+            
+            self.jobExpired = false
         }
     }
     
