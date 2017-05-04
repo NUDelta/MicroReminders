@@ -26,7 +26,6 @@ function clear() {
 		.then(process.exit);
 }
 
-clear();
 populateBeacons();
 populateHabits();
 

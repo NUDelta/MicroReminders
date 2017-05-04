@@ -26,7 +26,7 @@ Note: test all of these with the app on the debugger, but also with the app term
 - Tapping "Not now" offers a text input, which logs as a decline_with_reason to Firebase
 - Both the above options are available via an alert if app is opened (notification tapped)
 
-#### Vanilla time/location
+#### Vanilla time/location - *Doneeeeeeeee*
 *Precondition*: a task with location L, with entering trigger, with time context that includes right now
 - "Enter" region L. Verify notification is thrown.
 - Modify time context to not include now. Enter region L. Verify notification is not thrown.

@@ -9,16 +9,16 @@ module.exports = {
         "DTR harder": {
             "Plan my sprint": {
                 "time_of_day": {
-                    "before": 93600,
-                    "after": 21600
+                    "before": 86400,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "zelda",
                     "enter_exit": 1,
-                    "delay": 0.2
+                    "delay": 0
                 },
                 "plug": {
-                    "plug_unplug": 0,
+                    "plug_unplug": 1,
                     "delay": 0,
                 },
                 "prev_interactions": {
@@ -40,8 +40,8 @@ module.exports = {
         "Breathe more": {
             "Close the laptop": {
                 "time_of_day": {
-                    "before": 93600,
-                    "after": 21600
+                    "before": 86400,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "zelda",
@@ -124,8 +124,8 @@ module.exports = {
             },
             "Go get a glass of water": { // living room for 30 minutes, any time of day
                 "time_of_day": {
-                    "before": 93600,
-                    "after": 21600
+                    "before": 86400,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "living room",
@@ -153,7 +153,7 @@ module.exports = {
             },
             "Fill your ice tray with water": { // evening, in kitchen for 10 min
                 "time_of_day": {
-                    "before": 93600,
+                    "before": 86400,
                     "after": 61200
                 },
                 "location": {
@@ -217,7 +217,7 @@ module.exports = {
             "Put Wuthering Heights in your backback": { // early morning, bedroom, 5min after unplug phone
                 "time_of_day": {
                     "before": 36000,
-                    "after": 21600
+                    "after": 0
                 },
                 "location": {
                     "region_name": "bedroom",
@@ -251,7 +251,7 @@ module.exports = {
             "Make your bed": {
                 "time_of_day": {
                     "before": 39600,
-                    "after": 21600
+                    "after": 0
                 },
                 "location": {
                     "region_name": "bedroom",
@@ -279,7 +279,7 @@ module.exports = {
             },
             "Put clothes on the floor into your hamper": { // late night, plug in phone, in bedroom
                 "time_of_day": {
-                    "before": 93600,
+                    "before": 86400,
                     "after": 79200
                 },
                 "location": {
@@ -308,8 +308,8 @@ module.exports = {
             },
             "Pick up your scattered papers": { // 11am-8pm, entering bedroom
                 "time_of_day": {
-                    "before": 72000.0,
-                    "after": 39600.0
+                    "before": 72000,
+                    "after": 39600
                 },
                 "location": {
                     "region_name": "bedroom",
@@ -342,8 +342,8 @@ module.exports = {
         "Be more mindful of my consumption": { // 9pm-12am, enter kitchen
             "Pack some healthy snacks": {
                 "time_of_day": {
-                    "before": 86400.0,
-                    "after": 75600.0
+                    "before": 86400,
+                    "after": 75600
                 },
                 "location": {
                     "region_name": "kitchen",
@@ -371,8 +371,8 @@ module.exports = {
             },
             "Fill up my water bottle": { // morning, in kitchen for 3min
                 "time_of_day": {
-                    "before": 43200.0,
-                    "after": 21600.0
+                    "before": 43200,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "kitchen",
@@ -400,8 +400,8 @@ module.exports = {
             },
             "Check what food you already have": { // 5-9pm, enter kitchen
                 "time_of_day": {
-                    "before": 75600.0,
-                    "after": 61200.0
+                    "before": 75600,
+                    "after": 61200
                 },
                 "location": {
                     "region_name": "kitchen",
@@ -434,8 +434,8 @@ module.exports = {
         "Put my clothing away": {
             "Fold the clothes you tried on and threw down": { // morning, in bedroom for 12min
                 "time_of_day": {
-                    "before": 39600.0,
-                    "after": 21600.0
+                    "before": 39600,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "bedroom",
@@ -463,8 +463,8 @@ module.exports = {
             },
             "Hang up your jacket and align your shoes": { // evening, enter apartment (entryway)
                 "time_of_day": {
-                    "before": 93600.0,
-                    "after": 72000.0
+                    "before": 86400,
+                    "after": 72000
                 },
                 "location": {
                     "region_name": "entryway",
@@ -492,8 +492,8 @@ module.exports = {
             },
             "Remove your clothes from the common room": { // 12-8pm, enter living room
                 "time_of_day": {
-                    "before": 72000.0,
-                    "after": 43200.0
+                    "before": 72000,
+                    "after": 43200
                 },
                 "location": {
                     "region_name": "living room",
@@ -526,8 +526,8 @@ module.exports = {
         "Floss more regularly": {
             "Floss your back teeth": { // morning, [after phone unplugged?], enter bathroom
                 "time_of_day": {
-                    "before": 36000.0,
-                    "after": 21600.0
+                    "before": 36000,
+                    "after": 0
                 },
                 "location": {
                     "region_name": "bathroom",
@@ -557,8 +557,8 @@ module.exports = {
         "Call my parents more regularly": {
             "Punch in your parent's phone number": { // evening time, leaving house
                 "time_of_day": {
-                    "before": 77400.0,
-                    "after": 54000.0
+                    "before": 77400,
+                    "after": 54000
                 },
                 "location": {
                     "region_name": "whole house",

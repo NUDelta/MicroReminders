@@ -13,7 +13,9 @@ import NotificationCenter
 class BackgroundSensor {
     
     fileprivate var bgTimer: Timer? = Timer()
+    fileprivate var bgDelayTimer: Timer? = Timer()
     fileprivate var delayTimers: [HabitAction: Timer] = [:]
+    
     
     
     /*-------------------------------------------------------------*/
@@ -22,11 +24,13 @@ class BackgroundSensor {
         
         h_actions.forEach({ ha in
             let delay = ha.context.location.delay * 60
-            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
-                self.delayTimers.removeValue(forKey: ha)
-                handler(ha)
-            })
-            self.delayTimers.updateValue(timer, forKey: ha)
+            if (self.delayTimers[ha] == nil) {
+                let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
+                    self.delayTimers.removeValue(forKey: ha)
+                    handler(ha)
+                })
+                self.delayTimers.updateValue(timer, forKey: ha)
+            }
         })
         
         /* Keep the app alive to wait */
@@ -112,11 +116,13 @@ class BackgroundSensor {
         h_actions.forEach({ ha in
             let delay = Double(ha.context.plug.delay) * 60.0
             
-            let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
-                self.delayTimers.removeValue(forKey: ha)
-                self.delPlugHandler(ha)
-            })
-            self.delayTimers.updateValue(timer, forKey: ha)
+            if (self.delayTimers[ha] == nil) {
+                let timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in
+                    self.delayTimers.removeValue(forKey: ha)
+                    self.delPlugHandler(ha)
+                })
+                self.delayTimers.updateValue(timer, forKey: ha)
+            }
         })
     }
 }
@@ -135,7 +141,7 @@ extension BackgroundSensor {
         startBGTask()
     }
     
-    fileprivate func startBGTask() {
+    @objc fileprivate func startBGTask() {
         print("Started background sensing...")
         
         if (bgTimer != nil) { // If we already have a background task running
@@ -145,8 +151,9 @@ extension BackgroundSensor {
         let bgTask = BackgroundTaskManager.shared()
         bgTask?.beginNewBackgroundTask()
         
+        let intervalLength = 10.0
+        
         // Invalidate and recreate the background task, to give it new life
-        let intervalLength = 60.0
         bgTimer = Timer.scheduledTimer(timeInterval: intervalLength, target: self, selector: #selector(self.restart), userInfo: nil, repeats: false)
     }
 }

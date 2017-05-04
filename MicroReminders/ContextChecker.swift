@@ -140,12 +140,9 @@ extension ContextChecker {
     fileprivate func offsetIntoTodayInSeconds() -> Int {
         let cal = Calendar.current
         
-        let twoAM = 2 * 60 * 60
-        let twentyFourHours = 24 * 60 * 60
-        
         let seconds = Int(Date().timeIntervalSince(cal.startOfDay(for: Date())))
         
-        return seconds < twoAM ? seconds + twentyFourHours : seconds
+        return seconds
     }
     
     fileprivate func timeSince1970InSeconds() -> Int {
