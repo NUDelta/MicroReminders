@@ -34,12 +34,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
     /* ------ */
     /* Keep app alive in background */
     
+    var background: Bool = false
     var jobExpired: Bool = false
     var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     
+    func senseInBackground() {
+        print("Sensing in background")
+        FIRDatabase.database().reference().child("bg").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
+        
+        self.background = true
+        self.startBackgroundTask()
+    }
+    
     func startBackgroundTask() {
         DispatchQueue.global().async {
-            while(!self.jobExpired) {
+            while(self.background && !self.jobExpired) {
                 // Do a check
                 print("sensing")
                 FIRDatabase.database().reference().child("sensing").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
@@ -73,13 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)
     
-        return true
-    }
-
-    /* ------ */
-    /* Keep app alive */
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        
+        /* ---------------- */
+        /** Keep app alive in the background */
         func expirationHandler() {
             print("killing")
             FIRDatabase.database().reference().child("killing").child("\(Int(Date().timeIntervalSince1970 * 10000))").setValue(self.bgTask)
@@ -101,6 +105,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         }
         
         application.beginBackgroundTask(expirationHandler: expirationHandler)
+        
+        self.senseInBackground()
+        /* ---------------- */
+        
+        
+        return true
+    }
+
+    /* ------ */
+    /* Keep app alive */
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        
+        
         self.startBackgroundTask()
     }
 
