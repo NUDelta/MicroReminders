@@ -12,7 +12,7 @@ import Firebase
 class UserConfig {
     static let shared: UserConfig = UserConfig()
     
-    let userKey: String = "delta"
+    let userKey: String = "yk"
     
     private init() {}
 }
