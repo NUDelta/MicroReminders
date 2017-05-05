@@ -47,7 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         setUpNotificationActions()
         
         self.beaconManager.delegate = self
-        self.beaconManager.requestAlwaysAuthorization() // Get location permissions
+        
+        /* Get location permissions */
+        MyPretracker.sharedManager.getAuthorizationForLocationManager()
+        self.beaconManager.requestAlwaysAuthorization()
         
         beaconManager.stopMonitoringForAllRegions()
         Beacons.shared.listenToBeaconRegions(beaconManager: beaconManager)

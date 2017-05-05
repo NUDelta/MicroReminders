@@ -13,6 +13,7 @@
 		D93432D01EB6B7F9001DFD36 /* NotificationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432CF1EB6B7F9001DFD36 /* NotificationBrain.swift */; };
 		D93432D21EB6B92C001DFD36 /* BackgroundSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93432D11EB6B92C001DFD36 /* BackgroundSensor.swift */; };
 		D93432D51EB77D92001DFD36 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D93432D41EB77D92001DFD36 /* BackgroundTaskManager.m */; };
+		D948F7E61EBC17CF00B8FF86 /* Pretracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D948F7E51EBC17CF00B8FF86 /* Pretracker.swift */; };
 		D95EAD741EA6C32100F5DD26 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95EAD731EA6C32100F5DD26 /* UserConfig.swift */; };
 		D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D19941EA8195A00401DD5 /* MockViewController.swift */; };
 		D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D989E4661EA4886200BA202F /* HabitActionCell.swift */; };
@@ -40,6 +41,7 @@
 		D93432D41EB77D92001DFD36 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		D93432D61EB77DBE001DFD36 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
 		D93CB7981CC5372D00F8C73B /* MicroReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D948F7E51EBC17CF00B8FF86 /* Pretracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pretracker.swift; sourceTree = "<group>"; };
 		D95EAD731EA6C32100F5DD26 /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		D97D19941EA8195A00401DD5 /* MockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
 		D989E4661EA4886200BA202F /* HabitActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitActionCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -96,6 +98,7 @@
 				D9E588961CC538650084D7E7 /* ObjCBridge.h */,
 				D93432D41EB77D92001DFD36 /* BackgroundTaskManager.m */,
 				D93432D61EB77DBE001DFD36 /* BackgroundTaskManager.h */,
+				D948F7E51EBC17CF00B8FF86 /* Pretracker.swift */,
 			);
 			name = "Supporting files";
 			sourceTree = "<group>";
@@ -212,6 +215,11 @@
 						DevelopmentTeam = W4E2C6X642;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -304,6 +312,7 @@
 				D989E4681EA4886200BA202F /* HabitActionCell.swift in Sources */,
 				D9BF349B1E36CCCC00650041 /* NumberTimeFormatter.swift in Sources */,
 				D9E068341EB2AB52004DBADF /* Context.swift in Sources */,
+				D948F7E61EBC17CF00B8FF86 /* Pretracker.swift in Sources */,
 				D97D19951EA8195A00401DD5 /* MockViewController.swift in Sources */,
 				D989E4691EA4886200BA202F /* HabitList.swift in Sources */,
 				D91A10EB1EB3689500025835 /* NotificationHandler.swift in Sources */,

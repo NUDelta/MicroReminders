@@ -11,9 +11,7 @@ import NotificationCenter
 
 /** Context sense in the background */
 class BackgroundSensor {
-    
-    fileprivate var bgTimer: Timer? = Timer()
-    fileprivate var bgDelayTimer: Timer? = Timer()
+
     fileprivate var delayTimers: [HabitAction: Timer] = [:]
     
     
@@ -32,9 +30,6 @@ class BackgroundSensor {
                 self.delayTimers.updateValue(timer, forKey: ha)
             }
         })
-        
-        /* Keep the app alive to wait */
-        startBGTask()
     }
     
     
@@ -51,9 +46,6 @@ class BackgroundSensor {
         
         NotificationCenter.default
             .addObserver(self, selector: #selector(handlePlugEventImm), name: .UIDeviceBatteryStateDidChange, object: nil)
-        
-        /* Keep the app alive to listen */
-        self.startBGTask()
     }
     
     @objc fileprivate func handlePlugEventImm() {
@@ -88,9 +80,6 @@ class BackgroundSensor {
         
         NotificationCenter.default
             .addObserver(self, selector: #selector(handlePlugEventDel), name: .UIDeviceBatteryStateDidChange, object: nil)
-        
-        /* Keep the app alive to listen and wait */
-        self.startBGTask()
     }
     
     @objc fileprivate func handlePlugEventDel() {
@@ -124,36 +113,5 @@ class BackgroundSensor {
                 self.delayTimers.updateValue(timer, forKey: ha)
             }
         })
-    }
-}
-
-/** Keep the app alive in the background indefinitely */
-extension BackgroundSensor {
-    
-    @objc fileprivate func restart() {
-        print("Restarted background timer...")
-        
-        if (bgTimer != nil) {
-            bgTimer!.invalidate()
-            bgTimer = nil
-        }
-        
-        startBGTask()
-    }
-    
-    @objc fileprivate func startBGTask() {
-        print("Started background sensing...")
-        
-        if (bgTimer != nil) { // If we already have a background task running
-            return
-        }
-        
-        let bgTask = BackgroundTaskManager.shared()
-        bgTask?.beginNewBackgroundTask()
-        
-        let intervalLength = 10.0
-        
-        // Invalidate and recreate the background task, to give it new life
-        bgTimer = Timer.scheduledTimer(timeInterval: intervalLength, target: self, selector: #selector(self.restart), userInfo: nil, repeats: false)
     }
 }

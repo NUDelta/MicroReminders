@@ -3,15 +3,16 @@ module.exports = {
     "delta": {
         56913: "zelda"
     },
+    
     // YK - testing
     "yk": {
         59582: "romeo",
         39192: "whiskey"
     },
-    // Kap - testing
-    "kap": {
-        59582: "romeo",
-        39192: "whiskey"
+    
+    // Jennie - testing
+    "bay": {
+        47397: "zinnia"
     },
     
     /** Real users from here on */
@@ -22,10 +23,10 @@ module.exports = {
         8888: "narnia"
     },
     "spock": {
-			41424: "bedroom"
+        41424: "bedroom"
     },
     "gin": {
-			12345: "kitchen"
+        12345: "kitchen"
     },
     "neighbor": {
         8888: "narnia"
