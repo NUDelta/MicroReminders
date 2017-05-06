@@ -16,6 +16,18 @@ class Habits {
     
     var habits: [(String, [HabitAction])]?
     
+    private init() {
+        listenToHabits(then: {_ in print("Initialized habits...") })
+    }
+    
+    private func listenToHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
+        Habits.habitRef.removeAllObservers()
+        Habits.habitRef.observe(.value, with: { snapshot in
+            self.habits = Habits.extractHabits(snapshot)
+            handler(self.habits!)
+        })
+    }
+    
     static func getHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
         if let habits = Habits.sharedInstance.habits {
             handler(habits)
@@ -23,10 +35,6 @@ class Habits {
         else {
             Habits.sharedInstance.queryHabits(then: handler)
         }
-    }
-    
-    private init() {
-        queryHabits(then: {_ in print("Initialized habits...") })
     }
     
     private func queryHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {

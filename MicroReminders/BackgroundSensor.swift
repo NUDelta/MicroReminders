@@ -56,10 +56,13 @@ class BackgroundSensor {
         case .charging:
             avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .plug })
             break
+        case .full:
+            avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .plug })
+            break
         case .unplugged:
             avail = self.waitingForPlugImm.filter({ ha in ha.context.plug.plug_unplug == .unplug })
             break
-        default:
+        case .unknown:
             break
         }
         
