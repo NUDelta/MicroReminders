@@ -37,6 +37,9 @@ class Habits {
                 var h_actions = [HabitAction]()
                 
                 for (description, context) in actions {
+                    /* Plain-text description */
+                    let english = context["english"] as! String
+                    
                     /* Location context */
                     let loc = context["location"]! as! [String: Any]
                     let lc = LocationContext(
@@ -74,7 +77,7 @@ class Habits {
                     let prev = PreviousInteractionsContext(accepted: acc, declined: dec, thrown: thr)
                     
                     /* Put it all together */
-                    let _context = Context(location: lc, plug: pc, time: tod, prev: prev)
+                    let _context = Context(english: english, location: lc, plug: pc, time: tod, prev: prev)
                     let h_action = HabitAction(description, habit: habit, context: _context)
                     
                     h_actions.append(h_action)

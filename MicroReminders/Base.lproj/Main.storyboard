@@ -75,7 +75,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ymb-tl-0CY" id="QQl-Ik-4ON">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="96.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="HabitAction" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgb-ln-6m6">
@@ -84,7 +84,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Location" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N40-Hc-Zba">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="English" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N40-Hc-Zba">
                                             <rect key="frame" x="8" y="44.5" width="351" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="RqK-eP-9lO"/>
@@ -93,33 +93,20 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time range" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZl-om-whz">
-                                            <rect key="frame" x="8" y="62.5" width="351" height="18"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="18" id="c6y-xk-sKU"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="TZl-om-whz" secondAttribute="trailing" constant="8" id="0AO-pF-qlJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="TZl-om-whz" secondAttribute="bottom" constant="8" id="3vQ-78-vLr"/>
-                                        <constraint firstItem="TZl-om-whz" firstAttribute="top" secondItem="N40-Hc-Zba" secondAttribute="bottom" id="48i-Td-EhZ"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="N40-Hc-Zba" secondAttribute="leading" id="4Ab-K2-cj5"/>
                                         <constraint firstAttribute="topMargin" secondItem="Qgb-ln-6m6" secondAttribute="top" constant="-8" id="7wX-SF-IfR"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="N40-Hc-Zba" secondAttribute="bottom" constant="26" id="8b3-7K-Mpg"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="Qgb-ln-6m6" secondAttribute="leading" id="E4d-nT-hdY"/>
                                         <constraint firstItem="N40-Hc-Zba" firstAttribute="top" secondItem="Qgb-ln-6m6" secondAttribute="bottom" constant="8" symbolic="YES" id="RgI-sd-wG7"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="TZl-om-whz" secondAttribute="leading" id="Uoy-NR-jjc"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Qgb-ln-6m6" secondAttribute="trailing" id="Wob-j4-G6j"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="N40-Hc-Zba" secondAttribute="trailing" constant="8" id="qqC-5O-ooL"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="location" destination="N40-Hc-Zba" id="B4f-qT-UFQ"/>
+                                    <outlet property="english" destination="N40-Hc-Zba" id="9hh-TF-NkE"/>
                                     <outlet property="taskName" destination="Qgb-ln-6m6" id="BRE-t5-OFq"/>
-                                    <outlet property="timeRange" destination="TZl-om-whz" id="FtM-SU-ELf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

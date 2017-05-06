@@ -80,12 +80,14 @@ struct PreviousInteractionsContext {
 }
 
 struct Context {
+    let english: String // Plain-text description of the context
     let location: LocationContext
     let plug: PlugContext
     let time: TimeOfDayContext
     let prev: PreviousInteractionsContext
     
-    init(location: LocationContext, plug: PlugContext, time: TimeOfDayContext, prev: PreviousInteractionsContext) {
+    init(english: String, location: LocationContext, plug: PlugContext, time: TimeOfDayContext, prev: PreviousInteractionsContext) {
+        self.english = english
         self.location = location
         self.plug = plug
         self.time = time

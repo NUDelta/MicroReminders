@@ -61,13 +61,8 @@ extension HabitList {
         
         let h_action = habits[indexPath.section].tasks[indexPath.row]
     
-        cell.h_action = h_action
-        cell.tableViewController = self
         cell.taskName.text = h_action.description
-        
-        cell.location.text = "Haven't finished this yet"
-        
-        cell.timeRange.text = "Probably use the NumberTimeFormatter for this eventually"
+        cell.english.text = h_action.context.english
         
         return cell
     }

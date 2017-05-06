@@ -8,14 +8,15 @@ module.exports = {
     {
         "DTR harder": {
             "Plan my sprint": {
+                "english": "When I enter Zelda, late",
                 "time_of_day": {
                     "before": 86400,
-                    "after": 0
+                    "after": 80000,
                 },
                 "location": {
                     "region_name": "zelda",
                     "enter_exit": 1,
-                    "delay": 0.2
+                    "delay": 0
                 },
                 "plug": {
                     "plug_unplug": 0,
@@ -39,6 +40,7 @@ module.exports = {
         },
         "Breathe more": {
             "Close the laptop": {
+                "english": "dongle",
                 "time_of_day": {
                     "before": 86400,
                     "after": 0
@@ -74,6 +76,7 @@ module.exports = {
     {
         "Be healthier in body and spirit": {
             "Pray for 30 seconds": {
+                "english": "One minute after I enter Whiskey, at any time of day.",
                 "time_of_day": {
                     "before": 86400,
                     "after": 0
@@ -103,6 +106,7 @@ module.exports = {
                 }
             },
             "Drink a drop of water from the fountain": {
+                "english": "When I enter romeo, at any time of day",
                 "time_of_day": {
                     "before": 86400,
                     "after": 0
@@ -134,74 +138,12 @@ module.exports = {
         }
     },
 
-    "bay": {
-        "Be more ready for class": {
-            "Charge my laptop overnight": {
-                "time_of_day": {
-                    "before": 86400,
-                    "after": 0
-                },
-                "location": {
-                    "region_name": "zinnia",
-                    "enter_exit": 1,
-                    "delay": 0
-                },
-                "plug": {
-                    "plug_unplug": -1,
-                    "delay": 0.1,
-                },
-                "prev_interactions": {
-                    "thrown": {
-                        "thresh_since_last": 20,
-                        "last": 0
-                    },
-                    "accepted": {
-                        "thresh_since_last": 100,
-                        "last": 0
-                    },
-                    "declined": {
-                        "thresh_since_last": 100,
-                        "last": 0
-                    }
-                }
-            },
-            "Put notebooks in my backpack": {
-                "time_of_day": {
-                    "before": 86400,
-                    "after": 0
-                },
-                "location": {
-                    "region_name": "zinnia",
-                    "enter_exit": 1,
-                    "delay": 1
-                },
-                "plug": {
-                    "plug_unplug": 0,
-                    "delay": 0,
-                },
-                "prev_interactions": {
-                    "thrown": {
-                        "thresh_since_last": 30,
-                        "last": 0
-                    },
-                    "accepted": {
-                        "thresh_since_last": 100,
-                        "last": 0
-                    },
-                    "declined": {
-                        "thresh_since_last": 100,
-                        "last": 0
-                    }
-                }
-            }
-        }
-    },
-
     /** Real users from here on out */
     "beard":
     {
         "Drink water more consistently": {
             "Fill your water bottle": { // morning, enter kitchen, as he's leaving home
+                "english": "In the morning, when I enter the kitchen",
                 "time_of_day": {
                     "before": 45000,
                     "after": 28800
@@ -231,6 +173,7 @@ module.exports = {
                 }
             },
             "Go get a glass of water": { // living room for 30 minutes, any time of day
+                "english": "When I've been in the living room for a few minutes",
                 "time_of_day": {
                     "before": 86400,
                     "after": 0
@@ -238,7 +181,7 @@ module.exports = {
                 "location": {
                     "region_name": "living room",
                     "enter_exit": 1,
-                    "delay": 30
+                    "delay": 3
                 },
                 "plug": {
                     "plug_unplug": 0,
@@ -260,6 +203,7 @@ module.exports = {
                 }
             },
             "Fill your ice tray with water": { // evening, in kitchen for 10 min
+                "english": "In the evening, when I've been in the kitchen for a few minutes",
                 "time_of_day": {
                     "before": 86400,
                     "after": 61200
@@ -267,7 +211,7 @@ module.exports = {
                 "location": {
                     "region_name": "kitchen",
                     "enter_exit": 1,
-                    "delay": 10,
+                    "delay": 3,
                 },
                 "plug": {
                     "plug_unplug": 0,
@@ -294,6 +238,7 @@ module.exports = {
     {
         "Read more consistently": {
             "Read a page of Wuthering Heights": { // late night, enter bedroom
+                "english": "Late at night, when I enter my bedroom",
                 "time_of_day": {
                     "before": 81900,
                     "after": 79200
@@ -323,6 +268,7 @@ module.exports = {
                 }
             },
             "Put Wuthering Heights in your backback": { // early morning, bedroom, 5min after unplug phone
+                "english": "Early morning, a few minutes after I wake up and unplug my phone",
                 "time_of_day": {
                     "before": 36000,
                     "after": 0
@@ -334,7 +280,7 @@ module.exports = {
                 },
                 "plug": {
                     "plug_unplug": -1,
-                    "delay": 5,
+                    "delay": 1.5,
                 },
                 "prev_interactions": {
                     "thrown": {
@@ -357,6 +303,7 @@ module.exports = {
     {
         "Keep a tidier bedroom": { // early morning, when phone unplugged, in bedroom
             "Make your bed": {
+                "english": "Early morning, just after I unplug my phone",
                 "time_of_day": {
                     "before": 39600,
                     "after": 0
@@ -386,6 +333,7 @@ module.exports = {
                 }
             },
             "Put clothes on the floor into your hamper": { // late night, plug in phone, in bedroom
+                "english": "Late at night, when I'm going to bed and plug in my phone",
                 "time_of_day": {
                     "before": 86400,
                     "after": 79200
@@ -415,6 +363,7 @@ module.exports = {
                 }
             },
             "Pick up your scattered papers": { // 11am-8pm, entering bedroom
+                "english": "During the day, when I enter my bedroom",
                 "time_of_day": {
                     "before": 72000,
                     "after": 39600
@@ -449,6 +398,7 @@ module.exports = {
     {
         "Be more mindful of my consumption": { // 9pm-12am, enter kitchen
             "Pack some healthy snacks": {
+                "english": "Late at night, when I enter the kitchen",
                 "time_of_day": {
                     "before": 86400,
                     "after": 75600
@@ -478,6 +428,7 @@ module.exports = {
                 }
             },
             "Fill up my water bottle": { // morning, in kitchen for 3min
+                "english": "Early morning, when I've been in the kitchen for a few minutes",
                 "time_of_day": {
                     "before": 43200,
                     "after": 0
@@ -485,7 +436,7 @@ module.exports = {
                 "location": {
                     "region_name": "kitchen",
                     "enter_exit": 1,
-                    "delay": 3
+                    "delay": 1.5
                 },
                 "plug": {
                     "plug_unplug": 0,
@@ -507,6 +458,7 @@ module.exports = {
                 }
             },
             "Check what food you already have": { // 5-9pm, enter kitchen
+                "english": "Evening, when I enter my kitchen",
                 "time_of_day": {
                     "before": 75600,
                     "after": 61200
@@ -541,6 +493,7 @@ module.exports = {
     {
         "Put my clothing away": {
             "Fold the clothes you tried on and threw down": { // morning, in bedroom for 12min
+                "english": "In the morning, when I've been in my bedroom for a few minutes",
                 "time_of_day": {
                     "before": 39600,
                     "after": 0
@@ -548,7 +501,7 @@ module.exports = {
                 "location": {
                     "region_name": "bedroom",
                     "enter_exit": 1,
-                    "delay": 12
+                    "delay": 3
                 },
                 "plug": {
                     "plug_unplug": 0,
@@ -570,6 +523,7 @@ module.exports = {
                 }
             },
             "Hang up your jacket and align your shoes": { // evening, enter apartment (entryway)
+                "english": "In the evening, when I enter my apartment",
                 "time_of_day": {
                     "before": 86400,
                     "after": 72000
@@ -599,6 +553,7 @@ module.exports = {
                 }
             },
             "Remove your clothes from the common room": { // 12-8pm, enter living room
+                "english": "During the day, when I enter the living room",
                 "time_of_day": {
                     "before": 72000,
                     "after": 43200
@@ -633,6 +588,7 @@ module.exports = {
     {
         "Floss more regularly": {
             "Floss your back teeth": { // morning, [after phone unplugged?], enter bathroom
+                "english": "Early in the morning, when I enter the bathroom",
                 "time_of_day": {
                     "before": 36000,
                     "after": 0
@@ -664,6 +620,7 @@ module.exports = {
         },
         "Call my parents more regularly": {
             "Punch in your parent's phone number": { // evening time, leaving house
+                "english": "Evening, when I leave the house",
                 "time_of_day": {
                     "before": 77400,
                     "after": 54000

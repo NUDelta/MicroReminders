@@ -11,12 +11,7 @@ import UIKit
 class HabitActionCell: UITableViewCell {
     
     @IBOutlet weak var taskName: UILabel!
-    @IBOutlet weak var location: UILabel!
-    @IBOutlet weak var timeRange: UILabel!
-    
-    var tableViewController: HabitList! = nil
- 
-    var h_action: HabitAction! = nil
+    @IBOutlet weak var english: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
