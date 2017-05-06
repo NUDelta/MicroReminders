@@ -14,33 +14,16 @@ class Habits {
     private static let userKey = UserConfig.shared.userKey
     private static let habitRef = FIRDatabase.database().reference().child("Habits/\(userKey)")
     
-    var habits: [(String, [HabitAction])]?
-    
-    private init() {
-        listenToHabits(then: {_ in print("Initialized habits...") })
-    }
-    
-    private func listenToHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
-        Habits.habitRef.removeAllObservers()
-        Habits.habitRef.observe(.value, with: { snapshot in
-            self.habits = Habits.extractHabits(snapshot)
-            handler(self.habits!)
-        })
-    }
+    private init() {}
     
     static func getHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
-        if let habits = Habits.sharedInstance.habits {
-            handler(habits)
-        }
-        else {
-            Habits.sharedInstance.queryHabits(then: handler)
-        }
+        Habits.sharedInstance.queryHabits(then: handler)
     }
     
     private func queryHabits(then handler: @escaping ([(String, [HabitAction])]) -> Void) {
         Habits.habitRef.observeSingleEvent(of: .value, with: {snapshot in
-            self.habits = Habits.extractHabits(snapshot)
-            handler(self.habits!)
+            let habits = Habits.extractHabits(snapshot)
+            handler(habits)
         })
     }
     
@@ -77,22 +60,22 @@ class Habits {
                     )
                     
                     /* Previous interaction context */
-                    let _prev = context["prev_interactions"] as! [String: [String: Double]]
+                    let _prev = context["prev_interactions"] as! [String: [String: Any]]
                     
                     let _acc = _prev["accepted"]!
-                    let acc = ReminderInteraction(type: .accepted, last: Int(_acc["last"]!), thresh_since_last: _acc["thresh_since_last"]!)
+                    let acc = ReminderInteraction(type: .accepted, last: _acc["last"] as! Int, thresh_since_last: _acc["thresh_since_last"] as! Double)
                     
                     let _dec = _prev["declined"]!
-                    let dec = ReminderInteraction(type: .declined, last: Int(_dec["last"]!), thresh_since_last: _dec["thresh_since_last"]!)
+                    let dec = ReminderInteraction(type: .declined, last: _dec["last"] as! Int, thresh_since_last: _dec["thresh_since_last"] as! Double)
                     
                     let _thr = _prev["thrown"]!
-                    let thr = ReminderInteraction(type: .thrown, last: Int(_thr["last"]!), thresh_since_last: _thr["thresh_since_last"]!)
+                    let thr = ReminderInteraction(type: .thrown, last: _thr["last"] as! Int, thresh_since_last: _thr["thresh_since_last"] as! Double)
                     
                     let prev = PreviousInteractionsContext(accepted: acc, declined: dec, thrown: thr)
                     
                     /* Put it all together */
-                    let context = Context(location: lc, plug: pc, time: tod, prev: prev)
-                    let h_action = HabitAction(description, habit: habit, context: context)
+                    let _context = Context(location: lc, plug: pc, time: tod, prev: prev)
+                    let h_action = HabitAction(description, habit: habit, context: _context)
                     
                     h_actions.append(h_action)
                 }
