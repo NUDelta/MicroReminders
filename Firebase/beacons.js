@@ -4,34 +4,32 @@ module.exports = {
         56913: "zelda"
     },
     
-    // YK - testing
-    "yk": {
-        59582: "romeo",
-        39192: "whiskey"
-    },
-    
-    // Jennie - testing
-    "bay": {
-        47397: "zinnia"
-    },
-    
     /** Real users from here on */
     "beard": {
-        8888: "narnia"
+        62318: "kitchen", // uniform
+        53805: "living_room" // bravo
     },
+
     "indy": {
-        8888: "narnia"
+        47397: "bedroom" // zinnia
     },
+
     "spock": {
-        41424: "bedroom"
+        46832: "bedroom" // november
     },
+
     "gin": {
-        12345: "kitchen"
+        12345: "kitchen" // lima
     },
-    "neighbor": {
-        8888: "narnia"
+
+    "union": {
+        39192: "bedroom", // whiskey
+        40668: "whole_apartment", // charlie
+        41424: "living_room" // hotel
     },
+
     "gyoza": {
-        8888: "narnia"
+        1471: "bathroom", // xray
+        57931: "whole_apartment" // mike
     }
 }

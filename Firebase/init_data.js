@@ -26,8 +26,8 @@ function clear() {
 		.then(process.exit);
 }
 
-populateBeacons();
-populateHabits();
+// populateBeacons();
+// populateHabits();
 
 // let util = require('util');
 // console.log(util.inspect(goalsAndHabitsWithUUIDs(habits), false, null));

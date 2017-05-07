@@ -9,5 +9,5 @@ function clear() {
 		.then(process.exit);
 }
 
-clear();
+// clear();
 

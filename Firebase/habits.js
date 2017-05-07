@@ -72,72 +72,6 @@ module.exports = {
         }
     },
 
-    "yk":
-    {
-        "Be healthier in body and spirit": {
-            "Pray for 30 seconds": {
-                "english": "One minute after I enter Whiskey, at any time of day.",
-                "time_of_day": {
-                    "before": 86400,
-                    "after": 0
-                },
-                "location": {
-                    "region_name": "whiskey",
-                    "enter_exit": 1,
-                    "delay": 1
-                },
-                "plug": {
-                    "plug_unplug": 0,
-                    "delay": 0,
-                },
-                "prev_interactions": {
-                    "thrown": {
-                        "thresh_since_last": 10,
-                        "last": 0
-                    },
-                    "accepted": {
-                        "thresh_since_last": 10,
-                        "last": 0
-                    },
-                    "declined": {
-                        "thresh_since_last": 10,
-                        "last": 0
-                    }
-                }
-            },
-            "Drink a drop of water from the fountain": {
-                "english": "When I enter romeo, at any time of day",
-                "time_of_day": {
-                    "before": 86400,
-                    "after": 0
-                },
-                "location": {
-                    "region_name": "romeo",
-                    "enter_exit": 1,
-                    "delay": 0
-                },
-                "plug": {
-                    "plug_unplug": 0,
-                    "delay": 0,
-                },
-                "prev_interactions": {
-                    "thrown": {
-                        "thresh_since_last": 10,
-                        "last": 0
-                    },
-                    "accepted": {
-                        "thresh_since_last": 20,
-                        "last": 0
-                    },
-                    "declined": {
-                        "thresh_since_last": 20,
-                        "last": 0
-                    }
-                }
-            }
-        }
-    },
-
     /** Real users from here on out */
     "beard":
     {
@@ -159,7 +93,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 40,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -172,14 +106,14 @@ module.exports = {
                     }
                 }
             },
-            "Go get a glass of water": { // living room for 30 minutes, any time of day
+            "Go get a glass of water": { // living room for some minutes, any time of day
                 "english": "When I've been in the living room for a few minutes",
                 "time_of_day": {
                     "before": 86400,
                     "after": 0
                 },
                 "location": {
-                    "region_name": "living room",
+                    "region_name": "living_room",
                     "enter_exit": 1,
                     "delay": 3
                 },
@@ -189,7 +123,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 40,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -219,7 +153,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 40,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -234,6 +168,7 @@ module.exports = {
             }
         }
     },
+
     "indy":
     {
         "Read more consistently": {
@@ -267,7 +202,7 @@ module.exports = {
                     }
                 }
             },
-            "Put Wuthering Heights in your backback": { // early morning, bedroom, 5min after unplug phone
+            "Put Wuthering Heights in your backback": { // early morning, bedroom, some minutes after unplug phone
                 "english": "Early morning, a few minutes after I wake up and unplug my phone",
                 "time_of_day": {
                     "before": 36000,
@@ -299,6 +234,7 @@ module.exports = {
             }
         }
     },
+
     "spock":
     {
         "Keep a tidier bedroom": { // early morning, when phone unplugged, in bedroom
@@ -394,6 +330,7 @@ module.exports = {
             }
         }
     },
+
     "gin":
     {
         "Be more mindful of my consumption": { // 9pm-12am, enter kitchen
@@ -414,7 +351,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 30,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -444,7 +381,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 30,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -474,7 +411,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 30,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -489,7 +426,8 @@ module.exports = {
             }
         }
     },
-    "neighbor":
+
+    "union":
     {
         "Put my clothing away": {
             "Fold the clothes you tried on and threw down": { // morning, in bedroom for 12min
@@ -509,7 +447,7 @@ module.exports = {
                 },
                 "prev_interactions": {
                     "thrown": {
-                        "thresh_since_last": 30,
+                        "thresh_since_last": 45,
                         "last": 0
                     },
                     "accepted": {
@@ -529,7 +467,7 @@ module.exports = {
                     "after": 72000
                 },
                 "location": {
-                    "region_name": "entryway",
+                    "region_name": "whole_apartment",
                     "enter_exit": 1,
                     "delay": 0
                 },
@@ -559,7 +497,7 @@ module.exports = {
                     "after": 43200
                 },
                 "location": {
-                    "region_name": "living room",
+                    "region_name": "living_room",
                     "enter_exit": 1,
                     "delay": 0
                 },
@@ -584,6 +522,7 @@ module.exports = {
             }
         }
     },
+
     "gyoza":
     {
         "Floss more regularly": {
@@ -626,7 +565,7 @@ module.exports = {
                     "after": 54000
                 },
                 "location": {
-                    "region_name": "whole house",
+                    "region_name": "whole_apartment",
                     "enter_exit": -1,
                     "delay": 0
                 },
