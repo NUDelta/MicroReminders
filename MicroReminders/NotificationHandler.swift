@@ -23,7 +23,7 @@ extension NotificationHandler {
         let content = UNMutableNotificationContent()
         content.title = h_action.description
         content.subtitle = ""
-        content.body = "Reminder to \(h_action.description.lowercased())!"
+        content.body = "\(h_action.habit)"
         
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "action_notification"
