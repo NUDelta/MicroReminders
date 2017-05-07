@@ -57,6 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate,
         
         return true
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        NotificationHandler.pleaseDontLetMeDie()
+    }
 
     /* Handle notification in app (received while in app) */
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

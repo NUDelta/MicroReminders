@@ -98,6 +98,27 @@ extension NotificationHandler {
     }
 }
 
+/** Send "Please don't kill me!" notification */
+extension NotificationHandler {
+    static func pleaseDontLetMeDie() {
+            
+        let content = UNMutableNotificationContent()
+        content.title = "Hey! MicroReminders is being killed..."
+        content.subtitle = ""
+        content.body = "MicroReminders needs to be open in the background to work - would you mind opening the app and leaving it in the background?"
+        
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "dontletmedie"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        
+        let requestIdentifier = "dying"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+}
+
 
 
 
