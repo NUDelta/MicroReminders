@@ -529,7 +529,7 @@ module.exports = {
             "Floss your back teeth": { // morning, [after phone unplugged?], enter bathroom
                 "english": "Early in the morning, when I enter the bathroom",
                 "time_of_day": {
-                    "before": 36000,
+                    "before": 43200,
                     "after": 0
                 },
                 "location": {

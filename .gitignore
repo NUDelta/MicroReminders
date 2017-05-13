@@ -38,3 +38,5 @@ node_modules
 # API Keys
 config.js
 
+# Archives
+archives
