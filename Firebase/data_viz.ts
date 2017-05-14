@@ -22,36 +22,48 @@ enum NotificationInteractionType {
 
 class NotificationInteraction {
 	timestamp: Date;
+	habit: string;
+	action: string;
 	kind: string;
 	declineText: string;
 
-	constructor(timestamp: Date, kind: string, declineText?: string) {
+	constructor(timestamp: Date, habit: string, action: string, kind: string, declineText?: string) {
 		this.timestamp = timestamp;
+		this.habit = habit;
+		this.action = action;
 		this.kind = kind;
 		if (declineText !== undefined)
 			this.declineText = declineText;
 	}
 
 	print(): string {
-		return "Notification: " + this.kind + "\n" +
+		return "Habit: " + this.habit + "\n" +
+			"Action: " + this.action + "\n" +
+			"Notification: " + this.kind + "\n" +
 			(this.declineText !== undefined ? "With reason: " + this.declineText + "\n" : "") +
 			"On " + this.timestamp.toString() + "\n";
 	}
 }
 
-function NIFromFBObject(fbObj: object): NotificationInteraction {
-	let timestamp = Object.keys(fbObj)[0];
-	let contents = fbObj[timestamp];
+function NIFromFBObject(habit: string, action: string, fbObj: object): NotificationInteraction {
+	let str_timestamp = Object.keys(fbObj)[0];
+	let contents = fbObj[str_timestamp];
+
+	let timestamp = parseInt(str_timestamp) * 1000;
 
 	if (typeof(contents) === "string")
 		return new NotificationInteraction(
 			new Date(timestamp),
+			habit,
+			action,
 			contents
 		)
 
 	let declination = Object.keys(contents)[0]
 	return new NotificationInteraction(
 		new Date(timestamp),
+		habit,
+		action,
 		declination,
 		contents[declination]
 	)
@@ -71,9 +83,10 @@ function extractNotifications(snapshot: firebase.database.DataSnapshot): Notific
 				let interactions = kinds[kind];
 
 				for (let interaction in interactions) {
-					let intObj = interactions[interaction];
+					let intObj = {};
+					intObj[interaction] = interactions[interaction];
 
-					notifs.push(NIFromFBObject(intObj));
+					notifs.push(NIFromFBObject(habit, task, intObj));
 				}
 			}
 		}
@@ -97,5 +110,5 @@ function main(user: string) {
 		});
 }
 
-main("delta");
+main("gin");
 
