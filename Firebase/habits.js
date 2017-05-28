@@ -280,8 +280,8 @@ module.exports = {
                     "delay": 0
                 },
                 "plug": {
-                    "plug_unplug": 1,
-                    "delay": .05,
+                    "plug_unplug": 0,
+                    "delay": 0,
                 },
                 "prev_interactions": {
                     "thrown": {
@@ -561,8 +561,8 @@ module.exports = {
             "Punch in your parent's phone number": { // evening time, leaving house
                 "english": "Evening, when I leave the house",
                 "time_of_day": {
-                    "before": 77400,
-                    "after": 54000
+                    "before": 72000,
+                    "after": 79200
                 },
                 "location": {
                     "region_name": "whole_apartment",
