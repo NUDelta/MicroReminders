@@ -27,7 +27,7 @@ function clear() {
 }
 
 // populateBeacons();
-// populateHabits();
+populateHabits();
 
 // let util = require('util');
 // console.log(util.inspect(goalsAndHabitsWithUUIDs(habits), false, null));

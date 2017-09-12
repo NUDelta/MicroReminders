@@ -1,14 +1,74 @@
 module.exports = {
     /**
      * Goals and associated microbehaviors, by user
-     * 
+     *
      * Schema: [<username>: [<goaltitle>: [<microbehavior>: context]+]+]+
      */
     "delta":
     {
-        "DTR harder": {
-            "Plan my sprint": {
-                "english": "When I enter Zelda, late",
+        "Keep the living room tidy": {
+            "Put dishes in the sink": {
+                "english": "When I enter the living room, during the day",
+                "time_of_day": {
+                    "before": 86400,
+                    "after": 0,
+                },
+                "location": {
+                    "region_name": "zelda",
+                    "enter_exit": 1,
+                    "delay": 0
+                },
+                "plug": {
+                    "plug_unplug": 0,
+                    "delay": 0,
+                },
+                "prev_interactions": {
+                    "thrown": {
+                        "thresh_since_last": 0.1,
+                        "last": 0
+                    },
+                    "accepted": {
+                        "thresh_since_last": 0.1, // hold off till next day
+                        "last": 0
+                    },
+                    "declined": {
+                        "thresh_since_last": 0.1, // hold off till next day
+                        "last": 0
+                    }
+                }
+            },
+            "Put shoes by the door": {
+                "english": "When I enter the living room, in the morning",
+                "time_of_day": {
+                    "before": 86400,
+                    "after": 80000,
+                },
+                "location": {
+                    "region_name": "zelda",
+                    "enter_exit": 1,
+                    "delay": 0
+                },
+                "plug": {
+                    "plug_unplug": 0,
+                    "delay": 0,
+                },
+                "prev_interactions": {
+                    "thrown": {
+                        "thresh_since_last": 0.1,
+                        "last": 0
+                    },
+                    "accepted": {
+                        "thresh_since_last": 0.1, // hold off till next day
+                        "last": 0
+                    },
+                    "declined": {
+                        "thresh_since_last": 0.1, // hold off till next day
+                        "last": 0
+                    }
+                }
+            },
+            "Hang up jackets": {
+                "english": "When I enter the living room, in the evening",
                 "time_of_day": {
                     "before": 86400,
                     "after": 80000,
@@ -37,40 +97,8 @@ module.exports = {
                     }
                 }
             }
-        },
-        "Breathe more": {
-            "Close the laptop": {
-                "english": "dongle",
-                "time_of_day": {
-                    "before": 86400,
-                    "after": 0
-                },
-                "location": {
-                    "region_name": "zelda",
-                    "enter_exit": 1,
-                    "delay": 0
-                },
-                "plug": {
-                    "plug_unplug": 1,
-                    "delay": 0.2,
-                },
-                "prev_interactions": {
-                    "thrown": {
-                        "thresh_since_last": 0.1,
-                        "last": 0
-                    },
-                    "accepted": {
-                        "thresh_since_last": 0.1,
-                        "last": 0
-                    },
-                    "declined": {
-                        "thresh_since_last": 0.1,
-                        "last": 0
-                    }
-                }
-            }
         }
-    },
+		},
 
     /** Real users from here on out */
     "beard":
@@ -439,8 +467,7 @@ module.exports = {
                 "location": {
                     "region_name": "bedroom",
                     "enter_exit": 1,
-                    "delay": 3
-                },
+                    "delay": 0 },
                 "plug": {
                     "plug_unplug": 0,
                     "delay": 0,

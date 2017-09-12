@@ -3,7 +3,7 @@ module.exports = {
     "delta": {
         56913: "zelda"
     },
-    
+
     /** Real users from here on */
     "beard": {
         62318: "kitchen", // uniform
